@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Future of Small Business Operations | The AI Advisory Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#faf8f3;--dark:#1a1510;--surface:#fff;
+      --border:#e8e0d0;--text:#2a2018;--mid:#7a6f60;--light:#a09585;
+      --red:#c0392b;--ink:#1a1510;
+    }
+    body{font-family:'Source Serif 4',serif;background:var(--bg);color:var(--text)}
+
+    nav{position:sticky;top:0;z-index:100;padding:0 48px;background:var(--dark);border-bottom:3px solid var(--red)}
+    .nav-inner{max-width:1200px;margin:0 auto;height:52px;display:flex;align-items:center;justify-content:space-between}
+    .nl{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .nli{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center}
+    .nli span{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:#fff}
+    .nn{font-size:10px;font-weight:400;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6)}
+    .nb{font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.6);text-decoration:none;transition:color 0.2s}
+    .nb:hover{color:#fff}
+
+    /* MAGAZINE COVER HERO */
+    .hero{max-width:1200px;margin:0 auto;padding:64px 48px 0;display:grid;grid-template-columns:2fr 1fr;gap:0;border-bottom:2px solid var(--border)}
+    .hero-main{padding-right:48px;border-right:1px solid var(--border)}
+    .hero-issue{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+    .hero-issue::after{content:'';flex:1;max-width:40px;height:1px;background:var(--red)}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(44px,7vw,80px);font-weight:900;line-height:1.0;letter-spacing:-1px;margin-bottom:24px}
+    .hero-deck{font-size:19px;line-height:1.6;color:var(--mid);font-style:italic;font-weight:300;margin-bottom:32px;border-left:3px solid var(--red);padding-left:20px}
+    .hero-byline{font-size:12px;color:var(--light);letter-spacing:1px;text-transform:uppercase;margin-bottom:40px}
+    .hero-start{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--dark);border-radius:4px;font-family:'Source Serif 4',serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#fff;text-decoration:none;transition:background 0.2s}
+    .hero-start:hover{background:var(--red)}
+    .hero-aside{padding-left:40px;padding-top:8px}
+    .aside-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+    .aside-items{display:flex;flex-direction:column;gap:0}
+    .aside-item{padding:16px 0;border-bottom:1px solid var(--border);cursor:pointer}
+    .aside-item h4{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bottom:4px;line-height:1.3}
+    .aside-item p{font-size:12px;color:var(--mid);line-height:1.5}
+    .aside-num{font-size:11px;color:var(--light);margin-bottom:4px}
+
+    /* ARTICLE BODY */
+    .article{max-width:800px;margin:0 auto;padding:64px 48px}
+    .section-rule{display:flex;align-items:center;gap:16px;margin-bottom:40px}
+    .section-rule::before,.section-rule::after{content:'';flex:1;height:1px;background:var(--border)}
+    .section-rule span{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--red)}
+
+    .lede{font-size:22px;line-height:1.6;font-weight:300;color:var(--text);margin-bottom:32px}
+    .body-p{font-size:17px;line-height:1.9;color:var(--mid);margin-bottom:24px}
+    .pullquote{font-family:'Playfair Display',serif;font-size:28px;font-style:italic;font-weight:400;line-height:1.4;border-left:4px solid var(--red);padding:24px 32px;margin:40px 0;color:var(--dark)}
+
+    /* Trend cards */
+    .trends{background:var(--dark);color:#fff;padding:64px 48px;margin:40px 0;border-radius:0}
+    .trends h2{font-family:'Playfair Display',serif;font-size:40px;font-weight:700;margin-bottom:40px}
+    .trend-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+    .trend-item{padding:28px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:6px}
+    .trend-num{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;color:rgba(192,57,43,0.3);line-height:1;margin-bottom:10px}
+    .trend-item h3{font-size:16px;font-weight:700;margin-bottom:10px}
+    .trend-item p{font-size:13px;color:rgba(255,255,255,0.5);line-height:1.7}
+
+    /* Stats inline */
+    .stat-block{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin:40px 0}
+    .stat-cell{background:var(--bg);padding:28px;text-align:center}
+    .stat-val{font-family:'Playfair Display',serif;font-size:44px;font-weight:900;color:var(--red);line-height:1;margin-bottom:6px}
+    .stat-label{font-size:11px;color:var(--mid);letter-spacing:1px;text-transform:uppercase;line-height:1.4}
+
+    /* Action list */
+    .action-steps{background:var(--surface);border:2px solid var(--dark);padding:48px;margin:40px 0}
+    .action-steps h2{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;margin-bottom:32px}
+    .action-list{display:flex;flex-direction:column;gap:0}
+    .action-item{display:grid;grid-template-columns:48px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--border)}
+    .action-item:last-child{border-bottom:none}
+    .action-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:rgba(192,57,43,0.2);line-height:1;padding-top:2px}
+    .action-item h4{font-size:15px;font-weight:700;margin-bottom:6px}
+    .action-item p{font-size:13px;color:var(--mid);line-height:1.7}
+
+    /* CTA */
+    .article-cta{text-align:center;padding:60px 0}
+    .article-cta h2{font-family:'Playfair Display',serif;font-size:44px;font-weight:900;margin-bottom:12px}
+    .article-cta p{font-size:16px;color:var(--mid);margin-bottom:28px;line-height:1.7}
+    .article-cta a{display:inline-flex;align-items:center;gap:10px;padding:16px 36px;background:var(--dark);border-radius:4px;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#fff;text-decoration:none;transition:background 0.2s}
+    .article-cta a:hover{background:var(--red)}
+
+    footer{background:var(--dark);padding:32px 48px;text-align:center;font-size:10px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase}
+    footer a{color:rgba(255,255,255,0.6);text-decoration:none}
+    footer a:hover{color:#fff}
+
+    @media(max-width:900px){
+      nav{padding:0 20px}
+      .hero{grid-template-columns:1fr;padding:40px 20px 0}
+      .hero-main{padding-right:0;border-right:none;border-bottom:1px solid var(--border);padding-bottom:40px}
+      .hero-aside{padding-left:0;padding-top:40px}
+      .article{padding:40px 20px}
+      .trends{padding:40px 20px}
+      .trend-grid{grid-template-columns:1fr}
+      .stat-block{grid-template-columns:1fr}
+      .action-steps{padding:32px 24px}
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nl"><div class="nli"><span>AI</span></div><span class="nn">Advisory Group</span></a>
+    <a href="index.html" class="nb">← Back to Home</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-main">
+    <div class="hero-issue">Special Report · 2025</div>
+    <h1>The Future of Small Business Operations</h1>
+    <div class="hero-deck">The companies that survive the next decade won't be the biggest. They'll be the ones that figured out how to run a 10-person team with the output of 100.</div>
+    <div class="hero-byline">By The AI Advisory Group &nbsp;·&nbsp; Irvine, CA &nbsp;·&nbsp; April 2025</div>
+    <a href="mailto:aiadvisorygroup@afproductionsinc.com" class="hero-start">Talk to an Advisor →</a>
+  </div>
+  <div class="hero-aside">
+    <div class="aside-label">In This Report</div>
+    <div class="aside-items">
+      <div class="aside-item"><div class="aside-num">01</div><h4>The New Operating Leverage</h4><p>How AI creates asymmetric advantage for small businesses</p></div>
+      <div class="aside-item"><div class="aside-num">02</div><h4>5 Functions Being Transformed</h4><p>Sales, ops, marketing, HR, finance — what's changing now</p></div>
+      <div class="aside-item"><div class="aside-num">03</div><h4>The Operator's Playbook</h4><p>Concrete steps to begin the transformation this quarter</p></div>
+      <div class="aside-item"><div class="aside-num">04</div><h4>What to Do First</h4><p>A prioritized action plan for resource-constrained teams</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="article">
+  <div class="section-rule"><span>The Argument</span></div>
+
+  <p class="lede">For the first time in business history, a two-person company can operate with the infrastructure, speed, and capability of a 200-person enterprise. AI is not the future of big business. It is the great equalizer of small business.</p>
+
+  <p class="body-p">The small business landscape is being permanently reshaped — not by the companies with the largest budgets, but by the ones willing to fundamentally rethink how work gets done. We're at an inflection point where the gap between "AI-native" operators and those still running on manual processes is compounding every month.</p>
+
+  <p class="body-p">The question isn't whether AI will affect your business. It already is. The question is whether the AI being used inside your business is working <em>for</em> you — or for your competitors.</p>
+
+  <div class="pullquote">The businesses that will dominate the next decade aren't the ones with the most employees. They're the ones with the most intelligent systems.</div>
+
+  <div class="stat-block">
+    <div class="stat-cell"><div class="stat-val">73%</div><div class="stat-label">of small businesses using AI report time savings of 5+ hrs/week</div></div>
+    <div class="stat-cell"><div class="stat-val">3×</div><div class="stat-label">faster growth rate for AI-adopting SMBs vs. peers in same sector</div></div>
+    <div class="stat-cell"><div class="stat-val">$40K+</div><div class="stat-label">avg annual cost savings for businesses with 3+ deployed AI systems</div></div>
+  </div>
+
+  <div class="section-rule"><span>Five Functions Being Transformed</span></div>
+</div>
+
+<div class="trends">
+  <h2>The Five Transformations</h2>
+  <div class="trend-grid">
+    <div class="trend-item"><div class="trend-num">01</div><h3>Sales & Lead Conversion</h3><p>AI-powered follow-up agents respond to leads within 90 seconds, qualify them automatically, and book meetings without human intervention. Conversion rates increase 20–40% because no lead goes cold.</p></div>
+    <div class="trend-item"><div class="trend-num">02</div><h3>Marketing & Content</h3><p>A single business owner can now produce 30 days of content, run 5 ad variants, write email sequences, and update their website copy — in an afternoon. AI doesn't replace creativity; it removes the execution bottleneck.</p></div>
+    <div class="trend-item"><div class="trend-num">03</div><h3>Operations & Administration</h3><p>Invoicing, scheduling, onboarding, contract generation, and internal communications — all automatable. The average SMB owner spends 16 hours per week on tasks that can be 80% automated today.</p></div>
+    <div class="trend-item"><div class="trend-num">04</div><h3>Customer Experience</h3><p>24/7 AI customer service that knows your product, your policies, and your tone. Handles FAQs, complaints, and order questions — escalating only when truly necessary. Customer satisfaction scores typically improve.</p></div>
+    <div class="trend-item"><div class="trend-num">05</div><h3>Hiring & HR</h3><p>AI-assisted job posting, resume screening, and candidate communication dramatically compresses the hiring cycle. New hire onboarding — day one materials, training, and FAQ handling — can be fully AI-managed.</p></div>
+    <div class="trend-item" style="background:rgba(192,57,43,0.08);border-color:rgba(192,57,43,0.2)"><div class="trend-num" style="color:rgba(192,57,43,0.4)">→</div><h3>The Common Thread</h3><p>In every function, AI doesn't replace the human judgment that matters — it eliminates the repetitive, time-draining execution work that buries that judgment under a pile of tasks. You get your time back. You deploy it on what actually moves the needle.</p></div>
+  </div>
+</div>
+
+<div class="article">
+  <div class="section-rule"><span>The Operator's Playbook</span></div>
+
+  <p class="body-p">The businesses winning with AI right now aren't the ones chasing every new tool. They're the ones who did three things: identified their highest-leverage pain points, deployed targeted AI solutions for those specific problems, and built the internal discipline to actually use them consistently.</p>
+
+  <div class="action-steps">
+    <h2>What to Do This Quarter</h2>
+    <div class="action-list">
+      <div class="action-item"><div class="action-num">1</div><div><h4>Run an honest time audit</h4><p>Track where every hour goes for two weeks. Most owners discover that 30–40% of their week is on tasks an AI could handle. This is your roadmap.</p></div></div>
+      <div class="action-item"><div class="action-num">2</div><div><h4>Pick one bottleneck and automate it fully</h4><p>Don't try to automate everything at once. Pick the single most painful, repetitive process in your business and eliminate it completely. This builds confidence and creates a template for what follows.</p></div></div>
+      <div class="action-item"><div class="action-num">3</div><div><h4>Build your AI stack around your workflow</h4><p>The right AI tools for your business depend entirely on what your business does. Stop copying what tech influencers recommend. Map your workflow first, then choose tools that fit it.</p></div></div>
+      <div class="action-item"><div class="action-num">4</div><div><h4>Train your team, not just yourself</h4><p>Individual AI proficiency doesn't scale. The businesses compounding the fastest are the ones where every team member knows how to use AI for their role. Invest in team-wide enablement.</p></div></div>
+      <div class="action-item"><div class="action-num">5</div><div><h4>Measure everything</h4><p>Time saved. Leads responded to. Content produced. Customer response times. You can't optimize what you don't measure. Set baselines before and after every AI deployment.</p></div></div>
+    </div>
+  </div>
+
+  <div class="article-cta">
+    <h2>Ready to Start?</h2>
+    <p>Our team works exclusively with small and mid-size businesses implementing AI for real operational impact — not theory. Book a free 30-minute audit and let's find your first win.</p>
+    <a href="ai-audit.html">Book a Free AI Audit →</a>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html">← The AI Advisory Group</a> &nbsp;·&nbsp; <a href="mailto:aiadvisorygroup@afproductionsinc.com">aiadvisorygroup@afproductionsinc.com</a> &nbsp;·&nbsp; Irvine, CA
+</footer>
+</body>
+</html>

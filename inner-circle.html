@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inner Circle — Members Login | The AI Advisory Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#050608;--surface:rgba(255,255,255,0.03);--surface2:rgba(255,255,255,0.06);
+      --border:rgba(201,169,110,0.15);--text:#ede8df;--dim:rgba(237,232,223,0.45);
+      --gold:#c9a96e;--gold2:#e8d5a3;--gold-light:rgba(201,169,110,0.1);
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Jost',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+    body::before{content:'';position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(201,169,110,0.04) 0%,transparent 70%);pointer-events:none;z-index:0}
+
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:flex;align-items:center;justify-content:space-between}
+    .nl{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .nli{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center}
+    .nli span{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--gold)}
+    .nn{font-size:10px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:var(--dim)}
+    .nb{font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;opacity:0.7;transition:opacity 0.2s}
+    .nb:hover{opacity:1}
+
+    /* SPLIT LAYOUT */
+    .page{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+
+    /* Left - branding + benefits */
+    .page-left{position:relative;z-index:1;padding:140px 60px 80px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border)}
+    .left-ornament{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:48px;display:flex;align-items:center;gap:16px}
+    .left-ornament::before{content:'';width:32px;height:1px;background:var(--gold);opacity:0.4}
+    .page-left h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,6vw,72px);font-weight:300;line-height:1.0;margin-bottom:12px}
+    .page-left h1 em{font-style:italic;color:var(--gold)}
+    .page-left h2{font-family:'Cormorant Garamond',serif;font-size:clamp(20px,3vw,28px);font-weight:300;color:var(--dim);margin-bottom:48px;line-height:1.3}
+    .benefits{display:flex;flex-direction:column;gap:20px;margin-bottom:48px}
+    .benefit{display:flex;align-items:flex-start;gap:16px;padding:20px;border:1px solid var(--border);border-radius:8px;transition:background 0.3s}
+    .benefit:hover{background:var(--surface)}
+    .b-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+    .benefit h4{font-size:13px;font-weight:600;letter-spacing:0.5px;margin-bottom:4px}
+    .benefit p{font-size:12px;color:var(--dim);line-height:1.6;font-weight:300}
+    .member-count{font-size:11px;color:var(--dim);letter-spacing:1px}
+    .member-count span{color:var(--gold);font-weight:600}
+
+    /* Right - login form */
+    .page-right{position:relative;z-index:1;padding:140px 60px 80px;display:flex;flex-direction:column;justify-content:center;background:rgba(0,0,0,0.3)}
+    .login-box{}
+    .lb-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;margin-bottom:6px}
+    .lb-sub{font-size:13px;color:var(--dim);margin-bottom:36px;font-weight:300}
+    .form-field{margin-bottom:16px}
+    .form-field label{display:block;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+    .form-field input{width:100%;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Jost',sans-serif;font-size:14px;font-weight:400;outline:none;transition:border-color 0.2s}
+    .form-field input::placeholder{color:rgba(237,232,223,0.2)}
+    .form-field input:focus{border-color:rgba(201,169,110,0.4)}
+    .form-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+    .form-check{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--dim);cursor:pointer}
+    .form-check input{width:14px;height:14px;accent-color:var(--gold)}
+    .forgot{font-size:12px;color:var(--gold);text-decoration:none;opacity:0.7;transition:opacity 0.2s}
+    .forgot:hover{opacity:1}
+    .login-btn{width:100%;padding:16px;background:transparent;border:1px solid var(--gold);border-radius:6px;font-family:'Jost',sans-serif;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);cursor:pointer;transition:background 0.3s,color 0.3s;margin-bottom:24px}
+    .login-btn:hover{background:var(--gold);color:var(--bg)}
+    .divider{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+    .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+    .divider span{font-size:11px;color:var(--dim);letter-spacing:1px}
+    .request-access{display:block;text-align:center;padding:14px;border:1px solid var(--border);border-radius:6px;font-family:'Jost',sans-serif;font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--dim);text-decoration:none;transition:border-color 0.2s,color 0.2s}
+    .request-access:hover{border-color:rgba(201,169,110,0.3);color:var(--gold)}
+    .login-note{font-size:11px;color:var(--dim);text-align:center;margin-top:16px;line-height:1.6;font-weight:300}
+
+    /* What's inside preview */
+    .inside{position:relative;z-index:1;grid-column:1/-1;border-top:1px solid var(--border);padding:80px 60px}
+    .inside-label{font-size:10px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:40px;text-align:center}
+    .inside-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);max-width:1100px;margin:0 auto}
+    .inside-item{background:var(--bg);padding:32px 28px}
+    .inside-item h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin-bottom:8px;color:var(--gold2)}
+    .inside-item p{font-size:12px;color:var(--dim);line-height:1.7;font-weight:300}
+
+    footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:24px 48px;text-align:center;font-size:10px;color:var(--dim);letter-spacing:2px;text-transform:uppercase}
+    footer a{color:var(--gold);text-decoration:none;opacity:0.7}
+    footer a:hover{opacity:1}
+
+    @media(max-width:900px){
+      .page{grid-template-columns:1fr}
+      .page-left{padding:100px 24px 40px;border-right:none;border-bottom:1px solid var(--border)}
+      .page-right{padding:40px 24px 60px}
+      .inside{padding:60px 24px;grid-column:1}
+      .inside-grid{grid-template-columns:1fr 1fr}
+      nav{padding:16px 24px}
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nl"><div class="nli"><span>AI</span></div><span class="nn">Advisory Group</span></a>
+  <a href="index.html" class="nb">← Return</a>
+</nav>
+
+<div class="page">
+  <div class="page-left">
+    <div class="left-ornament">Members Area</div>
+    <h1>The Inner<br><em>Circle</em></h1>
+    <h2>Business Owners<br>Scaling with AI</h2>
+    <div class="benefits">
+      <div class="benefit"><div class="b-icon">💬</div><div><h4>Private Community</h4><p>A members-only forum with vetted business owners actively deploying AI. No beginners, no noise — just operators sharing what's working.</p></div></div>
+      <div class="benefit"><div class="b-icon">🎙️</div><div><h4>Weekly Live Sessions</h4><p>Live strategy calls, tool demos, and hot seats with our advisory team. Recordings available for all members.</p></div></div>
+      <div class="benefit"><div class="b-icon">📁</div><div><h4>Resource Vault</h4><p>Prompt libraries, SOPs, agent templates, and AI playbooks built specifically for small and mid-size business operations.</p></div></div>
+      <div class="benefit"><div class="b-icon">🤝</div><div><h4>Peer Advisory Network</h4><p>Direct connections with other Inner Circle members for referrals, partnerships, and cross-industry AI insights.</p></div></div>
+    </div>
+    <div class="member-count">Currently <span>247 active members</span> — by application only</div>
+  </div>
+
+  <div class="page-right">
+    <div class="login-box">
+      <h2 class="lb-title">Member Login</h2>
+      <p class="lb-sub">Welcome back. Access your Inner Circle dashboard below.</p>
+      <div class="form-field"><label>Email Address</label><input type="email" placeholder="your@email.com"/></div>
+      <div class="form-field"><label>Password</label><input type="password" placeholder="••••••••••"/></div>
+      <div class="form-row">
+        <label class="form-check"><input type="checkbox"/>Remember me</label>
+        <a href="#" class="forgot">Forgot password?</a>
+      </div>
+      <button class="login-btn" onclick="this.textContent='Signing In...';setTimeout(()=>{this.textContent='Sign In →';this.disabled=false},2000)">Sign In →</button>
+      <div class="divider"><span>Not a member yet?</span></div>
+      <a href="mailto:aiadvisorygroup@afproductionsinc.com" class="request-access">Request an Invitation</a>
+      <p class="login-note">The Inner Circle is by application only. We review requests within 48 hours.<br>Members are vetted to maintain community quality.</p>
+    </div>
+  </div>
+
+  <div class="inside">
+    <div class="inside-label">What's Inside the Vault</div>
+    <div class="inside-grid">
+      <div class="inside-item"><h3>50+ Prompt Packs</h3><p>Industry-specific AI prompt libraries for sales, operations, HR, marketing, finance, and customer service — ready to deploy.</p></div>
+      <div class="inside-item"><h3>Agent Playbooks</h3><p>Step-by-step playbooks for setting up the most impactful AI agents: lead follow-up, content, onboarding, and support bots.</p></div>
+      <div class="inside-item"><h3>Tool Comparisons</h3><p>Unbiased breakdowns of every major AI tool — cost, capabilities, limitations, and best-fit scenarios. Updated monthly.</p></div>
+      <div class="inside-item"><h3>Case Study Library</h3><p>Real results from Inner Circle members — what they built, how they built it, and the exact ROI they're seeing. No fluff.</p></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html">← The AI Advisory Group</a> &nbsp;·&nbsp; <a href="mailto:aiadvisorygroup@afproductionsinc.com">aiadvisorygroup@afproductionsinc.com</a>
+</footer>
+</body>
+</html>
