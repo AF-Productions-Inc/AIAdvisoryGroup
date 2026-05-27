@@ -3,219 +3,109 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The AI Advisory Group</title>
+  <title>AI Advisory Group — Strategic Intelligence for the AI-Driven World</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:#0a0a0f;
-      --card:#111118;
-      --card-hover:#16161f;
-      --border:rgba(255,255,255,0.06);
-      --border-hover:rgba(255,255,255,0.12);
-      --text:#f0f0f8;
-      --dim:rgba(240,240,248,0.5);
-      --accent:#6366f1;
-      --accent2:#818cf8;
-      --green:#34d399;
-      --gold:#f59e0b;
-      --gradient:linear-gradient(135deg,#6366f1,#8b5cf6);
+      --bg:#091a18;--bg2:#0d2220;--bg3:#112926;
+      --cream:#e8dcc8;--cream2:#d4c9b0;
+      --c3:rgba(232,220,200,0.55);--c4:rgba(232,220,200,0.25);--c5:rgba(232,220,200,0.08);
+      --border:rgba(232,220,200,0.12);--border2:rgba(232,220,200,0.06);
+      --gold:#c9a96e;--gold2:rgba(201,169,110,0.15);
     }
     html{scroll-behavior:smooth}
-    body{
-      font-family:'Inter',sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      min-height:100vh;
-      background-image:
-        radial-gradient(ellipse 80% 50% at 50% -10%,rgba(99,102,241,0.12),transparent),
-        radial-gradient(ellipse 60% 40% at 80% 80%,rgba(139,92,246,0.06),transparent);
-    }
-
-    /* Grain overlay */
+    body{font-family:'Crimson Pro',serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden}
     body::before{
       content:'';position:fixed;inset:0;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"),
+        radial-gradient(ellipse 120% 70% at 50% -10%,rgba(20,70,55,0.5),transparent 60%),
+        radial-gradient(ellipse 80% 60% at 100% 100%,rgba(8,30,22,0.6),transparent);
       pointer-events:none;z-index:0;
     }
 
-    .container{
-      max-width:520px;margin:0 auto;
-      padding:72px 24px 96px;
-      display:flex;flex-direction:column;align-items:center;
-      position:relative;z-index:1;
-    }
+    /* NAV */
+    nav{position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(9,26,24,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .nav-logo{text-decoration:none;display:flex;flex-direction:column;gap:1px}
+    .nav-logo-main{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);letter-spacing:0.5px}
+    .nav-logo-sub{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--c3)}
+    .nav-links{display:flex;align-items:center;gap:36px}
+    .nav-link{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--c3);text-decoration:none;transition:color 0.2s}
+    .nav-link:hover{color:var(--cream)}
 
-    /* Logo */
-    .logo-wrap{
-      width:96px;height:96px;border-radius:50%;
-      background:linear-gradient(145deg,#1a1a2e,#0f0f1a);
-      border:1px solid rgba(99,102,241,0.25);
-      display:flex;align-items:center;justify-content:center;
-      margin-bottom:28px;
-      box-shadow:0 0 0 6px rgba(99,102,241,0.06),0 20px 60px rgba(0,0,0,0.4);
-      animation:fadeDown 0.7s cubic-bezier(.22,1,.36,1) both;
-      position:relative;overflow:hidden;
-    }
-    .logo-wrap::after{
-      content:'';position:absolute;inset:0;border-radius:50%;
-      background:radial-gradient(circle at 35% 25%,rgba(99,102,241,0.2),transparent 60%);
-    }
-    .logo-inner{display:flex;flex-direction:column;align-items:center;gap:1px;position:relative;z-index:1}
-    .logo-a{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:#fff;line-height:1;letter-spacing:-1px}
-    .logo-sub{font-size:6.5px;font-weight:600;letter-spacing:2.5px;color:rgba(255,255,255,0.55);text-transform:uppercase;line-height:1.4;text-align:center}
+    /* HERO */
+    .hero{position:relative;z-index:1;min-height:calc(100vh - 60px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 40px 60px;text-align:center}
+    .hero-kicker{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--c3);margin-bottom:40px;display:flex;align-items:center;gap:20px;animation:fadeIn 0.9s ease both}
+    .hero-kicker::before,.hero-kicker::after{content:'';width:48px;height:1px;background:var(--border)}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(56px,10vw,112px);font-weight:900;line-height:.9;letter-spacing:-3px;text-transform:uppercase;color:var(--cream);margin-bottom:8px;animation:fadeIn 0.9s 0.08s ease both}
+    .hero h1 em{font-style:italic;font-weight:400;color:var(--gold);letter-spacing:-1px;display:block;font-size:0.9em}
+    .hero-rule{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:28px auto;animation:fadeIn 0.9s 0.16s ease both}
+    .hero-desc{font-size:19px;line-height:1.75;color:var(--c3);max-width:500px;margin-bottom:44px;font-weight:300;animation:fadeIn 0.9s 0.22s ease both}
 
-    /* Headline */
-    .headline{
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(28px,6vw,42px);
-      font-weight:700;color:var(--text);
-      text-align:center;line-height:1.1;
-      margin-bottom:8px;
-      animation:fadeDown 0.7s 0.08s cubic-bezier(.22,1,.36,1) both;
-    }
-    .tagline{
-      font-size:10px;font-weight:600;letter-spacing:3px;
-      text-transform:uppercase;text-align:center;
-      background:var(--gradient);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-      margin-bottom:18px;
-      animation:fadeDown 0.7s 0.14s cubic-bezier(.22,1,.36,1) both;
-    }
-    .divider{
-      width:40px;height:1.5px;
-      background:linear-gradient(90deg,transparent,rgba(99,102,241,0.6),transparent);
-      margin-bottom:20px;
-      animation:fadeDown 0.7s 0.18s cubic-bezier(.22,1,.36,1) both;
-    }
-    .description{
-      font-size:14px;color:var(--dim);
-      text-align:center;line-height:1.75;
-      max-width:360px;margin-bottom:8px;font-weight:300;
-      animation:fadeDown 0.7s 0.22s cubic-bezier(.22,1,.36,1) both;
-    }
-    .location{
-      font-family:'Cormorant Garamond',serif;
-      font-style:italic;font-size:14px;
-      color:rgba(240,240,248,0.35);
-      text-align:center;line-height:1.8;margin-bottom:32px;
-      animation:fadeDown 0.7s 0.26s cubic-bezier(.22,1,.36,1) both;
-    }
+    /* SOCIALS */
+    .socials{display:flex;gap:10px;margin-bottom:36px;animation:fadeIn 0.9s 0.3s ease both}
+    .social-btn{width:40px;height:40px;border-radius:2px;background:var(--c5);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--c3);transition:all 0.2s}
+    .social-btn:hover{background:var(--gold2);border-color:rgba(201,169,110,0.3);color:var(--gold)}
+    .social-btn svg{width:16px;height:16px;fill:currentColor}
 
-    /* Socials */
-    .socials{
-      display:flex;gap:10px;margin-bottom:40px;
-      animation:fadeDown 0.7s 0.3s cubic-bezier(.22,1,.36,1) both;
-    }
-    .social-btn{
-      width:44px;height:44px;border-radius:10px;
-      background:var(--card);border:1px solid var(--border);
-      display:flex;align-items:center;justify-content:center;
-      text-decoration:none;color:var(--dim);
-      transition:all 0.2s ease;
-    }
-    .social-btn:hover{
-      background:var(--card-hover);border-color:rgba(99,102,241,0.4);
-      color:var(--accent2);transform:translateY(-2px);
-      box-shadow:0 8px 24px rgba(99,102,241,0.15);
-    }
-    .social-btn svg{width:18px;height:18px;fill:currentColor}
+    /* LINKS */
+    .links{display:flex;flex-direction:column;gap:8px;width:100%;max-width:540px;animation:fadeIn 0.9s 0.36s ease both}
+    .link-btn{display:flex;align-items:center;gap:14px;padding:14px 20px;background:var(--c5);border:1px solid var(--border);border-radius:2px;text-decoration:none;color:var(--cream);transition:all 0.22s ease;position:relative;overflow:hidden}
+    .link-btn::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);transform:scaleY(0);transition:transform 0.22s ease;transform-origin:center}
+    .link-btn:hover{background:rgba(201,169,110,0.07);border-color:rgba(201,169,110,0.25);transform:translateX(6px)}
+    .link-btn:hover::after{transform:scaleY(1)}
+    .link-btn:nth-child(1){animation:slideUp 0.5s 0.4s ease both}
+    .link-btn:nth-child(2){animation:slideUp 0.5s 0.46s ease both}
+    .link-btn:nth-child(3){animation:slideUp 0.5s 0.52s ease both}
+    .link-btn:nth-child(4){animation:slideUp 0.5s 0.58s ease both}
+    .link-btn:nth-child(5){animation:slideUp 0.5s 0.64s ease both}
+    .link-btn:nth-child(6){animation:slideUp 0.5s 0.70s ease both}
+    .link-btn:nth-child(7){animation:slideUp 0.5s 0.76s ease both}
+    .link-icon{width:30px;height:30px;border-radius:1px;background:var(--gold2);border:1px solid rgba(201,169,110,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1}
+    .link-icon svg{width:14px;height:14px;fill:var(--gold)}
+    .link-label{flex:1;font-family:'Crimson Pro',serif;font-size:14px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;position:relative;z-index:1;color:var(--cream)}
+    .badge{font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;border-radius:1px;padding:2px 7px;position:relative;z-index:1}
+    .bg{color:#6fcf97;background:rgba(111,207,151,0.08);border:1px solid rgba(111,207,151,0.2)}
+    .bc{color:var(--gold);background:var(--gold2);border:1px solid rgba(201,169,110,0.2)}
+    .bd{color:var(--c3);background:var(--c5);border:1px solid var(--border)}
+    .link-arrow{font-size:14px;color:var(--c4);position:relative;z-index:1;transition:all 0.2s;font-family:'Crimson Pro',serif}
+    .link-btn:hover .link-arrow{color:var(--gold);transform:translateX(4px)}
+    .location{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--c4);margin-top:44px;animation:fadeIn 0.9s 0.9s ease both}
 
-    /* Links */
-    .links{display:flex;flex-direction:column;gap:10px;width:100%}
+    /* FOOTER */
+    footer{position:relative;z-index:1;border-top:1px solid var(--border2);padding:24px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .footer-copy{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--c4)}
+    .footer-links{display:flex;gap:20px}
+    .footer-link{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--c4);text-decoration:none;transition:color 0.2s}
+    .footer-link:hover{color:var(--cream)}
 
-    .link-btn{
-      display:flex;align-items:center;gap:14px;
-      padding:16px 20px;
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:14px;
-      text-decoration:none;color:var(--text);
-      transition:all 0.22s cubic-bezier(.22,1,.36,1);
-      position:relative;overflow:hidden;
-      cursor:pointer;
-    }
-    .link-btn::after{
-      content:'';position:absolute;inset:0;
-      background:var(--gradient);opacity:0;
-      transition:opacity 0.22s;border-radius:14px;
-    }
-    .link-btn:hover{
-      background:var(--card-hover);
-      border-color:var(--border-hover);
-      transform:translateY(-2px) translateX(2px);
-      box-shadow:0 16px 40px rgba(0,0,0,0.3),0 0 0 1px rgba(99,102,241,0.15);
-    }
-    .link-btn:hover::after{opacity:0.04}
-
-    .link-btn:nth-child(1){animation:fadeUp 0.5s 0.38s cubic-bezier(.22,1,.36,1) both}
-    .link-btn:nth-child(2){animation:fadeUp 0.5s 0.44s cubic-bezier(.22,1,.36,1) both}
-    .link-btn:nth-child(3){animation:fadeUp 0.5s 0.50s cubic-bezier(.22,1,.36,1) both}
-    .link-btn:nth-child(4){animation:fadeUp 0.5s 0.56s cubic-bezier(.22,1,.36,1) both}
-    .link-btn:nth-child(5){animation:fadeUp 0.5s 0.62s cubic-bezier(.22,1,.36,1) both}
-    .link-btn:nth-child(6){animation:fadeUp 0.5s 0.68s cubic-bezier(.22,1,.36,1) both}
-    .link-btn:nth-child(7){animation:fadeUp 0.5s 0.74s cubic-bezier(.22,1,.36,1) both}
-
-    .link-icon{
-      width:34px;height:34px;border-radius:9px;
-      background:rgba(255,255,255,0.05);
-      display:flex;align-items:center;justify-content:center;
-      flex-shrink:0;position:relative;z-index:1;
-    }
-    .link-icon svg{width:16px;height:16px;fill:rgba(255,255,255,0.7)}
-    .link-label{
-      flex:1;font-size:11.5px;font-weight:600;
-      letter-spacing:1.5px;text-transform:uppercase;
-      position:relative;z-index:1;
-    }
-    .badge{
-      font-size:8.5px;font-weight:700;letter-spacing:1px;
-      text-transform:uppercase;border-radius:4px;
-      padding:2.5px 7px;position:relative;z-index:1;
-    }
-    .badge-green{color:var(--green);background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.2)}
-    .badge-blue{color:#60a5fa;background:rgba(96,165,250,0.1);border:1px solid rgba(96,165,250,0.2)}
-    .badge-gold{color:var(--gold);background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2)}
-    .link-arrow{
-      font-size:14px;color:var(--dim);
-      position:relative;z-index:1;
-      transition:transform 0.2s,color 0.2s;
-    }
-    .link-btn:hover .link-arrow{transform:translateX(4px);color:var(--accent2)}
-
-    /* Scroll top */
-    .scroll-top{
-      position:fixed;bottom:24px;right:24px;
-      width:44px;height:44px;border-radius:50%;
-      background:var(--card);border:1px solid var(--border);
-      display:flex;align-items:center;justify-content:center;
-      text-decoration:none;
-      box-shadow:0 4px 20px rgba(0,0,0,0.3);
-      transition:all 0.2s;z-index:100;
-    }
-    .scroll-top:hover{transform:translateY(-3px);border-color:rgba(99,102,241,0.4);box-shadow:0 8px 24px rgba(99,102,241,0.2)}
-    .scroll-top svg{width:16px;height:16px;fill:var(--dim)}
-
-    @keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    @media(max-width:600px){nav{padding:0 20px}.nav-links{display:none}.hero{padding:60px 20px}footer{padding:20px;flex-direction:column}}
   </style>
 </head>
 <body>
-<div class="container">
-  <div class="logo-wrap">
-    <div class="logo-inner">
-      <span class="logo-a">AI</span>
-      <span class="logo-sub">ADVISORY<br>GROUP</span>
-    </div>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-main">AI Advisory Group</span>
+    <span class="nav-logo-sub">Strategic Intelligence</span>
+  </a>
+  <div class="nav-links">
+    <a href="blog.html" class="nav-link">Insights</a>
+    <a href="ai-agent-setup.html" class="nav-link">Services</a>
+    <a href="ai-audit.html" class="nav-link">Free Audit</a>
+    <a href="contact.html" class="nav-link">Contact</a>
   </div>
+</nav>
 
-  <h1 class="headline">The AI Advisory Group</h1>
-  <p class="tagline">Strategic Intelligence for the AI-Driven World</p>
-  <div class="divider"></div>
-  <p class="description">Advising founders, institutions, and operators at the frontier of artificial intelligence.</p>
-  <p class="location">Founded in Irvine, CA · Operating Globally</p>
+<div class="hero">
+  <div class="hero-kicker">Irvine, CA &nbsp;·&nbsp; Operating Globally</div>
+  <h1>AI Advisory<em>Group</em></h1>
+  <div class="hero-rule"></div>
+  <p class="hero-desc">Not another chatbot demo. Strategic AI implementation for founders, operators, and institutions building at the frontier of artificial intelligence.</p>
 
   <div class="socials">
     <a href="mailto:contact@aiadvisorygroup.tech" class="social-btn" aria-label="Email">
@@ -236,7 +126,7 @@
     <a href="ai-cheat-sheet.html" class="link-btn">
       <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M9 21H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2zm10-9h-4c-1.1 0-2 .9-2 2v5c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2v-5c0-1.1-.9-2-2-2zm0-9h-4c-1.1 0-2 .9-2 2v3c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
       <span class="link-label">AI Cheat Sheet</span>
-      <span class="badge badge-green">Free</span>
+      <span class="badge bg">Free</span>
       <span class="link-arrow">→</span>
     </a>
     <a href="ai-agent-setup.html" class="link-btn">
@@ -247,7 +137,7 @@
     <a href="ai-audit.html" class="link-btn">
       <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div>
       <span class="link-label">30-Min AI Opportunity Audit</span>
-      <span class="badge badge-blue">Free</span>
+      <span class="badge bc">Free</span>
       <span class="link-arrow">→</span>
     </a>
     <a href="monthly-advisory.html" class="link-btn">
@@ -258,7 +148,7 @@
     <a href="inner-circle.html" class="link-btn">
       <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
       <span class="link-label">Inner Circle: Scaling with AI</span>
-      <span class="badge badge-gold">Members Only</span>
+      <span class="badge bd">Members Only</span>
       <span class="link-arrow">→</span>
     </a>
     <a href="blog.html" class="link-btn">
@@ -272,7 +162,16 @@
       <span class="link-arrow">→</span>
     </a>
   </div>
+  <div class="location">Founded in Irvine, CA &nbsp;·&nbsp; Operating Globally &nbsp;·&nbsp; Est. 2024</div>
 </div>
-<a href="#" class="scroll-top"><svg viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></a>
+
+<footer>
+  <div class="footer-copy">© 2026 AI Advisory Group &nbsp;·&nbsp; contact@aiadvisorygroup.tech</div>
+  <div class="footer-links">
+    <a href="privacy.html" class="footer-link">Privacy Policy</a>
+    <a href="terms.html" class="footer-link">Terms & Conditions</a>
+    <a href="contact.html" class="footer-link">Contact</a>
+  </div>
+</footer>
 </body>
 </html>
