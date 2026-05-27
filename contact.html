@@ -5,89 +5,113 @@
   <title>Contact Us | The AI Advisory Group</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <!-- EmailJS -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:#f4f4f0;--dark:#111109;--surface:#fff;
-      --border:#deded8;--text:#1a1a16;--mid:#6b6b60;--light:#9b9b90;
-      --green:#16a34a;--blue:#2563eb;
-      --accent:#1a1a16;
+      --bg:#f8f8f6;--dark:#0e0e0e;--surface:#ffffff;
+      --border:#e8e8e4;--text:#161614;--mid:#6b6b68;--light:#9b9b97;
+      --accent:#0e0e0e;--blue:#2563eb;--green:#16a34a;
+      --gradient:linear-gradient(135deg,#0e0e0e,#1e1e1e);
     }
-    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text)}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text)}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 50% 30% at 80% 10%,rgba(37,99,235,0.04),transparent);pointer-events:none}
 
-    nav{position:sticky;top:0;z-index:100;padding:14px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(244,244,240,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    nav{position:sticky;top:0;z-index:100;padding:0 48px;height:56px;display:flex;align-items:center;justify-content:space-between;background:rgba(248,248,246,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
     .nl{display:flex;align-items:center;gap:10px;text-decoration:none}
-    .nli{width:34px;height:34px;border-radius:50%;background:var(--dark);display:flex;align-items:center;justify-content:center}
-    .nli span{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:#fff}
-    .nn{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--mid)}
-    .nb{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);text-decoration:none;opacity:0.6;transition:opacity 0.2s}
+    .nli{width:32px;height:32px;border-radius:50%;background:var(--dark);display:flex;align-items:center;justify-content:center}
+    .nli span{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:#fff}
+    .nn{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid)}
+    .nb{font-size:11px;font-weight:600;color:var(--dark);text-decoration:none;opacity:0.5;transition:opacity 0.2s}
     .nb:hover{opacity:1}
 
     /* HERO */
-    .hero{max-width:1100px;margin:0 auto;padding:100px 48px 60px}
-    .hero-label{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--mid);margin-bottom:20px}
-    .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,9vw,96px);font-weight:700;line-height:0.95;letter-spacing:-3px;margin-bottom:32px}
-    .hero p{font-size:17px;line-height:1.8;color:var(--mid);max-width:520px}
+    .hero{max-width:1100px;margin:0 auto;padding:80px 48px 56px}
+    .hero-label{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--mid);margin-bottom:16px}
+    .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(60px,10vw,110px);font-weight:700;line-height:.9;letter-spacing:-4px;margin-bottom:28px}
+    .hero p{font-size:16px;line-height:1.8;color:var(--mid);max-width:500px;font-weight:300}
 
     /* MAIN GRID */
-    .main{max-width:1100px;margin:0 auto;padding:20px 48px 80px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+    .main{max-width:1100px;margin:0 auto;padding:20px 48px 80px;display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:start}
 
-    /* Contact channels */
-    .channels{display:flex;flex-direction:column;gap:16px;margin-bottom:48px}
-    .channel{display:flex;align-items:center;gap:20px;padding:24px 28px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text);transition:transform 0.2s,box-shadow 0.2s,border-color 0.2s}
-    .channel:hover{transform:translateX(6px);box-shadow:0 8px 32px rgba(0,0,0,0.08);border-color:var(--dark)}
-    .ch-icon{width:48px;height:48px;border-radius:12px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .ch-icon svg{width:22px;height:22px;fill:var(--dark)}
-    .ch-info{}
-    .ch-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:3px}
-    .ch-val{font-size:15px;font-weight:600;color:var(--text)}
-    .ch-desc{font-size:12px;color:var(--mid);margin-top:2px}
+    /* LEFT - channels + hours */
+    .channels{display:flex;flex-direction:column;gap:10px;margin-bottom:32px}
+    .channel{display:flex;align-items:center;gap:16px;padding:20px 22px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text);transition:all 0.2s}
+    .channel:hover{border-color:var(--dark);transform:translateX(4px);box-shadow:0 8px 24px rgba(0,0,0,0.06)}
+    .ch-icon{width:42px;height:42px;border-radius:10px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .ch-icon svg{width:18px;height:18px;fill:var(--dark)}
+    .ch-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--light);margin-bottom:2px}
+    .ch-val{font-size:13px;font-weight:600}
+    .ch-desc{font-size:11px;color:var(--light);margin-top:1px}
 
-    .hours-card{background:var(--dark);color:#fff;border-radius:12px;padding:32px}
-    .hours-card h3{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:20px}
-    .hours-item{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.07)}
-    .hours-item:last-child{border-bottom:none}
-    .hours-day{font-size:13px;color:rgba(255,255,255,0.6)}
-    .hours-time{font-size:13px;font-weight:600;color:#fff}
-    .hours-note{font-size:11px;color:rgba(255,255,255,0.3);margin-top:16px;line-height:1.6}
+    .hours-card{background:var(--dark);color:#fff;border-radius:12px;padding:28px}
+    .hours-card h3{font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-bottom:16px}
+    .hours-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:13px}
+    .hours-row:last-of-type{border-bottom:none}
+    .hours-day{color:rgba(255,255,255,0.5);font-weight:400}
+    .hours-time{color:#fff;font-weight:600}
+    .hours-note{font-size:11px;color:rgba(255,255,255,0.25);margin-top:14px;line-height:1.7}
 
-    /* Contact form */
-    .form-side{}
-    .form-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;margin-bottom:6px}
-    .form-sub{font-size:14px;color:var(--mid);margin-bottom:32px;line-height:1.6}
-    .form-group{margin-bottom:16px}
-    .form-group label{display:block;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:6px}
-    .form-group input,.form-group select,.form-group textarea{width:100%;padding:13px 16px;background:var(--surface);border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color 0.2s}
-    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--dark)}
-    .form-group input::placeholder,.form-group textarea::placeholder{color:#bbb}
-    .form-group select{appearance:none;cursor:pointer}
-    .form-group select option{background:#fff}
-    .form-group textarea{resize:vertical;min-height:120px}
+    /* RIGHT - form */
+    .form-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:40px}
+    .form-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;margin-bottom:4px}
+    .form-sub{font-size:13px;color:var(--mid);margin-bottom:28px;line-height:1.6}
     .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-    .submit-btn{width:100%;padding:16px;background:var(--dark);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;cursor:pointer;transition:background 0.2s,transform 0.2s;margin-top:8px}
-    .submit-btn:hover{background:#333;transform:translateY(-1px)}
+    .form-group{margin-bottom:14px}
+    .form-group label{display:block;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:6px}
+    .form-group input,.form-group select,.form-group textarea{
+      width:100%;padding:12px 14px;
+      background:var(--bg);border:1.5px solid var(--border);
+      border-radius:8px;font-family:'Inter',sans-serif;
+      font-size:13px;color:var(--text);outline:none;
+      transition:border-color 0.2s,box-shadow 0.2s;
+    }
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+      border-color:var(--dark);
+      box-shadow:0 0 0 3px rgba(14,14,14,0.06);
+    }
+    .form-group input::placeholder,.form-group textarea::placeholder{color:#c0c0bb}
+    .form-group select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%239b9b97' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+    .form-group textarea{resize:vertical;min-height:110px;line-height:1.6}
+
+    /* Status messages */
+    .form-status{display:none;padding:12px 16px;border-radius:8px;font-size:13px;font-weight:500;margin-bottom:14px}
+    .form-status.success{background:rgba(22,163,74,0.08);border:1px solid rgba(22,163,74,0.2);color:var(--green);display:block}
+    .form-status.error{background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.15);color:#dc2626;display:block}
+    .form-status.sending{background:rgba(37,99,235,0.06);border:1px solid rgba(37,99,235,0.15);color:var(--blue);display:block}
+
+    .submit-btn{
+      width:100%;padding:15px;
+      background:var(--dark);border:none;border-radius:8px;
+      font-family:'Inter',sans-serif;font-size:12px;font-weight:700;
+      letter-spacing:1px;text-transform:uppercase;color:#fff;
+      cursor:pointer;transition:all 0.2s;margin-top:4px;
+      display:flex;align-items:center;justify-content:center;gap:8px;
+    }
+    .submit-btn:hover:not(:disabled){background:#1e1e1e;transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,0.15)}
+    .submit-btn:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+    .submit-note{font-size:11px;color:var(--light);text-align:center;margin-top:10px;line-height:1.5}
 
     /* FAQ */
     .faq{max-width:1100px;margin:0 auto;padding:0 48px 80px}
-    .faq h2{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;margin-bottom:40px}
-    .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-    .faq-item{padding:28px;background:var(--surface);border:1px solid var(--border);border-radius:10px}
-    .faq-item h4{font-size:14px;font-weight:700;margin-bottom:8px}
-    .faq-item p{font-size:13px;color:var(--mid);line-height:1.7}
+    .faq-title{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700;margin-bottom:32px}
+    .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .faq-item{padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:10px}
+    .faq-item h4{font-size:13px;font-weight:700;margin-bottom:7px}
+    .faq-item p{font-size:12px;color:var(--mid);line-height:1.75}
 
-    /* Locations */
-    .locations{max-width:1100px;margin:0 auto;padding:0 48px 80px}
-    .loc-label{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--mid);margin-bottom:24px}
-    .loc-strip{display:flex;gap:16px;flex-wrap:wrap}
-    .loc-item{padding:16px 24px;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-size:13px;display:flex;align-items:center;gap:10px}
-    .loc-dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+    /* Setup notice */
+    .setup-notice{background:rgba(37,99,235,0.05);border:1px solid rgba(37,99,235,0.15);border-radius:8px;padding:14px 18px;margin-bottom:20px;font-size:12px;color:var(--blue);line-height:1.6}
+    .setup-notice strong{font-weight:700}
+    .setup-notice a{color:var(--blue)}
 
-    footer{border-top:1px solid var(--border);padding:28px 48px;text-align:center;font-size:11px;color:var(--light)}
-    footer a{color:var(--dark);text-decoration:none}
+    footer{border-top:1px solid var(--border);padding:24px 48px;text-align:center;font-size:11px;color:var(--light)}
+    footer a{color:var(--dark);text-decoration:none;font-weight:500}
 
     @media(max-width:900px){
-      nav,.hero,.main,.faq,.locations{padding-left:20px;padding-right:20px}
+      nav,.hero,.main,.faq{padding-left:20px;padding-right:20px}
       .main{grid-template-columns:1fr;gap:40px}
       .faq-grid{grid-template-columns:1fr}
       .form-row{grid-template-columns:1fr}
@@ -96,117 +120,155 @@
 </head>
 <body>
 <nav>
-  <a href="index.html" class="nl"><div class="nli"><span>AI</span></div><span class="nn">Advisory Group</span></a>
-  <a href="index.html" class="nb">← Back</a>
+  <a href="index.html" class="nl"><div class="nli"><span>AI</span></div><span class="nn">AI Advisory Group</span></a>
+  <a href="index.html" class="nb">← Home</a>
 </nav>
 
 <div class="hero">
   <div class="hero-label">Get In Touch</div>
-  <h1>Let's Talk.</h1>
-  <p>Whether you have a specific project in mind, want to explore what AI can do for your business, or just have a question — we're a real team that reads every message.</p>
+  <h1>Let's<br>Talk.</h1>
+  <p>Whether you have a project in mind, want to explore what AI can do for your business, or just have a question — we read and respond to every message personally.</p>
 </div>
 
 <div class="main">
   <div>
     <div class="channels">
-      <a href="mailto:aiadvisorygroup@afproductionsinc.com" class="channel">
+      <a href="mailto:contact@aiadvisorygroup.tech" class="channel">
         <div class="ch-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
-        <div class="ch-info">
-          <div class="ch-label">Email Us</div>
-          <div class="ch-val">aiadvisorygroup@afproductionsinc.com</div>
-          <div class="ch-desc">Response within 24 hours, weekdays</div>
-        </div>
+        <div><div class="ch-label">Email</div><div class="ch-val">contact@aiadvisorygroup.tech</div><div class="ch-desc">Response within 24 hours</div></div>
       </a>
-      <a href="tel:+1234567890" class="channel">
+      <a href="tel:+19490000000" class="channel">
         <div class="ch-icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
-        <div class="ch-info">
-          <div class="ch-label">Call Us</div>
-          <div class="ch-val">+1 (949) 000-0000</div>
-          <div class="ch-desc">Mon–Fri, 9am–5pm Pacific</div>
-        </div>
+        <div><div class="ch-label">Phone</div><div class="ch-val">+1 (949) 000-0000</div><div class="ch-desc">Mon–Fri, 9am–5pm Pacific</div></div>
       </a>
       <a href="https://linkedin.com" target="_blank" class="channel">
         <div class="ch-icon"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></div>
-        <div class="ch-info">
-          <div class="ch-label">LinkedIn</div>
-          <div class="ch-val">The AI Advisory Group</div>
-          <div class="ch-desc">Connect, follow, and message us</div>
-        </div>
+        <div><div class="ch-label">LinkedIn</div><div class="ch-val">The AI Advisory Group</div><div class="ch-desc">Connect & follow us</div></div>
       </a>
       <a href="https://x.com" target="_blank" class="channel">
         <div class="ch-icon"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
-        <div class="ch-info">
-          <div class="ch-label">X (Twitter)</div>
-          <div class="ch-val">@AIAdvisoryGroup</div>
-          <div class="ch-desc">Latest insights and updates</div>
-        </div>
+        <div><div class="ch-label">X (Twitter)</div><div class="ch-val">@AIAdvisoryGroup</div><div class="ch-desc">Latest insights & updates</div></div>
       </a>
     </div>
-
     <div class="hours-card">
       <h3>Response Hours</h3>
-      <div class="hours-item"><span class="hours-day">Monday – Friday</span><span class="hours-time">9:00am – 5:00pm PT</span></div>
-      <div class="hours-item"><span class="hours-day">Saturday</span><span class="hours-time">By appointment</span></div>
-      <div class="hours-item"><span class="hours-day">Sunday</span><span class="hours-time">Closed</span></div>
-      <p class="hours-note">All email inquiries receive a response within 24 business hours. For urgent matters, please call directly.</p>
+      <div class="hours-row"><span class="hours-day">Monday – Friday</span><span class="hours-time">9:00am – 5:00pm PT</span></div>
+      <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">By appointment</span></div>
+      <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">Closed</span></div>
+      <p class="hours-note">All email inquiries receive a response within 24 business hours. For urgent matters, please call or email directly.</p>
     </div>
   </div>
 
-  <div class="form-side">
-    <h2 class="form-title">Send Us a Message</h2>
-    <p class="form-sub">Tell us what you're working on. We read every submission personally and reply with something genuinely useful.</p>
-    <div class="form-row">
-      <div class="form-group"><label>First Name</label><input type="text" placeholder="First"/></div>
-      <div class="form-group"><label>Last Name</label><input type="text" placeholder="Last"/></div>
+  <div class="form-card">
+    <h2 class="form-title">Send a Message</h2>
+    <p class="form-sub">Tell us what you're working on. We reply with something genuinely useful — not a template.</p>
+
+    <!-- EmailJS Setup Notice — remove after configuring -->
+    <div class="setup-notice" id="setupNotice">
+      <strong>📧 To activate email sending:</strong> Sign up free at <a href="https://emailjs.com" target="_blank">emailjs.com</a>, create a service + template, then replace <code>YOUR_PUBLIC_KEY</code>, <code>YOUR_SERVICE_ID</code>, and <code>YOUR_TEMPLATE_ID</code> in this page's script. All form submissions will then go directly to <strong>contact@aiadvisorygroup.tech</strong>.
     </div>
-    <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@company.com"/></div>
-    <div class="form-group"><label>Company / Organization</label><input type="text" placeholder="Your business name"/></div>
-    <div class="form-group">
-      <label>What Can We Help With?</label>
-      <select>
-        <option value="" disabled selected>Select a topic</option>
-        <option>AI Strategy & Consulting</option>
-        <option>Done-For-You AI Agent Setup</option>
-        <option>30-Minute AI Audit (Free)</option>
-        <option>Monthly Advisory Membership</option>
-        <option>Inner Circle Membership</option>
-        <option>Speaking & Keynotes</option>
-        <option>General Inquiry</option>
-        <option>Partnership Opportunity</option>
-      </select>
-    </div>
-    <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your business, your goals, and what you're hoping AI can help with..."></textarea></div>
-    <button class="submit-btn" onclick="this.textContent='✓ Message Sent!';this.disabled=true;this.style.background='#16a34a'">Send Message →</button>
+
+    <div class="form-status" id="formStatus"></div>
+
+    <form id="contactForm" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group"><label>First Name</label><input type="text" name="first_name" placeholder="First" required/></div>
+        <div class="form-group"><label>Last Name</label><input type="text" name="last_name" placeholder="Last" required/></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" name="email" placeholder="you@company.com" required/></div>
+      <div class="form-group"><label>Company / Organization</label><input type="text" name="company" placeholder="Your business name"/></div>
+      <div class="form-group">
+        <label>What Can We Help With?</label>
+        <select name="topic" required>
+          <option value="" disabled selected>Select a topic</option>
+          <option>AI Strategy & Consulting</option>
+          <option>Done-For-You AI Agent Setup</option>
+          <option>30-Minute AI Audit (Free)</option>
+          <option>Monthly Advisory Retainer</option>
+          <option>Inner Circle Membership</option>
+          <option>Speaking & Keynotes</option>
+          <option>General Inquiry</option>
+          <option>Partnership Opportunity</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Message</label><textarea name="message" placeholder="Tell us about your business, goals, and what you're hoping AI can help with..." required></textarea></div>
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span id="btnText">Send Message →</span>
+      </button>
+      <p class="submit-note">We respond to every inquiry personally within 24 hours.</p>
+    </form>
   </div>
 </div>
 
 <div class="faq">
-  <h2>Common Questions</h2>
+  <h2 class="faq-title">Common Questions</h2>
   <div class="faq-grid">
-    <div class="faq-item"><h4>How quickly do you respond to inquiries?</h4><p>All email inquiries are answered within 24 business hours. We personally review every message — no automated responses to real questions.</p></div>
-    <div class="faq-item"><h4>Do you work with businesses outside California?</h4><p>Yes. While we're based in Irvine, CA, we serve clients across the United States and internationally. All services are available remotely.</p></div>
-    <div class="faq-item"><h4>What size businesses do you typically work with?</h4><p>We work with businesses from solo operators up to mid-market companies (~500 employees). Our sweet spot is growth-stage companies with 5–100 team members.</p></div>
-    <div class="faq-item"><h4>Is the 30-minute audit really free?</h4><p>Yes, genuinely. No pitch at the end, no obligation to purchase anything. We offer it because we know a strong audit creates trust and often leads to a natural long-term relationship.</p></div>
-  </div>
-</div>
-
-<div class="locations">
-  <div class="loc-label">Serving Clients In</div>
-  <div class="loc-strip">
-    <div class="loc-item"><span class="loc-dot"></span>Orange County, CA</div>
-    <div class="loc-item"><span class="loc-dot"></span>Los Angeles, CA</div>
-    <div class="loc-item"><span class="loc-dot"></span>San Diego, CA</div>
-    <div class="loc-item"><span class="loc-dot"></span>San Francisco Bay Area</div>
-    <div class="loc-item"><span class="loc-dot"></span>New York, NY</div>
-    <div class="loc-item"><span class="loc-dot"></span>Miami, FL</div>
-    <div class="loc-item"><span class="loc-dot"></span>Austin, TX</div>
-    <div class="loc-item"><span class="loc-dot"></span>Nationwide (Remote)</div>
-    <div class="loc-item"><span class="loc-dot"></span>International</div>
+    <div class="faq-item"><h4>How quickly do you respond to inquiries?</h4><p>All email inquiries are answered within 24 business hours. We personally review every message — no bots, no automated responses to real questions.</p></div>
+    <div class="faq-item"><h4>Do you work with businesses outside California?</h4><p>Yes. While we're based in Irvine, CA, we serve clients across the US and internationally. All services are available fully remotely.</p></div>
+    <div class="faq-item"><h4>What size businesses do you work with?</h4><p>We work with businesses from solo operators to mid-market companies. Our sweet spot is growth-stage businesses with 2–100 team members actively looking to scale.</p></div>
+    <div class="faq-item"><h4>Is the 30-minute audit really free?</h4><p>Yes, genuinely. No pitch at the end, no obligation. We offer it because a strong audit creates trust and often leads to a natural long-term relationship — that's good enough reason.</p></div>
   </div>
 </div>
 
 <footer>
-  <a href="index.html">← The AI Advisory Group</a> &nbsp;·&nbsp; Founded in Irvine, CA &nbsp;·&nbsp; <a href="mailto:aiadvisorygroup@afproductionsinc.com">aiadvisorygroup@afproductionsinc.com</a>
+  <a href="index.html">← Home</a> &nbsp;·&nbsp; <a href="mailto:contact@aiadvisorygroup.tech">contact@aiadvisorygroup.tech</a> &nbsp;·&nbsp; © 2026 The AI Advisory Group
 </footer>
+
+<script>
+  // ─────────────────────────────────────────────────────
+  // EMAILJS CONFIGURATION
+  // 1. Sign up free at https://emailjs.com
+  // 2. Create an Email Service (Gmail works great)
+  // 3. Create an Email Template with these variables:
+  //    {{first_name}}, {{last_name}}, {{email}}, {{company}}, {{topic}}, {{message}}
+  //    Set "To Email" in template to: contact@aiadvisorygroup.tech
+  // 4. Replace the three values below and delete the setup notice div
+  // ─────────────────────────────────────────────────────
+  const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';    // From EmailJS Account > General
+  const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';    // From EmailJS Email Services
+  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';   // From EmailJS Email Templates
+
+  const isConfigured = !EMAILJS_PUBLIC_KEY.includes('YOUR_');
+
+  if (isConfigured) {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    document.getElementById('setupNotice').style.display = 'none';
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const btn     = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const status  = document.getElementById('formStatus');
+    const form    = document.getElementById('contactForm');
+
+    if (!isConfigured) {
+      // Fallback: open mailto if EmailJS not configured
+      const data = Object.fromEntries(new FormData(form));
+      const body = `Name: ${data.first_name} ${data.last_name}\nEmail: ${data.email}\nCompany: ${data.company}\nTopic: ${data.topic}\n\nMessage:\n${data.message}`;
+      window.location.href = `mailto:contact@aiadvisorygroup.tech?subject=Website Inquiry: ${data.topic}&body=${encodeURIComponent(body)}`;
+      return;
+    }
+
+    // Sending state
+    btn.disabled = true;
+    btnText.textContent = 'Sending...';
+    status.className = 'form-status sending';
+    status.textContent = 'Sending your message...';
+
+    try {
+      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
+      status.className = 'form-status success';
+      status.textContent = '✓ Message sent! We\'ll respond within 24 hours.';
+      form.reset();
+      btnText.textContent = '✓ Message Sent';
+    } catch (err) {
+      status.className = 'form-status error';
+      status.textContent = 'Something went wrong. Please email us directly at contact@aiadvisorygroup.tech';
+      btn.disabled = false;
+      btnText.textContent = 'Try Again →';
+    }
+  }
+</script>
 </body>
 </html>
