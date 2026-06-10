@@ -127,7 +127,8 @@
     .tally-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
     .tally-label{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:8px;color:var(--cream)}
     .tally-sub{font-size:15px;color:var(--c3);margin-bottom:20px;line-height:1.6;font-weight:300}
-    .tally-frame{border-radius:2px;overflow:hidden;min-height:424px}
+    .tally-frame{border-radius:4px;overflow:hidden;min-height:500px;background:#fff;padding:0}
+    .tally-frame iframe{display:block;min-height:500px}
     .tally-frame iframe{display:block;background:transparent}
     .tally-note{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--c4);margin-top:14px;text-align:center}
     .tally-success{text-align:center;padding:48px 20px}
@@ -185,7 +186,17 @@
     <div class="tally-label">Get Your Cheat Sheet</div>
     <p class="tally-sub">Select your AI model below — we'll send your personalised cheat sheet straight to your inbox via our automated delivery system.</p>
     <div class="tally-frame">
-      <iframe data-tally-src="https://tally.so/embed/BzeP1Q?dynamicHeight=1&formEventsForwarding=1" loading="lazy" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0" title="Get Your Cheat Sheet"></iframe>
+      <iframe 
+        src="https://tally.so/embed/BzeP1Q?dynamicHeight=1&formEventsForwarding=1&alignLeft=0&hideTitle=1&transparentBackground=0"
+        loading="lazy"
+        width="100%"
+        height="500"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        title="Get Your Cheat Sheet"
+        style="border:none;background:#fff;border-radius:4px;">
+      </iframe>
     </div>
     <div class="tally-note">🔒 No spam. Your email is only used to send your cheat sheet. Unsubscribe any time.</div>
   </div>
@@ -286,19 +297,12 @@
 
 
 <script>
-  // Tally embed loader
-  var d=document,w="https://tally.so/widgets/embed.js",
-  v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc})};
-  if("undefined"!=typeof Tally)v();
-  else if(d.querySelector('script[src="'+w+'"]')==null){
-    var s=d.createElement("script");s.src=w;s.onload=v;s.onerror=v;d.body.appendChild(s);
-  }
-  // Post-submit thank-you
+  // Post-submit: replace form with thank-you message
   window.addEventListener("message", function(e) {
     if (e.data && e.data.event === "Tally.FormSubmitted") {
       var wrap = document.querySelector(".tally-wrap");
       if (wrap) {
-        wrap.innerHTML = '<div class="tally-success"><div class="ts-icon">✓</div><h3>You're all set!</h3><p>Your AI cheat sheet is on its way — check your inbox in the next few minutes.<br>While you wait, explore our other resources below.</p><a href="index.html" class="ts-back">← Back to Home</a></div>';
+        wrap.innerHTML = '<div class="tally-success"><div class="ts-icon">&#10003;</div><h3>You\'re all set!</h3><p>Your AI cheat sheet is on its way. Check your inbox in the next few minutes.</p><a href="index.html" class="ts-back">&#8592; Back to Home</a></div>';
       }
     }
   });
