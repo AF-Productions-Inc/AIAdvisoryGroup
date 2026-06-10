@@ -6,7 +6,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -122,6 +121,21 @@
 
     @media(max-width:900px){nav,.hero,.setup,.preview{padding-left:20px;padding-right:20px}.hero{grid-template-columns:1fr;padding-top:60px}.setup-grid{grid-template-columns:1fr}.models-grid{grid-template-columns:1fr 1fr}footer{padding:20px;flex-direction:column}}
     @media(max-width:480px){.models-grid{grid-template-columns:1fr}}
+  
+    /* ── Tally embed wrapper ── */
+    .tally-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:32px 36px;position:relative;overflow:hidden}
+    .tally-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+    .tally-label{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:8px;color:var(--cream)}
+    .tally-sub{font-size:15px;color:var(--c3);margin-bottom:20px;line-height:1.6;font-weight:300}
+    .tally-frame{border-radius:2px;overflow:hidden;min-height:424px}
+    .tally-frame iframe{display:block;background:transparent}
+    .tally-note{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--c4);margin-top:14px;text-align:center}
+    .tally-success{text-align:center;padding:48px 20px}
+    .ts-icon{width:56px;height:56px;border-radius:50%;background:rgba(111,207,151,0.1);border:1px solid rgba(111,207,151,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:22px;color:#6fcf97}
+    .tally-success h3{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;margin-bottom:10px;color:var(--cream)}
+    .tally-success p{font-size:15px;color:var(--c3);line-height:1.7;margin-bottom:24px;font-weight:300}
+    .ts-back{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none}
+    .ts-back:hover{text-decoration:underline}
   </style>
 </head>
 <body>
@@ -148,44 +162,13 @@
     </div>
   </div>
 
-  <div class="form-card">
-    <div class="fc-title">Get Your Cheat Sheet</div>
-    <p class="fc-sub">Select the AI model you want to learn — we'll email you a focused 1-page guide for that specific tool.</p>
-
-    <div class="form-status" id="formStatus"></div>
-
-    <form id="cheatForm" onsubmit="handleSubmit(event)">
-      <div class="form-field">
-        <label>Your Name</label>
-        <input type="text" name="name" id="cname" placeholder="First name" required/>
-      </div>
-      <div class="form-field">
-        <label>Email Address</label>
-        <input type="email" name="email" id="cemail" placeholder="you@company.com" required/>
-      </div>
-      <div class="form-field">
-        <label>Which AI Model?</label>
-        <select name="model" id="modelSelect" required onchange="updatePreview()">
-          <option value="" disabled selected>— Select a model —</option>
-          <option value="Claude (Anthropic)">Claude — by Anthropic</option>
-          <option value="ChatGPT (OpenAI)">ChatGPT — by OpenAI</option>
-          <option value="Gemini (Google)">Gemini — by Google</option>
-          <option value="Llama (Meta)">Llama — by Meta (Open Source)</option>
-          <option value="Qwen (Alibaba)">Qwen — by Alibaba</option>
-          <option value="Kimi (Moonshot AI)">Kimi — by Moonshot AI</option>
-          <option value="Moonshot">Moonshot</option>
-          <option value="Hermes (Nous Research)">Hermes — by Nous Research</option>
-          <option value="OpenClaw">OpenClaw</option>
-          <option value="All Models (Full Pack)">All Models — Full Pack</option>
-        </select>
-        <div class="model-preview" id="modelPreview">
-          <div class="mp-name" id="mpName"></div>
-          <div id="mpDesc"></div>
-        </div>
-      </div>
-      <button type="submit" class="submit-btn" id="submitBtn">Send Me the Cheat Sheet →</button>
-    </form>
-    <div class="form-note">No spam. Unsubscribe any time. We respect your inbox.</div>
+  <div class="tally-wrap">
+    <div class="tally-label">Get Your Cheat Sheet</div>
+    <p class="tally-sub">Select your AI model below — we'll send your personalised cheat sheet straight to your inbox via our automated delivery system.</p>
+    <div class="tally-frame">
+      <iframe data-tally-src="https://tally.so/embed/BzeP1Q?dynamicHeight=1&formEventsForwarding=1&transparentBackground=1&hideTitle=1" loading="lazy" width="100%" height="424" frameborder="0" marginheight="0" marginwidth="0" title="Get Your Cheat Sheet"></iframe>
+    </div>
+    <div class="tally-note">🔒 No spam. Your email is only used to send your cheat sheet. Unsubscribe any time.</div>
   </div>
 </div>
 
@@ -253,97 +236,28 @@
   </div>
 </footer>
 
+
+
 <script>
-// ── EmailJS Config — replace with your real values ──
-const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
-const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-const isConfigured = !EMAILJS_PUBLIC_KEY.includes('YOUR_');
-if (isConfigured) emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-
-// ── Per-model PDF download links — replace with your Google Drive links ──
-const MODEL_LINKS = {
-  'Claude (Anthropic)':        'https://drive.google.com/file/d/YOUR_CLAUDE_PDF/view',
-  'ChatGPT (OpenAI)':          'https://drive.google.com/file/d/YOUR_CHATGPT_PDF/view',
-  'Gemini (Google)':           'https://drive.google.com/file/d/YOUR_GEMINI_PDF/view',
-  'Llama (Meta)':              'https://drive.google.com/file/d/YOUR_LLAMA_PDF/view',
-  'Qwen (Alibaba)':            'https://drive.google.com/file/d/YOUR_QWEN_PDF/view',
-  'Kimi (Moonshot AI)':        'https://drive.google.com/file/d/YOUR_KIMI_PDF/view',
-  'Moonshot':                  'https://drive.google.com/file/d/YOUR_MOONSHOT_PDF/view',
-  'Hermes (Nous Research)':    'https://drive.google.com/file/d/YOUR_HERMES_PDF/view',
-  'OpenClaw':                  'https://drive.google.com/file/d/YOUR_OPENCLAW_PDF/view',
-  'All Models (Full Pack)':    'https://drive.google.com/file/d/YOUR_FULL_PACK_PDF/view',
-};
-
-// ── Per-model descriptions for preview ──
-const MODEL_INFO = {
-  'Claude (Anthropic)':        'Best for: long-form writing, analysis, code review, and safe enterprise deployments.',
-  'ChatGPT (OpenAI)':          'Best for: versatile everyday tasks, image generation, browsing, and plugin ecosystem.',
-  'Gemini (Google)':           'Best for: Google Workspace, real-time search, multimodal tasks, and research.',
-  'Llama (Meta)':              'Best for: privacy-first on-prem deployments, custom fine-tuning, cost efficiency.',
-  'Qwen (Alibaba)':            'Best for: bilingual Chinese-English tasks, 1M+ token context, low-cost coding.',
-  'Kimi (Moonshot AI)':        'Best for: 200k+ token document processing, contract review, academic analysis.',
-  'Moonshot':                  'Best for: advanced reasoning, scientific research, math and multi-step logic.',
-  'Hermes (Nous Research)':    'Best for: agentic workflows, function calling, instruction-following tasks.',
-  'OpenClaw':                  'Best for: specialized automation, niche domain applications, purpose-built tasks.',
-  'All Models (Full Pack)':    'Includes all 9 model cheat sheets in one complete reference pack.',
-};
-
-function updatePreview() {
-  const sel  = document.getElementById('modelSelect').value;
-  const prev = document.getElementById('modelPreview');
-  if (!sel) { prev.classList.remove('show'); return; }
-  document.getElementById('mpName').textContent = sel;
-  document.getElementById('mpDesc').textContent = MODEL_INFO[sel] || '';
-  prev.classList.add('show');
-}
-
-async function handleSubmit(e) {
-  e.preventDefault();
-  const name    = document.getElementById('cname').value.trim();
-  const email   = document.getElementById('cemail').value.trim();
-  const model   = document.getElementById('modelSelect').value;
-  const btn     = document.getElementById('submitBtn');
-  const status  = document.getElementById('formStatus');
-  const pdfLink = MODEL_LINKS[model] || '';
-
-  if (!isConfigured) {
-    // Fallback: open mailto to self with subscriber info, and show download link
-    const body = `New cheat sheet request:\nName: ${name}\nEmail: ${email}\nModel: ${model}`;
-    window.open(`mailto:contact@aiadvisorygroup.tech?subject=Cheat Sheet Request: ${model}&body=${encodeURIComponent(body)}`);
-    status.className = 'form-status fs-ok';
-    status.textContent = `✓ Request sent! We'll email your ${model} cheat sheet shortly.`;
-    document.getElementById('cheatForm').reset();
-    document.getElementById('modelPreview').classList.remove('show');
-    return;
+  // Tally embed loader
+  var d=document,w="https://tally.so/widgets/embed.js",
+  v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc})};
+  if("undefined"!=typeof Tally)v();
+  else if(d.querySelector('script[src="'+w+'"]')==null){
+    var s=d.createElement("script");s.src=w;s.onload=v;s.onerror=v;d.body.appendChild(s);
   }
 
-  // EmailJS send
-  btn.disabled = true;
-  btn.textContent = 'Sending...';
-  status.className = 'form-status fs-sending';
-  status.textContent = 'Sending your cheat sheet...';
-
-  try {
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      name,
-      email,
-      model,
-      pdf_link: pdfLink,
-      to_email: email,
-    });
-    status.className = 'form-status fs-ok';
-    status.textContent = `✓ Your ${model} cheat sheet is on its way — check your inbox!`;
-    document.getElementById('cheatForm').reset();
-    document.getElementById('modelPreview').classList.remove('show');
-    btn.textContent = '✓ Sent!';
-  } catch (err) {
-    status.className = 'form-status fs-err';
-    status.textContent = 'Something went wrong. Email us at contact@aiadvisorygroup.tech';
-    btn.disabled = false;
-    btn.textContent = 'Try Again →';
-  }
-}
+  // Listen for Tally form submission event (for n8n webhook confirmation or thank-you UI)
+  window.addEventListener("message", function(e) {
+    if (e.data && e.data.event === "Tally.FormSubmitted") {
+      console.log("Tally form submitted:", e.data.payload);
+      // Optional: show a custom thank-you message
+      var wrap = document.querySelector(".tally-wrap");
+      if (wrap) {
+        wrap.innerHTML = '<div class="tally-success"><div class="ts-icon">✓</div><h3>You're on the list!</h3><p>Your AI cheat sheet is on its way. Check your inbox in the next few minutes.</p><a href="index.html" class="ts-back">← Back to Home</a></div>';
+      }
+    }
+  });
 </script>
 </body>
 </html>
