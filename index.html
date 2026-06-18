@@ -87,26 +87,25 @@
     @media(max-width:600px){nav{padding:0 20px}.nav-links{display:none}.hero{padding:60px 20px}footer{padding:20px;flex-direction:column}}
   
     /* ── Cookie Banner ── */
-    .cookie-banner{
-      position:fixed;bottom:0;left:0;right:0;z-index:999;
-      background:rgba(13,34,32,0.97);
-      border-top:1px solid var(--border);
-      backdrop-filter:blur(12px);
-      padding:16px 48px;
-      display:flex;align-items:center;justify-content:space-between;gap:20px;
-      transform:translateY(100%);
-      transition:transform 0.4s ease;
+    #cookieBanner{
+      display:none;
+      position:fixed;bottom:0;left:0;right:0;z-index:99999;
+      background:#0d2220;
+      border-top:1px solid rgba(232,220,200,0.15);
+      padding:18px 48px;
+      flex-direction:row;align-items:center;justify-content:space-between;gap:20px;
     }
-    .cookie-banner.show{transform:translateY(0)}
-    .cookie-text{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--c3);line-height:1.6;max-width:600px}
-    .cookie-text a{color:var(--gold);text-decoration:none}
+    #cookieBanner.show{display:flex}
+    .cookie-text{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(232,220,200,0.6);line-height:1.7;max-width:640px}
+    .cookie-text a{color:#c9a96e;text-decoration:none}
     .cookie-text a:hover{text-decoration:underline}
     .cookie-btns{display:flex;gap:10px;flex-shrink:0}
-    .cookie-accept{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:var(--gold2);border:1px solid rgba(201,169,110,0.4);border-radius:2px;color:var(--gold);cursor:pointer;transition:all 0.2s}
-    .cookie-accept:hover{background:rgba(201,169,110,0.2);color:var(--cream)}
-    .cookie-decline{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:9px 16px;background:transparent;border:1px solid var(--border);border-radius:2px;color:var(--c4);cursor:pointer;transition:all 0.2s}
-    .cookie-decline:hover{border-color:var(--c3);color:var(--c3)}
-    @media(max-width:600px){.cookie-banner{padding:16px 20px;flex-direction:column;align-items:flex-start}.cookie-btns{width:100%}.cookie-accept,.cookie-decline{flex:1;text-align:center}}
+    .cookie-accept{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:10px 22px;background:rgba(201,169,110,0.12);border:1px solid rgba(201,169,110,0.4);border-radius:2px;color:#c9a96e;cursor:pointer;transition:all 0.2s}
+    .cookie-accept:hover{background:rgba(201,169,110,0.22);color:#e8dcc8}
+    .cookie-decline{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:10px 16px;background:transparent;border:1px solid rgba(232,220,200,0.12);border-radius:2px;color:rgba(232,220,200,0.35);cursor:pointer;transition:all 0.2s}
+    .cookie-decline:hover{color:rgba(232,220,200,0.6);border-color:rgba(232,220,200,0.25)}
+    @media(max-width:640px){#cookieBanner{padding:16px 20px;flex-direction:column;align-items:flex-start}
+    .cookie-btns{width:100%}.cookie-accept,.cookie-decline{flex:1;text-align:center}}
   </style>
 </head>
 <body>
@@ -198,34 +197,28 @@
 </footer>
 
 <!-- Cookie Banner -->
-<div class="cookie-banner" id="cookieBanner">
+<div id="cookieBanner">
   <div class="cookie-text">
-    We use cookies to improve your experience and analyse site traffic. By clicking "Accept", you agree to our use of cookies.
-    Read our <a href="privacy.html">Privacy Policy</a> for details.
+    We use cookies to improve your experience and analyse site traffic.
+    See our <a href="privacy.html">Privacy Policy</a> for details.
   </div>
   <div class="cookie-btns">
-    <button class="cookie-accept" onclick="setCookie('accepted')">Accept</button>
-    <button class="cookie-decline" onclick="setCookie('declined')">Decline</button>
+    <button class="cookie-accept" onclick="cookieChoice('accepted')">Accept Cookies</button>
+    <button class="cookie-decline" onclick="cookieChoice('declined')">Decline</button>
   </div>
 </div>
 <script>
-  function setCookie(val) {
+  function cookieChoice(val) {
     localStorage.setItem('cookieConsent', val);
-    var banner = document.getElementById('cookieBanner');
-    if (banner) banner.classList.remove('show');
+    document.getElementById('cookieBanner').classList.remove('show');
   }
-  // Show banner if user has never made a consent decision
-  window.addEventListener('DOMContentLoaded', function() {
-    var consent = localStorage.getItem('cookieConsent');
-    if (!consent) {
-      var banner = document.getElementById('cookieBanner');
-      if (banner) {
-        setTimeout(function() {
-          banner.classList.add('show');
-        }, 800);
-      }
+  // Run immediately — no event listener needed since script is at bottom of body
+  (function() {
+    if (!localStorage.getItem('cookieConsent')) {
+      var b = document.getElementById('cookieBanner');
+      if (b) b.classList.add('show');
     }
-  });
+  })();
 </script>
 </body>
 </html>
