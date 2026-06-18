@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your AI Cheat Sheets — Download Now | AI Advisory Group</title>
+  <!-- Prevent search engines from indexing this page -->
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#091a18;--bg2:#0d2220;--bg3:#112926;
+      --cream:#e8dcc8;--c3:rgba(232,220,200,0.55);--c4:rgba(232,220,200,0.25);--c5:rgba(232,220,200,0.08);
+      --border:rgba(232,220,200,0.12);--border2:rgba(232,220,200,0.06);
+      --gold:#c9a96e;--gold2:rgba(201,169,110,0.12);
+      --green:#6fcf97;--green2:rgba(111,207,151,0.1);
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Crimson Pro',serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden}
+    body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"),radial-gradient(ellipse 100% 50% at 50% 0%,rgba(20,70,55,0.4),transparent);pointer-events:none;z-index:0}
+
+    nav{position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(9,26,24,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .nl{text-decoration:none;display:flex;flex-direction:column;gap:1px}
+    .nl-main{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream)}
+    .nl-sub{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--c3)}
+    .nb{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--c3);text-decoration:none;transition:color 0.2s}
+    .nb:hover{color:var(--cream)}
+
+    /* HERO */
+    .hero{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:72px 48px 56px;text-align:center}
+    .hero-check{width:64px;height:64px;border-radius:50%;background:var(--green2);border:1px solid rgba(111,207,151,0.25);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-size:26px;color:var(--green)}
+    .hero-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--green);margin-bottom:16px}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,60px);font-weight:900;line-height:.95;letter-spacing:-2px;text-transform:uppercase;margin-bottom:16px}
+    .hero h1 em{font-style:italic;font-weight:400;color:var(--gold);display:block}
+    .hero-desc{font-size:18px;line-height:1.75;color:var(--c3);font-weight:300;max-width:520px;margin:0 auto}
+    .hero-rule{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:28px auto}
+
+    /* DOWNLOADS GRID */
+    .downloads{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 48px 80px}
+    .sec-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:32px;display:flex;align-items:center;gap:14px}
+    .sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+    .dl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:32px}
+
+    .dl-card{
+      background:var(--bg2);border:1px solid var(--border);border-radius:2px;
+      padding:24px 20px;display:flex;flex-direction:column;gap:12px;
+      transition:border-color 0.22s,transform 0.22s;position:relative;overflow:hidden;
+    }
+    .dl-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity 0.22s}
+    .dl-card:hover{border-color:rgba(201,169,110,0.3);transform:translateY(-2px)}
+    .dl-card:hover::before{opacity:1}
+
+    .dc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+    .dc-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;line-height:1;color:var(--cream)}
+    .dc-maker{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-top:4px}
+    .dc-badge{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:1px;border:1px solid var(--border);color:var(--c3);white-space:nowrap;flex-shrink:0}
+    .dc-desc{font-size:13px;line-height:1.65;color:var(--c3);font-weight:300;flex:1}
+
+    .dl-btn{
+      display:flex;align-items:center;justify-content:center;gap:8px;
+      padding:11px 16px;
+      background:var(--gold2);
+      border:1px solid rgba(201,169,110,0.3);
+      border-radius:2px;
+      font-family:'IBM Plex Mono',monospace;
+      font-size:10px;font-weight:500;
+      letter-spacing:2px;text-transform:uppercase;
+      color:var(--gold);
+      text-decoration:none;
+      transition:all 0.22s;
+      cursor:pointer;
+    }
+    .dl-btn:hover{background:rgba(201,169,110,0.2);color:var(--cream);border-color:rgba(201,169,110,0.5)}
+    .dl-btn svg{width:14px;height:14px;fill:currentColor;flex-shrink:0}
+    .dl-btn.disabled{opacity:0.4;cursor:not-allowed;pointer-events:none}
+
+    /* FULL PACK CARD */
+    .dl-card.pack{grid-column:1/-1;flex-direction:row;align-items:center;gap:28px;background:var(--bg3);border-color:rgba(201,169,110,0.2)}
+    .dl-card.pack::before{opacity:0.6}
+    .pack-left{flex:1}
+    .pack-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;letter-spacing:-1px;color:var(--cream);margin-bottom:6px}
+    .pack-title em{font-style:italic;color:var(--gold)}
+    .pack-desc{font-size:15px;color:var(--c3);font-weight:300;line-height:1.65}
+    .pack .dl-btn{min-width:200px;padding:14px 24px;font-size:11px}
+
+    /* NEXT STEPS */
+    .next{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:0 48px 80px}
+    .next-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .next-card{background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:24px;display:flex;gap:16px;align-items:flex-start;text-decoration:none;transition:border-color 0.2s,transform 0.2s}
+    .next-card:hover{border-color:rgba(201,169,110,0.3);transform:translateX(4px)}
+    .nc-icon{width:36px;height:36px;border-radius:1px;background:var(--gold2);border:1px solid rgba(201,169,110,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .nc-icon svg{width:16px;height:16px;fill:var(--gold)}
+    .nc-body h3{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:5px;color:var(--cream)}
+    .nc-body p{font-size:14px;color:var(--c3);line-height:1.65;font-weight:300}
+    .nc-arrow{margin-left:auto;font-size:18px;color:var(--c4);align-self:center;transition:all 0.2s;font-family:'Crimson Pro',serif;flex-shrink:0}
+    .next-card:hover .nc-arrow{color:var(--gold);transform:translateX(4px)}
+
+    footer{position:relative;z-index:1;border-top:1px solid var(--border2);padding:24px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .fc{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--c4)}
+    .fl{display:flex;gap:20px}
+    .fla{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--c4);text-decoration:none;transition:color 0.2s}
+    .fla:hover{color:var(--cream)}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    .dl-card{animation:fadeUp 0.4s ease both}
+    .dl-card:nth-child(1){animation-delay:0.05s}
+    .dl-card:nth-child(2){animation-delay:0.10s}
+    .dl-card:nth-child(3){animation-delay:0.15s}
+    .dl-card:nth-child(4){animation-delay:0.20s}
+    .dl-card:nth-child(5){animation-delay:0.25s}
+    .dl-card:nth-child(6){animation-delay:0.30s}
+    .dl-card:nth-child(7){animation-delay:0.35s}
+    .dl-card:nth-child(8){animation-delay:0.40s}
+    .dl-card:nth-child(9){animation-delay:0.45s}
+    .dl-card.pack{animation-delay:0.50s}
+
+    @media(max-width:900px){nav,.downloads,.next{padding-left:20px;padding-right:20px}.hero{padding:60px 20px 40px}.dl-grid{grid-template-columns:1fr 1fr}.dl-card.pack{flex-direction:column}.next-grid{grid-template-columns:1fr}footer{padding:20px;flex-direction:column}}
+    @media(max-width:480px){.dl-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nl"><span class="nl-main">AI Advisory Group</span><span class="nl-sub">Strategic Intelligence</span></a>
+  <a href="index.html" class="nb">← Home</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-check">✓</div>
+  <div class="hero-label">You're In — Downloads Ready</div>
+  <h1>Your AI<em>Cheat Sheets</em></h1>
+  <div class="hero-rule"></div>
+  <p class="hero-desc">Click any model below to download its dedicated cheat sheet — or grab the full 9-model pack in one go. All yours, free, forever.</p>
+</div>
+
+<div class="downloads">
+  <div class="sec-label">Download by Model</div>
+  <div class="dl-grid">
+
+    <div class="dl-card">
+      <div class="dc-top">
+        <div><div class="dc-name">Claude</div><div class="dc-maker">Anthropic</div></div>
+        <span class="dc-badge">Reasoning</span>
+      </div>
+      <div class="dc-desc">Best for long-form writing, document analysis, code review, and safe enterprise deployments.</div>
+      <a href="YOUR_CLAUDE_PDF_LINK" class="dl-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-6 2v2h12v-2H6z"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <div class="dl-card">
+      <div class="dc-top">
+        <div><div class="dc-name">ChatGPT</div><div class="dc-maker">OpenAI</div></div>
+        <span class="dc-badge">General Use</span>
+      </div>
+      <div class="dc-desc">Best for everyday tasks, image generation, voice, real-time browsing, and the widest plugin ecosystem.</div>
+      <a href="YOUR_CHATGPT_PDF_LINK" class="dl-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-6 2v2h12v-2H6z"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <div class="dl-card">
+      <div class="dc-top">
+        <div><div class="dc-name">Gemini</div><div class="dc-maker">Google</div></div>
+        <span class="dc-badge">Workspace</span>
+      </div>
+      <div class="dc-desc">Best for Google Workspace integration, real-time search, multimodal tasks, and research workflows.</div>
+      <a href="YOUR_GEMINI_PDF_LINK" class="dl-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-6 2v2h12v-2H6z"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <div class="dl-card">
+      <div class="dc-top">
+        <div><div class="dc-name">Llama</div><div class="dc-maker">Meta</div></div>
+        <span class="dc-badge">Open Source</span>
+      </div>
+      <div class="dc-desc">Best for privacy-first deployments, custom fine-tuning, and cost-efficient on-prem AI at scale.</div>
+      <a href="YOUR_LLAMA_PDF_LINK" class="dl-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-6 2v2h12v-2H6z"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <div class="dl-card">
+      <div class="dc-top">
+        <div><div class="dc-name">Qwen</div><div class="dc-maker">Alibaba</div></div>
+        <span class="dc-badge">Long Context</span>
+      </div>
+      <div class="dc-desc">Best for bilingual tasks, 1M+ token context windows, and budget-sensitive high-volume deployments.</div>
+      <a href="YOUR_QWEN_PDF_LINK" class="dl-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-6 2v2h12v-2H6z"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <div class="dl-card">
+      <div class="dc-top">
+        <div><div class="dc-name">DeepSeek</div><div class="dc-maker">DeepSeek AI</div></div>
+        <span class="dc-badge">Cost-Efficient</span>
+      </div>
+      <div class="dc-desc">Best for frontier-level reasoning and coding at a fraction of the cost, with open-weight self-hosting.</div>
+      <a href="YOUR_DEEPSEEK_PDF_LINK" class="dl-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-6 2v2h12v-2H6z"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <div class="dl-card">
+      <div class="dc-top">
+        <div><div class="dc-name">Kimi</div><div class="dc-maker">Moonshot AI</div></div>
+        <span class="dc-badge">Documents</span>
+      </div>
+      <div class="dc-desc">Best for processing 200k+ token documents, contract review, academic analysis, and research synthesis.</div>
+      <a href="YOUR_KIMI_PDF_LINK" class="dl-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-6 2v2h12v-2H6z"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <div class="dl-card">
+      <div class="dc-top">
+        <div><div class="dc-name">Hermes</div><div class="dc-maker">Nous Research</div></div>
+        <span class="dc-badge">Agentic</span>
+      </div>
+      <div class="dc-desc">Best for autonomous agents, function calling, instruction-following, and long-running automations.</div>
+      <a href="YOUR_HERMES_PDF_LINK" class="dl-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-6 2v2h12v-2H6z"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <div class="dl-card">
+      <div class="dc-top">
+        <div><div class="dc-name">OpenClaw</div><div class="dc-maker">Specialized</div></div>
+        <span class="dc-badge">Automation</span>
+      </div>
+      <div class="dc-desc">Best for targeted automation, niche domain applications, and repetitive high-volume operational tasks.</div>
+      <a href="YOUR_OPENCLAW_PDF_LINK" class="dl-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-6 2v2h12v-2H6z"/></svg>
+        Download PDF
+      </a>
+    </div>
+
+    <!-- FULL PACK -->
+    <div class="dl-card pack">
+      <div class="pack-left">
+        <div class="pack-title">Complete <em>AI Model Pack</em></div>
+        <div class="pack-desc">All 9 cheat sheets in one PDF. Keep it on your desktop, share it with your team, or print it out as a reference guide. Everything you need to understand and use AI tools effectively — in one place.</div>
+      </div>
+      <a href="YOUR_FULL_PACK_PDF_LINK" class="dl-btn" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12 16l-5-5 1.41-1.41L11 13.17V4h2v9.17l2.59-2.58L17 11l-5 5zm-6 2v2h12v-2H6z"/></svg>
+        Download Full Pack
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<div class="next">
+  <div class="sec-label">What's Next</div>
+  <div class="next-grid">
+    <a href="https://cal.com/aiadvisorygroup/30min" target="_blank" class="next-card">
+      <div class="nc-icon"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg></div>
+      <div class="nc-body">
+        <h3>Book a Free 30-Min AI Audit</h3>
+        <p>Get a personalised assessment of where AI can save your business time and money — no pitch, just strategy.</p>
+      </div>
+      <span class="nc-arrow">→</span>
+    </a>
+    <a href="ai-agent-setup.html" class="next-card">
+      <div class="nc-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+      <div class="nc-body">
+        <h3>Done-For-You AI Agent Setup</h3>
+        <p>Ready to deploy AI inside your business? We handle everything — strategy, build, integration, and training.</p>
+      </div>
+      <span class="nc-arrow">→</span>
+    </a>
+    <a href="monthly-advisory.html" class="next-card">
+      <div class="nc-icon"><svg viewBox="0 0 24 24"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg></div>
+      <div class="nc-body">
+        <h3>Monthly AI Advisory Retainer</h3>
+        <p>Stay ahead of AI changes with a dedicated advisor in your corner every month — strategy, implementation, and ROI tracking.</p>
+      </div>
+      <span class="nc-arrow">→</span>
+    </a>
+    <a href="inner-circle.html" class="next-card">
+      <div class="nc-icon"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg></div>
+      <div class="nc-body">
+        <h3>Join the Inner Circle</h3>
+        <p>Exclusive access to AI playbooks, implementation frameworks, and a private community of operators scaling with AI.</p>
+      </div>
+      <span class="nc-arrow">→</span>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="fc">© 2026 AI Advisory Group &nbsp;·&nbsp; A service of AF Productions Inc. &nbsp;·&nbsp; contact@aiadvisorygroup.tech</div>
+  <div class="fl">
+    <a href="privacy.html" class="fla">Privacy Policy</a>
+    <a href="terms.html" class="fla">Terms & Conditions</a>
+    <a href="index.html" class="fla">← Home</a>
+  </div>
+</footer>
+</body>
+</html>
