@@ -185,7 +185,7 @@
       <span class="link-arrow">→</span>
     </a>
   </div>
-  <div class="location">Founded in Irvine, CA &nbsp;·&nbsp; Operating Globally &nbsp;·&nbsp; Est. 2024</div>
+  <div class="location">Founded in Irvine, CA &nbsp;·&nbsp; Operating Globally &nbsp;·&nbsp; Est. 2026</div>
 </div>
 
 <footer>
@@ -211,14 +211,19 @@
 <script>
   function setCookie(val) {
     localStorage.setItem('cookieConsent', val);
-    document.getElementById('cookieBanner').classList.remove('show');
+    var banner = document.getElementById('cookieBanner');
+    if (banner) banner.classList.remove('show');
   }
-  // Show banner if no decision yet
+  // Show banner if user has never made a consent decision
   window.addEventListener('DOMContentLoaded', function() {
-    if (!localStorage.getItem('cookieConsent')) {
-      setTimeout(function() {
-        document.getElementById('cookieBanner').classList.add('show');
-      }, 1200);
+    var consent = localStorage.getItem('cookieConsent');
+    if (!consent) {
+      var banner = document.getElementById('cookieBanner');
+      if (banner) {
+        setTimeout(function() {
+          banner.classList.add('show');
+        }, 800);
+      }
     }
   });
 </script>
