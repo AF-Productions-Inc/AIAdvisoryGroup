@@ -156,6 +156,17 @@
     .wc-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--c3)}
     @media(max-width:900px){.why-section{padding-left:20px;padding-right:20px}.benefits-grid{grid-template-columns:1fr 1fr}}
     @media(max-width:560px){.benefits-grid{grid-template-columns:1fr}.why-cta{flex-wrap:wrap}.wc-divider{display:none}.wc-stat{border-bottom:1px solid var(--border)}}
+  
+    .cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:999;background:rgba(13,34,32,0.97);border-top:1px solid var(--border);backdrop-filter:blur(12px);padding:16px 48px;display:flex;align-items:center;justify-content:space-between;gap:20px;transform:translateY(100%);transition:transform 0.4s ease}
+    .cookie-banner.show{transform:translateY(0)}
+    .cookie-text{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--c3);line-height:1.6;max-width:600px}
+    .cookie-text a{color:var(--gold);text-decoration:none}
+    .cookie-btns{display:flex;gap:10px;flex-shrink:0}
+    .cookie-accept{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:9px 20px;background:var(--gold2);border:1px solid rgba(201,169,110,0.4);border-radius:2px;color:var(--gold);cursor:pointer;transition:all 0.2s}
+    .cookie-accept:hover{background:rgba(201,169,110,0.2);color:var(--cream)}
+    .cookie-decline{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:9px 16px;background:transparent;border:1px solid var(--border);border-radius:2px;color:var(--c4);cursor:pointer;transition:all 0.2s}
+    .cookie-decline:hover{border-color:var(--c3);color:var(--c3)}
+    @media(max-width:600px){.cookie-banner{padding:16px 20px;flex-direction:column}.cookie-btns{width:100%}.cookie-accept,.cookie-decline{flex:1;text-align:center}}
   </style>
 </head>
 <body>
@@ -286,7 +297,7 @@
 </div>
 
 <footer>
-  <div class="fc">© 2026 AI Advisory Group &nbsp;·&nbsp; contact@aiadvisorygroup.tech</div>
+  <div class="fc">© 2026 AI Advisory Group &nbsp;·&nbsp; A service of AF Productions Inc. &nbsp;·&nbsp; contact@aiadvisorygroup.tech</div>
   <div class="fl">
     <a href="privacy.html" class="fla">Privacy Policy</a>
     <a href="terms.html" class="fla">Terms & Conditions</a>
@@ -306,6 +317,16 @@
       }
     }
   });
+</script>
+<div class="cookie-banner" id="cookieBanner">
+  <div class="cookie-text">We use cookies to improve your experience. By clicking "Accept" you agree. See our <a href="privacy.html">Privacy Policy</a>.</div>
+  <div class="cookie-btns">
+    <button class="cookie-accept" onclick="localStorage.setItem('cookieConsent','accepted');document.getElementById('cookieBanner').classList.remove('show')">Accept</button>
+    <button class="cookie-decline" onclick="localStorage.setItem('cookieConsent','declined');document.getElementById('cookieBanner').classList.remove('show')">Decline</button>
+  </div>
+</div>
+<script>
+  window.addEventListener('DOMContentLoaded',function(){if(!localStorage.getItem('cookieConsent')){setTimeout(function(){document.getElementById('cookieBanner').classList.add('show')},1200);}});
 </script>
 </body>
 </html>
