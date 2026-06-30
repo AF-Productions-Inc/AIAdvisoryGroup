@@ -152,7 +152,7 @@
   <a href="index.html" class="nl"><div class="nli"><span>AI</span></div><span class="nn">AI Advisory Group</span></a>
   <div class="nav-right">
     <a href="index.html" class="nb">← Home</a>
-    <button class="admin-toggle" onclick="openAdmin()">✏️ Add Post</button>
+    <button class="admin-toggle" id="adminToggleBtn" onclick="openAdmin()" style="display:none;">✏️ Add Post</button>
   </div>
 </nav>
 
@@ -481,6 +481,20 @@ function openPost(id) {
 }
 
 // ── ADMIN ──
+// ── ADMIN ACCESS CONTROL ──
+// Secret access: visit blog.html?admin=1 to reveal the Add Post button.
+// Stays unlocked for this browser via localStorage until you clear it.
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var btn = document.getElementById('adminToggleBtn');
+  if (params.get('admin') === '1') {
+    localStorage.setItem('aagBlogAdmin', '1');
+  }
+  if (localStorage.getItem('aagBlogAdmin') === '1' && btn) {
+    btn.style.display = 'inline-flex';
+  }
+})();
+
 function openAdmin() {
   document.getElementById('adminOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
