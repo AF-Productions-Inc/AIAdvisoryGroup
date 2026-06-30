@@ -2,154 +2,157 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Done-For-You AI Agent Setup | The AI Advisory Group</title>
+  <title>Done-For-You AI Agent Setup | AI Advisory Group</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
-      --bg:#07080f;--surface:#0d0e18;--surface2:#12131f;
-      --border:rgba(99,102,241,0.12);--border2:rgba(255,255,255,0.06);
-      --text:#eeeeff;--dim:rgba(238,238,255,0.5);--dimmer:rgba(238,238,255,0.3);
-      --indigo:#6366f1;--violet:#8b5cf6;--cyan:#22d3ee;--emerald:#34d399;
-      --gradient:linear-gradient(135deg,#6366f1,#8b5cf6);
-      --gold:#f59e0b;
+      --bg:#091a18;--bg2:#0d2220;--bg3:#112926;
+      --cream:#e8dcc8;--c3:rgba(232,220,200,0.55);--c4:rgba(232,220,200,0.25);--c5:rgba(232,220,200,0.08);
+      --border:rgba(232,220,200,0.12);--border2:rgba(232,220,200,0.06);
+      --gold:#c9a96e;--gold2:rgba(201,169,110,0.12);
+      --green:#6fcf97;--green2:rgba(111,207,151,0.08);
+      --blue:#7fb8c4;--blue2:rgba(127,184,196,0.08);
     }
     html{scroll-behavior:smooth}
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
-    body::before{content:'';position:fixed;inset:0;
-      background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(99,102,241,0.07),transparent);
-      pointer-events:none;z-index:0}
+    body{font-family:'Crimson Pro',serif;background:var(--bg);color:var(--cream);overflow-x:hidden}
+    body::before{
+      content:'';position:fixed;inset:0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"),
+        /* Blueprint grid - this page's signature texture */
+        repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(127,184,196,0.025) 39px,rgba(127,184,196,0.025) 40px),
+        repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(127,184,196,0.025) 39px,rgba(127,184,196,0.025) 40px),
+        radial-gradient(ellipse 100% 50% at 50% 0%,rgba(20,70,55,0.4),transparent);
+      pointer-events:none;z-index:0;
+    }
 
-    nav{position:sticky;top:0;z-index:100;padding:0 40px;height:56px;display:flex;align-items:center;justify-content:space-between;background:rgba(7,8,15,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border2)}
-    .nl{display:flex;align-items:center;gap:10px;text-decoration:none}
-    .nli{width:32px;height:32px;border-radius:50%;background:var(--gradient);display:flex;align-items:center;justify-content:center}
-    .nli span{font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:700;color:#fff}
-    .nn{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim)}
-    .nb{font-size:11px;font-weight:600;color:var(--indigo);text-decoration:none;display:flex;align-items:center;gap:6px;transition:gap 0.2s}
-    .nb:hover{gap:10px}
+    nav{position:sticky;top:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(9,26,24,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .nl{text-decoration:none;display:flex;flex-direction:column;gap:1px}
+    .nl-main{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream)}
+    .nl-sub{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--c3)}
+    .nb{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--c3);text-decoration:none;transition:color 0.2s}
+    .nb:hover{color:var(--cream)}
 
     /* HERO */
-    .hero{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:80px 40px 60px}
-    .hero-tag{display:inline-flex;align-items:center;gap:8px;padding:5px 12px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.2);border-radius:20px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--indigo);margin-bottom:24px}
-    .hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,7vw,78px);font-weight:700;line-height:.95;letter-spacing:-2px;margin-bottom:24px}
-    .hero h1 .g{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .hero-layout{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:start}
-    .hero p{font-size:16px;line-height:1.8;color:var(--dim);margin-bottom:32px;font-weight:300}
-    .hero-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--gradient);border-radius:8px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s}
-    .hero-btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(99,102,241,0.35)}
-    .hero-features{display:flex;flex-direction:column;gap:12px}
-    .hf{display:flex;align-items:flex-start;gap:12px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;transition:border-color 0.3s}
-    .hf:hover{border-color:rgba(99,102,241,0.3)}
-    .hf-icon{width:34px;height:34px;border-radius:8px;background:rgba(99,102,241,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .hf-icon svg{width:16px;height:16px;fill:var(--indigo)}
-    .hf h4{font-size:12px;font-weight:700;margin-bottom:2px}
-    .hf p{font-size:11px;color:var(--dim);line-height:1.5}
+    .hero{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:72px 48px 60px}
+    .hero-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--blue);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+    .hero-label::before{content:'◇';color:var(--blue);font-size:11px}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(42px,6vw,72px);font-weight:900;line-height:.96;letter-spacing:-2px;text-transform:uppercase;margin-bottom:22px;max-width:760px}
+    .hero h1 em{font-style:italic;font-weight:400;color:var(--gold)}
+    .hero-desc{font-size:18px;line-height:1.8;color:var(--c3);font-weight:300;max-width:620px;margin-bottom:36px}
 
-    /* ── PRICING ── */
-    .section{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 40px 80px}
-    .sec-label{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--indigo);margin-bottom:40px;display:flex;align-items:center;gap:12px}
+    .hero-stats{display:flex;gap:0;border:1px solid var(--border);border-radius:2px;overflow:hidden;max-width:680px}
+    .hstat{flex:1;padding:18px 20px;border-right:1px solid var(--border);background:var(--bg2)}
+    .hstat:last-child{border-right:none}
+    .hstat-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--blue);line-height:1}
+    .hstat-label{font-family:'IBM Plex Mono',monospace;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:var(--c3);margin-top:4px}
+
+    /* SECTIONS */
+    .section{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 48px 80px}
+    .sec-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:32px;display:flex;align-items:center;gap:14px}
     .sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
+    .sec-label.blue{color:var(--blue)}
 
-    .pricing-tabs{display:flex;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:32px;width:fit-content}
-    .tab{padding:8px 20px;border-radius:7px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;color:var(--dim);border:none;background:transparent;font-family:'Inter',sans-serif}
-    .tab.active{background:var(--gradient);color:#fff}
+    /* PRICING - blueprint schematic cards */
+    .packages{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .pkg{background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:0;position:relative;display:flex;flex-direction:column;overflow:hidden;transition:border-color 0.25s,transform 0.25s}
+    .pkg:hover{border-color:rgba(201,169,110,0.3);transform:translateY(-4px)}
+    .pkg.featured{border-color:rgba(201,169,110,0.4)}
+    .pkg.featured::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+    .pkg-badge{position:absolute;top:16px;right:16px;font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);background:var(--gold2);border:1px solid rgba(201,169,110,0.3);padding:3px 9px;border-radius:1px}
+    .pkg-top{padding:28px 26px 0}
+    .pkg-phase{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+    .pkg-phase::before{content:'';width:14px;height:1px;background:var(--blue);opacity:0.5}
+    .pkg-name{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:6px;color:var(--cream)}
+    .pkg-price{font-family:'Playfair Display',serif;font-size:46px;font-weight:900;line-height:1;margin-bottom:6px;color:var(--gold)}
+    .pkg-note{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--c4);margin-bottom:10px}
+    .pkg-retainer{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:var(--blue2);border:1px solid rgba(127,184,196,0.2);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--blue);margin-bottom:22px}
+    .pkg-features{list-style:none;padding:0 26px;flex:1;display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+    .pkg-features li{font-size:13px;color:var(--c3);display:flex;align-items:flex-start;gap:9px;line-height:1.55;font-weight:300}
+    .pkg-features li::before{content:'—';color:var(--c4);flex-shrink:0;font-size:12px}
+    .pkg-features li.special{color:var(--cream)}
+    .pkg-features li.special::before{content:'◆';color:var(--gold);font-size:9px;margin-top:3px}
+    .pkg-actions{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--border)}
+    .btn-pay{display:block;text-align:center;padding:15px 20px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border)}
+    .btn-pay-outline{color:var(--gold);background:transparent}
+    .btn-pay-outline:hover{background:var(--gold2)}
+    .btn-retainer{color:var(--blue);background:var(--blue2);border-bottom:none}
+    .btn-retainer:hover{background:rgba(127,184,196,0.16)}
 
-    .packages{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:80px}
-    .pkg{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px 28px;position:relative;transition:transform 0.3s,border-color 0.3s,box-shadow 0.3s;display:flex;flex-direction:column}
-    .pkg:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,0.4)}
-    .pkg.featured{background:linear-gradient(160deg,#0f1028,#0d0e1e);border-color:rgba(99,102,241,0.4);box-shadow:0 0 0 1px rgba(99,102,241,0.15),0 24px 60px rgba(99,102,241,0.1)}
-    .pkg-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gradient);border-radius:20px;padding:4px 14px;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#fff;white-space:nowrap}
-    .pkg-phase{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--dimmer);margin-bottom:8px}
-    .pkg-name{font-size:18px;font-weight:700;margin-bottom:4px}
-    .pkg-price{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;line-height:1;margin-bottom:4px;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .pkg-note{font-size:11px;color:var(--dimmer);margin-bottom:6px}
-    .pkg-retainer{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);border-radius:6px;font-size:11px;color:var(--cyan);margin-bottom:24px;font-weight:500}
-    .pkg-features{list-style:none;flex:1;display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
-    .pkg-features li{font-size:12px;color:var(--dim);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
-    .pkg-features li::before{content:'✓';color:var(--emerald);font-weight:700;flex-shrink:0;font-size:11px;margin-top:1px}
-    .pkg-features li.special::before{content:'★';color:var(--gold)}
-    .pkg-actions{display:flex;flex-direction:column;gap:8px}
-    .btn-pay{display:block;text-align:center;padding:13px 20px;border-radius:8px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;text-decoration:none;transition:all 0.2s}
-    .btn-pay-gradient{background:var(--gradient);color:#fff}
-    .btn-pay-gradient:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(99,102,241,0.35)}
-    .btn-pay-outline{background:transparent;color:var(--indigo);border:1px solid rgba(99,102,241,0.35)}
-    .btn-pay-outline:hover{background:rgba(99,102,241,0.08);border-color:rgba(99,102,241,0.6)}
-    .btn-retainer{background:rgba(34,211,238,0.08);color:var(--cyan);border:1px solid rgba(34,211,238,0.2)}
-    .btn-retainer:hover{background:rgba(34,211,238,0.15)}
+    /* AGENTS GRID - numbered schematic */
+    .agents{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .agent{background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:24px;transition:border-color 0.25s,transform 0.25s;position:relative}
+    .agent:hover{border-color:rgba(127,184,196,0.3);transform:translateY(-3px)}
+    .agent-num{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--c4);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+    .agent-num::after{content:'';flex:1;height:1px;background:var(--border)}
+    .agent h3{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;margin-bottom:8px;color:var(--cream)}
+    .agent p{font-size:13.5px;color:var(--c3);line-height:1.7;font-weight:300;margin-bottom:12px}
+    .agent-tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:8px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);background:var(--blue2);border:1px solid rgba(127,184,196,0.2);padding:3px 8px;border-radius:1px}
 
-    /* Agents grid */
-    .agents{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:80px}
-    .agent{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:24px;transition:border-color 0.3s,transform 0.3s}
-    .agent:hover{border-color:rgba(99,102,241,0.25);transform:translateY(-3px)}
-    .agent-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:rgba(99,102,241,0.12);line-height:1;margin-bottom:10px}
-    .agent h3{font-size:13px;font-weight:700;margin-bottom:6px}
-    .agent p{font-size:12px;color:var(--dim);line-height:1.65}
-    .agent-tag{display:inline-block;margin-top:10px;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);padding:3px 8px;border-radius:4px}
-
-    /* Timeline */
-    .timeline{display:flex;gap:0;margin-bottom:80px;border:1px solid var(--border);border-radius:12px;overflow:hidden}
-    .ts{flex:1;padding:28px 20px;border-right:1px solid var(--border);transition:background 0.3s}
+    /* TIMELINE - schematic flow */
+    .timeline{display:flex;border:1px solid var(--border);border-radius:2px;overflow:hidden}
+    .ts{flex:1;padding:26px 18px;border-right:1px solid var(--border);background:var(--bg2);transition:background 0.25s;position:relative}
     .ts:last-child{border-right:none}
-    .ts:hover{background:var(--surface2)}
-    .ts-n{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--indigo);margin-bottom:10px}
-    .ts h4{font-size:13px;font-weight:700;margin-bottom:5px}
-    .ts p{font-size:11px;color:var(--dim);line-height:1.6}
+    .ts:hover{background:var(--bg3)}
+    .ts::after{content:'→';position:absolute;right:-9px;top:50%;transform:translateY(-50%);color:var(--c4);font-size:13px;z-index:2;background:var(--bg);width:18px;text-align:center}
+    .ts:last-child::after{display:none}
+    .ts-n{font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+    .ts h4{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;margin-bottom:6px;color:var(--cream)}
+    .ts p{font-size:11.5px;color:var(--c3);line-height:1.6;font-weight:300}
 
-    .cta-block{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:60px;text-align:center;position:relative;overflow:hidden}
-    .cta-block::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle,rgba(99,102,241,0.08),transparent 70%);pointer-events:none}
-    .cta-block h2{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;margin-bottom:14px;position:relative}
-    .cta-block p{font-size:15px;color:var(--dim);max-width:480px;margin:0 auto 28px;line-height:1.8;position:relative}
+    /* CTA */
+    .cta-block{background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:64px 48px;text-align:center;position:relative;overflow:hidden}
+    .cta-block::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+    .cta-block h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,42px);font-weight:900;text-transform:uppercase;letter-spacing:-1px;margin-bottom:16px}
+    .cta-block h2 em{font-style:italic;font-weight:400;color:var(--gold)}
+    .cta-block p{font-size:16px;color:var(--c3);max-width:480px;margin:0 auto 30px;line-height:1.8;font-weight:300}
+    .cta-btn{display:inline-flex;align-items:center;gap:10px;padding:15px 32px;background:transparent;border:1px solid var(--gold);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:all 0.25s}
+    .cta-btn:hover{background:var(--gold2);color:var(--cream)}
 
-    footer{position:relative;z-index:1;border-top:1px solid var(--border2);padding:24px 40px;text-align:center;font-size:11px;color:var(--dimmer)}
-    footer a{color:var(--indigo);text-decoration:none}
+    footer{position:relative;z-index:1;border-top:1px solid var(--border2);padding:24px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .fc{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--c4)}
+    .fl{display:flex;gap:20px}
+    .fla{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--c4);text-decoration:none;transition:color 0.2s}
+    .fla:hover{color:var(--cream)}
 
-    @media(max-width:900px){
-      nav,.hero,.section{padding-left:20px;padding-right:20px}
-      .hero-layout{grid-template-columns:1fr}
-      .packages{grid-template-columns:1fr}
-      .agents{grid-template-columns:1fr 1fr}
-      .timeline{flex-direction:column}
-      .ts{border-right:none;border-bottom:1px solid var(--border)}
-      .cta-block{padding:40px 24px}
-    }
-    @media(max-width:480px){.agents{grid-template-columns:1fr}}
+    @media(max-width:1000px){.packages,.agents{grid-template-columns:1fr 1fr}.timeline{flex-wrap:wrap}.ts{flex:1 1 33%;border-bottom:1px solid var(--border)}.ts::after{display:none}}
+    @media(max-width:700px){nav,.hero,.section{padding-left:20px;padding-right:20px}.packages,.agents{grid-template-columns:1fr}.hero-stats{flex-direction:column}.hstat{border-right:none;border-bottom:1px solid var(--border)}.timeline{flex-direction:column}.ts{border-right:none;flex:1}footer{padding:20px;flex-direction:column}}
   </style>
 </head>
 <body>
 <nav>
-  <a href="index.html" class="nl"><div class="nli"><span>AI</span></div><span class="nn">AI Advisory Group</span></a>
+  <a href="index.html" class="nl"><span class="nl-main">AI Advisory Group</span><span class="nl-sub">Strategic Intelligence</span></a>
   <a href="index.html" class="nb">← Home</a>
 </nav>
 
 <div class="hero">
-  <div class="hero-tag">Done-For-You Service</div>
-  <h1>Your AI Agents,<br><span class="g">Built & Deployed</span><br>For You.</h1>
-  <div class="hero-layout">
-    <div>
-      <p>We design, build, and deploy custom AI agent systems inside your business — handling lead response, customer service, reputation management, and more. Three phases. One goal: maximum ROI.</p>
-      <a href="#packages" class="hero-btn">View Packages ↓</a>
-    </div>
-    <div class="hero-features">
-      <div class="hf"><div class="hf-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></div><div><h4>Live in 7–14 Days</h4><p>From discovery to production deployment, fast.</p></div></div>
-      <div class="hf"><div class="hf-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg></div><div><h4>Trained on Your Business</h4><p>Agents use your data, voice, and processes.</p></div></div>
-      <div class="hf"><div class="hf-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/></svg></div><div><h4>No Technical Skills Needed</h4><p>We handle all the tech. You approve and launch.</p></div></div>
-    </div>
+  <div class="hero-label">Done-For-You Implementation</div>
+  <h1>Your AI Agents,<br>Built & Deployed<br><em>For You.</em></h1>
+  <p class="hero-desc">We don't hand you a chatbot and walk away. We design, build, train, and deploy custom AI agents inside your business — then stay on as your ongoing advisory partner.</p>
+
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-num">6</div><div class="hstat-label">Agent Types Available</div></div>
+    <div class="hstat"><div class="hstat-num">3</div><div class="hstat-label">Build Phases</div></div>
+    <div class="hstat"><div class="hstat-num">5</div><div class="hstat-label">Steps to Launch</div></div>
   </div>
 </div>
 
-<div class="section" id="packages">
-  <div class="sec-label">Service Packages</div>
+<div class="section">
+  <div class="sec-label blue">Choose Your Phase</div>
   <div class="packages">
 
     <!-- ESSENTIAL -->
     <div class="pkg">
-      <div class="pkg-phase">Phase 1</div>
-      <div class="pkg-name">Essential</div>
-      <div class="pkg-price">$5,497</div>
-      <div class="pkg-note">One-time build cost</div>
-      <div class="pkg-retainer">+ $8,000/mo retainer</div>
+      <div class="pkg-top">
+        <div class="pkg-phase">Phase 01</div>
+        <div class="pkg-name">Essential</div>
+        <div class="pkg-price">$5,497</div>
+        <div class="pkg-note">One-Time Build Cost</div>
+        <div class="pkg-retainer">+ $8,000/mo retainer</div>
+      </div>
       <ul class="pkg-features">
         <li class="special">AI Lead Response Agent</li>
         <li class="special">AI Review & Reputation Agent</li>
@@ -169,11 +172,13 @@
     <!-- GROWTH -->
     <div class="pkg featured">
       <div class="pkg-badge">Most Popular</div>
-      <div class="pkg-phase">Phase 2</div>
-      <div class="pkg-name">Growth</div>
-      <div class="pkg-price">$9,997</div>
-      <div class="pkg-note">One-time build cost</div>
-      <div class="pkg-retainer">+ $10,000/mo retainer</div>
+      <div class="pkg-top">
+        <div class="pkg-phase">Phase 02</div>
+        <div class="pkg-name">Growth</div>
+        <div class="pkg-price">$9,997</div>
+        <div class="pkg-note">One-Time Build Cost</div>
+        <div class="pkg-retainer">+ $10,000/mo retainer</div>
+      </div>
       <ul class="pkg-features">
         <li class="special">AI Lead Generation Engine</li>
         <li class="special">AI Customer Service Agent</li>
@@ -185,18 +190,20 @@
         <li>Priority support</li>
       </ul>
       <div class="pkg-actions">
-        <a href="https://buy.stripe.com/4gM9AV0EjeqOdtZ9jp1ck01" class="btn-pay btn-pay-gradient" target="_blank">Pay Build Cost — $9,997</a>
+        <a href="https://buy.stripe.com/4gM9AV0EjeqOdtZ9jp1ck01" class="btn-pay btn-pay-outline" target="_blank">Pay Build Cost — $9,997</a>
         <a href="https://buy.stripe.com/bJedRbcn1gyW75B3Z51ck04" class="btn-pay btn-retainer" target="_blank">Start Retainer — $10,000/mo</a>
       </div>
     </div>
 
     <!-- ELITE -->
     <div class="pkg">
-      <div class="pkg-phase">Phase 3</div>
-      <div class="pkg-name">Elite</div>
-      <div class="pkg-price">$14,997</div>
-      <div class="pkg-note">One-time build cost</div>
-      <div class="pkg-retainer">+ $15,000–$20,000/mo retainer</div>
+      <div class="pkg-top">
+        <div class="pkg-phase">Phase 03</div>
+        <div class="pkg-name">Elite</div>
+        <div class="pkg-price">$14,997</div>
+        <div class="pkg-note">One-Time Build Cost</div>
+        <div class="pkg-retainer">+ $15,000–$20,000/mo retainer</div>
+      </div>
       <ul class="pkg-features">
         <li class="special">Competitive Intelligence Dashboard</li>
         <li class="special">Workflow Automation Suite</li>
@@ -205,8 +212,6 @@
         <li>Business data training</li>
         <li>Tool integration</li>
         <li>Team onboarding</li>
-        <li>Monthly ROI reports</li>
-        <li>Priority support</li>
       </ul>
       <div class="pkg-actions">
         <a href="https://buy.stripe.com/00w7sNdr5ciG3Tp0MT1ck02" class="btn-pay btn-pay-outline" target="_blank">Pay Build Cost — $14,997</a>
@@ -214,7 +219,9 @@
       </div>
     </div>
   </div>
+</div>
 
+<div class="section">
   <div class="sec-label">What We Build For You</div>
   <div class="agents">
     <div class="agent"><div class="agent-num">01</div><h3>Lead Response Agent</h3><p>Responds to new leads within 90 seconds, qualifies them with smart questions, and books meetings automatically — 24/7.</p><span class="agent-tag">Sales</span></div>
@@ -224,25 +231,34 @@
     <div class="agent"><div class="agent-num">05</div><h3>Competitive Intel Dashboard</h3><p>Real-time monitoring of competitor activity, pricing, reviews, and market shifts — surfaced as actionable intelligence for your team.</p><span class="agent-tag">Strategy</span></div>
     <div class="agent"><div class="agent-num">06</div><h3>Multi-Agent Orchestration</h3><p>Multiple AI agents working in coordinated sequences — each handling a step in a complex workflow end to end without human input.</p><span class="agent-tag">Automation</span></div>
   </div>
+</div>
 
-  <div class="sec-label">How It Works</div>
+<div class="section">
+  <div class="sec-label blue">The Build Process</div>
   <div class="timeline">
     <div class="ts"><div class="ts-n">Step 01</div><h4>Discovery Call</h4><p>We learn your business, goals, and biggest operational bottlenecks.</p></div>
     <div class="ts"><div class="ts-n">Step 02</div><h4>Agent Design</h4><p>We map workflows and select the right AI stack for your use case.</p></div>
     <div class="ts"><div class="ts-n">Step 03</div><h4>Build & Train</h4><p>We build, train on your data, and test every agent rigorously.</p></div>
     <div class="ts"><div class="ts-n">Step 04</div><h4>Your Review</h4><p>You approve, request refinements, and sign off before launch.</p></div>
-    <div class="ts"><div class="ts-n">Step 05</div><h4>Go Live</h4><p>Deployed to your tools. Your team onboarded. Results tracked from day one.</p></div>
+    <div class="ts"><div class="ts-n">Step 05</div><h4>Go Live</h4><p>Deployed to your tools. Team onboarded. Results tracked from day one.</p></div>
   </div>
+</div>
 
+<div class="section">
   <div class="cta-block">
-    <h2>Not Sure Which Phase to Start With?</h2>
+    <h2>Not Sure Which Phase<br>to <em>Start With?</em></h2>
     <p>Book a free 30-minute AI audit and we'll tell you exactly which phase makes the most sense for where your business is today.</p>
-    <a href="https://cal.com/aiadvisorygroup/30min" target="_blank" class="hero-btn">Book a Free Scoping Call →</a>
+    <a href="https://cal.com/aiadvisorygroup/30min" target="_blank" class="cta-btn">Book a Free Scoping Call →</a>
   </div>
 </div>
 
 <footer>
-  <a href="index.html">← Home</a> &nbsp;·&nbsp; <a href="mailto:contact@aiadvisorygroup.tech">contact@aiadvisorygroup.tech</a> &nbsp;·&nbsp; © 2026 The AI Advisory Group
+  <div class="fc">© 2026 AI Advisory Group &nbsp;·&nbsp; A service of AF Productions Inc. &nbsp;·&nbsp; contact@aiadvisorygroup.tech</div>
+  <div class="fl">
+    <a href="privacy.html" class="fla">Privacy Policy</a>
+    <a href="terms.html" class="fla">Terms & Conditions</a>
+    <a href="index.html" class="fla">← Home</a>
+  </div>
 </footer>
 </body>
 </html>
