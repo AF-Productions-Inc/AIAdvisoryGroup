@@ -6,7 +6,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{
@@ -122,6 +121,9 @@
 
     @media(max-width:900px){.main{grid-template-columns:1fr}.faq-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
     @media(max-width:600px){nav,.hero,.main,.faq{padding-left:20px;padding-right:20px}footer{padding:20px;flex-direction:column}}
+  
+    .tally-frame{border-radius:4px;overflow:hidden;min-height:560px;background:#fff}
+    .tally-frame iframe{display:block;min-height:560px}
   </style>
 </head>
 <body>
@@ -169,35 +171,20 @@
     <h2 class="form-title">Send a Message</h2>
     <p class="form-sub">Tell us what you're working on. We reply with something genuinely useful — not a template.</p>
 
-    <div class="form-status" id="formStatus"></div>
-
-    <form id="contactForm" onsubmit="handleSubmit(event)">
-      <div class="form-row">
-        <div class="form-group"><label>First Name</label><input type="text" name="first_name" placeholder="First" required/></div>
-        <div class="form-group"><label>Last Name</label><input type="text" name="last_name" placeholder="Last" required/></div>
-      </div>
-      <div class="form-group"><label>Email Address</label><input type="email" name="email" placeholder="you@company.com" required/></div>
-      <div class="form-group"><label>Company / Organization</label><input type="text" name="company" placeholder="Your business name"/></div>
-      <div class="form-group">
-        <label>What Can We Help With?</label>
-        <select name="topic" required>
-          <option value="" disabled selected>Select a topic</option>
-          <option>AI Strategy & Consulting</option>
-          <option>Done-For-You AI Agent Setup</option>
-          <option>30-Minute AI Audit (Free)</option>
-          <option>Monthly Advisory Retainer</option>
-          <option>Inner Circle Membership</option>
-          <option>Speaking & Keynotes</option>
-          <option>General Inquiry</option>
-          <option>Partnership Opportunity</option>
-        </select>
-      </div>
-      <div class="form-group"><label>Message</label><textarea name="message" placeholder="Tell us about your business, goals, and what you're hoping AI can help with..." required></textarea></div>
-      <button type="submit" class="submit-btn" id="submitBtn">
-        <span id="btnText">Send Message →</span>
-      </button>
-      <p class="submit-note">We respond to every inquiry personally within 24 hours.</p>
-    </form>
+    <div class="tally-frame">
+      <iframe
+        src="https://tally.so/embed/YOUR_CONTACT_FORM_ID?dynamicHeight=1&formEventsForwarding=1&alignLeft=0&hideTitle=1&transparentBackground=0"
+        loading="lazy"
+        width="100%"
+        height="560"
+        frameborder="0"
+        marginheight="0"
+        marginwidth="0"
+        title="Send a Message"
+        style="border:none;background:#fff;border-radius:4px;">
+      </iframe>
+    </div>
+    <p class="submit-note">We respond to every inquiry personally within 24 hours.</p>
   </div>
 </div>
 
@@ -221,49 +208,15 @@
 </footer>
 
 <script>
-  const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
-  const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
-  const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
-
-  const isConfigured = !EMAILJS_PUBLIC_KEY.includes('YOUR_');
-
-  if (isConfigured) {
-    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-    document.getElementById('setupNotice').style.display = 'none';
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const btn     = document.getElementById('submitBtn');
-    const btnText = document.getElementById('btnText');
-    const status  = document.getElementById('formStatus');
-    const form    = document.getElementById('contactForm');
-
-    if (!isConfigured) {
-      const data = Object.fromEntries(new FormData(form));
-      const body = `Name: ${data.first_name} ${data.last_name}\nEmail: ${data.email}\nCompany: ${data.company}\nTopic: ${data.topic}\n\nMessage:\n${data.message}`;
-      window.location.href = `mailto:contact@aiadvisorygroup.tech?subject=Website Inquiry: ${data.topic}&body=${encodeURIComponent(body)}`;
-      return;
+  // Post-submit: show a confirmation message when Tally form is submitted
+  window.addEventListener("message", function(e) {
+    if (e.data && e.data.event === "Tally.FormSubmitted") {
+      var wrap = document.querySelector(".form-card");
+      if (wrap) {
+        wrap.innerHTML = '<div style="text-align:center;padding:48px 20px"><div style="width:56px;height:56px;border-radius:50%;background:rgba(111,207,151,0.1);border:1px solid rgba(111,207,151,0.2);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:22px;color:#6fcf97">&#10003;</div><h3 style="font-family:\'Playfair Display\',serif;font-size:26px;font-weight:700;margin-bottom:10px;color:#e8dcc8">Message sent!</h3><p style="font-size:15px;color:rgba(232,220,200,0.55);line-height:1.7;font-weight:300">We\'ll get back to you within 24 hours.</p></div>';
+      }
     }
-
-    btn.disabled = true;
-    btnText.textContent = 'Sending...';
-    status.className = 'form-status sending';
-    status.textContent = 'Sending your message...';
-
-    try {
-      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form);
-      status.className = 'form-status success';
-      status.textContent = '✓ Message sent! We\'ll respond within 24 hours.';
-      form.reset();
-      btnText.textContent = '✓ Message Sent';
-    } catch (err) {
-      status.className = 'form-status error';
-      status.textContent = 'Something went wrong. Please email us directly at contact@aiadvisorygroup.tech';
-      btn.disabled = false;
-      btnText.textContent = 'Try Again →';
-    }
-  }
+  });
 </script>
 </body>
 </html>
