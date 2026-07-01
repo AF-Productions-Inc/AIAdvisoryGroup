@@ -488,6 +488,13 @@ AI agents require ongoing management. Your business changes — you add services
 
 Successful AI deployment starts narrow — one specific workflow, fully implemented and working well — before expanding. The discipline of doing one thing completely before adding a second creates the operational knowledge and team confidence that makes broader deployment successful.", "readTime": "9 min read", "featured": false}];
 
+// Version key — bump this whenever DEFAULT_POSTS changes to clear stale localStorage cache
+const POSTS_VERSION = 'v3';
+const storedVersion = localStorage.getItem('aiadv_posts_version');
+if (storedVersion !== POSTS_VERSION) {
+  localStorage.removeItem('aiadv_posts');
+  localStorage.setItem('aiadv_posts_version', POSTS_VERSION);
+}
 let allPosts = JSON.parse(localStorage.getItem('aiadv_posts') || 'null') || DEFAULT_POSTS;
 let currentFilter = 'all';
 let visibleCount = 6;
