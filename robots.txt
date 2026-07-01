@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /downloads.html
+
+Sitemap: https://aiadvisorygroup.tech/sitemap.xml
+
+# AI Advisory Group — aiadvisorygroup.tech
