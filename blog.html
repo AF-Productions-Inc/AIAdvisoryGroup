@@ -515,6 +515,12 @@ if (storedVersion !== POSTS_VERSION) {
   localStorage.removeItem('aiadv_posts');
   localStorage.setItem('aiadv_posts_version', POSTS_VERSION);
 }
+// Cache-bust: version key forces fresh DEFAULT_POSTS when content changes
+const POST_VER = 'aag-v4-2026';
+if (localStorage.getItem('aadv_post_ver') !== POST_VER) {
+  localStorage.removeItem('aiadv_posts');
+  localStorage.setItem('aadv_post_ver', POST_VER);
+}
 let allPosts = JSON.parse(localStorage.getItem('aiadv_posts') || 'null') || DEFAULT_POSTS;
 let currentFilter = 'all';
 let visibleCount = 6;
