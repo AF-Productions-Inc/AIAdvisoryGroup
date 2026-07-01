@@ -87,11 +87,11 @@
     .tier-list li::before{content:'—';color:var(--c4);flex-shrink:0;font-size:12px}
     .tier-list li.h{color:var(--cream)}
     .tier-list li.h::before{content:'◆';color:var(--green);font-size:9px;margin-top:3px}
-    .tier-actions{display:flex;flex-direction:column;border-top:1px solid var(--border)}
-    .tbtn{display:block;text-align:center;padding:15px 20px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all 0.2s;border-bottom:1px solid var(--border)}
-    .tbtn-fill{color:var(--green);background:var(--green2)}
+    .tier-actions{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--border);padding:14px}
+    .tbtn{display:block;text-align:center;padding:14px 20px;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;transition:all 0.2s;border-radius:6px}
+    .tbtn-fill{color:var(--green);background:var(--green2);border:1px solid rgba(111,207,151,0.3)}
     .tbtn-fill:hover{background:rgba(111,207,151,0.2)}
-    .tbtn-build{color:var(--gold);background:transparent;border-bottom:none}
+    .tbtn-build{color:var(--gold);background:transparent;border:1px solid rgba(201,169,110,0.3)}
     .tbtn-build:hover{background:var(--gold2)}
 
     /* CTA */
@@ -121,7 +121,7 @@
 <div class="hero">
   <div>
     <div class="hero-label">Ongoing Advisory</div>
-    <h1>AI That Keeps<br><em>Growing</em><br>With You.</h1>
+    <h1>AI That Keeps<br><em>Growing</em> With You.</h1>
     <p class="hero-desc">A dedicated monthly advisory relationship that keeps your business running on the cutting edge of AI — ongoing management, strategy, and support built in at every phase.</p>
     <a href="#tiers" class="hero-btn">View Retainer Plans ↓</a>
   </div>
