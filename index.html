@@ -128,7 +128,7 @@
     .cookie-btns{width:100%}.cookie-accept,.cookie-decline{flex:1;text-align:center}}
   
     /* ── Airport flicker board ── */
-    .char-cell{display:inline-block;width:.72ch;text-align:center;line-height:1}
+    .char-cell{display:inline-block;width:.78ch;text-align:center;line-height:1;letter-spacing:0}
     @keyframes cellflip{
       0%  {transform:rotateX(0deg);opacity:1}
       40% {transform:rotateX(-90deg);opacity:0.15}
@@ -154,7 +154,7 @@
 </nav>
 
 <div class="hero">
-  <div class="hero-kicker">Irvine, CA &nbsp;·&nbsp; Operating Globally</div>
+  <div class="hero-kicker">Irvine, CA &nbsp;·&nbsp; Operating&thinsp;<span id="flickerBoard2" style="display:inline-block;min-width:140px;letter-spacing:4px;color:rgba(232,220,200,0.4);font-family:'IBM Plex Mono',monospace;font-size:10px;"></span></div>
   <h1>AI Advisory<em>Group</em></h1>
   <div class="hero-rule"></div>
   <p class="hero-desc">Not another chatbot demo. Strategic AI implementation for founders, operators, and institutions building at the frontier of artificial intelligence.</p>
@@ -214,7 +214,7 @@
       <span class="link-arrow">→</span>
     </a>
   </div>
-  <div class="location">Based in Irvine, CA &nbsp;·&nbsp; Operating <span id="flickerBoard" style="display:inline-block;min-width:130px;letter-spacing:3px;color:#c9a96e;font-family:'IBM Plex Mono',monospace"></span></div>
+  <div class="location">Based in Irvine, CA &nbsp;·&nbsp; Operating&thinsp;<span id="flickerBoard" style="display:inline-block;min-width:140px;letter-spacing:4px;color:var(--c4);font-family:'IBM Plex Mono',monospace;font-size:9px;"></span></div>
 </div>
 
 <footer>
@@ -254,7 +254,7 @@
 <script>
 (function(){
   var CITIES = [
-    'in Globally',
+    'Globally',
     'in New York',
     'in London',
     'in Dubai',
@@ -271,28 +271,27 @@
     'in Chicago',
   ];
   var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ·- ';
-  var board = document.getElementById('flickerBoard');
   var currentIdx = 0;
-  if (!board) return;
 
-  function setPlain(txt) {
+  function setPlain(board, txt) {
+    if (!board) return;
     board.textContent = txt.toUpperCase();
   }
 
-  function flipTo(newCity) {
+  function flipTo(board, newCity) {
+    if (!board) return;
     var target = newCity.toUpperCase();
     var current = board.textContent.padEnd(target.length, ' ');
     var maxLen = Math.max(target.length, current.length);
-    // Build char cells
+    var uid = board.id;
     var html = '';
     for (var i = 0; i < maxLen; i++) {
-      html += '<span class="char-cell" id="fc'+i+'">'+(current[i]||' ')+'</span>';
+      html += '<span class="char-cell" id="'+uid+'c'+i+'">'+(current[i]||' ')+'</span>';
     }
     board.innerHTML = html;
-    // Animate each cell
     for (var j = 0; j < maxLen; j++) {
       (function(idx){
-        var cell = document.getElementById('fc'+idx);
+        var cell = document.getElementById(uid+'c'+idx);
         if (!cell) return;
         var finalChar = (target[idx]||' ');
         var delay = idx * 38 + Math.random() * 30;
@@ -315,16 +314,22 @@
     }
   }
 
-  // Init with "in Globally"
-  setPlain(CITIES[0]);
+  var b1 = document.getElementById('flickerBoard');
+  var b2 = document.getElementById('flickerBoard2');
 
-  // First flip after 2.5s, then every 3.2s
+  // Init both with 'Globally'
+  setPlain(b1, CITIES[0]);
+  setPlain(b2, CITIES[0]);
+
+  // First flip after 2.5s, then every 3.2s — both boards stay in sync
   setTimeout(function(){
     currentIdx = 1;
-    flipTo(CITIES[currentIdx]);
+    flipTo(b1, CITIES[currentIdx]);
+    flipTo(b2, CITIES[currentIdx]);
     setInterval(function(){
       currentIdx = (currentIdx + 1) % CITIES.length;
-      flipTo(CITIES[currentIdx]);
+      flipTo(b1, CITIES[currentIdx]);
+      flipTo(b2, CITIES[currentIdx]);
     }, 3200);
   }, 2500);
 })();
