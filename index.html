@@ -126,6 +126,16 @@
     .cookie-decline:hover{color:rgba(232,220,200,0.6);border-color:rgba(232,220,200,0.25)}
     @media(max-width:640px){#cookieBanner{padding:16px 20px;flex-direction:column;align-items:flex-start}
     .cookie-btns{width:100%}.cookie-accept,.cookie-decline{flex:1;text-align:center}}
+  
+    /* ── Airport flicker board ── */
+    .char-cell{display:inline-block;width:.72ch;text-align:center;line-height:1}
+    @keyframes cellflip{
+      0%  {transform:rotateX(0deg);opacity:1}
+      40% {transform:rotateX(-90deg);opacity:0.15}
+      60% {transform:rotateX(90deg);opacity:0.15}
+      100%{transform:rotateX(0deg);opacity:1}
+    }
+    .char-cell.flipping{animation:cellflip 0.1s ease-in-out both}
   </style>
 </head>
 <body>
@@ -204,7 +214,7 @@
       <span class="link-arrow">→</span>
     </a>
   </div>
-  <div class="location">Based in Irvine, CA &nbsp;·&nbsp; Operating Globally</div>
+  <div class="location">Based in Irvine, CA &nbsp;·&nbsp; Operating <span id="flickerBoard" style="display:inline-block;min-width:130px;letter-spacing:3px;color:#c9a96e;font-family:'IBM Plex Mono',monospace"></span></div>
 </div>
 
 <footer>
@@ -239,6 +249,85 @@
       if (b) b.classList.add('show');
     }
   })();
+</script>
+
+<script>
+(function(){
+  var CITIES = [
+    'in Globally',
+    'in New York',
+    'in London',
+    'in Dubai',
+    'in Tokyo',
+    'in Singapore',
+    'in Los Angeles',
+    'in Sydney',
+    'in Paris',
+    'in Toronto',
+    'in Miami',
+    'in Hong Kong',
+    'in Berlin',
+    'in São Paulo',
+    'in Chicago',
+  ];
+  var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ·- ';
+  var board = document.getElementById('flickerBoard');
+  var currentIdx = 0;
+  if (!board) return;
+
+  function setPlain(txt) {
+    board.textContent = txt.toUpperCase();
+  }
+
+  function flipTo(newCity) {
+    var target = newCity.toUpperCase();
+    var current = board.textContent.padEnd(target.length, ' ');
+    var maxLen = Math.max(target.length, current.length);
+    // Build char cells
+    var html = '';
+    for (var i = 0; i < maxLen; i++) {
+      html += '<span class="char-cell" id="fc'+i+'">'+(current[i]||' ')+'</span>';
+    }
+    board.innerHTML = html;
+    // Animate each cell
+    for (var j = 0; j < maxLen; j++) {
+      (function(idx){
+        var cell = document.getElementById('fc'+idx);
+        if (!cell) return;
+        var finalChar = (target[idx]||' ');
+        var delay = idx * 38 + Math.random() * 30;
+        setTimeout(function(){
+          var scrambles = 0;
+          var max = 2 + Math.floor(Math.random() * 3);
+          var iv = setInterval(function(){
+            if (scrambles >= max) {
+              clearInterval(iv);
+              cell.classList.add('flipping');
+              cell.textContent = finalChar;
+              setTimeout(function(){ cell.classList.remove('flipping'); }, 100);
+              return;
+            }
+            cell.textContent = CHARS[Math.floor(Math.random()*CHARS.length)];
+            scrambles++;
+          }, 45);
+        }, delay);
+      })(j);
+    }
+  }
+
+  // Init with "in Globally"
+  setPlain(CITIES[0]);
+
+  // First flip after 2.5s, then every 3.2s
+  setTimeout(function(){
+    currentIdx = 1;
+    flipTo(CITIES[currentIdx]);
+    setInterval(function(){
+      currentIdx = (currentIdx + 1) % CITIES.length;
+      flipTo(CITIES[currentIdx]);
+    }, 3200);
+  }, 2500);
+})();
 </script>
 </body>
 </html>
