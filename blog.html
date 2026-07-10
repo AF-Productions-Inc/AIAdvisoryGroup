@@ -162,7 +162,9 @@
 
     @media(max-width:900px){.post-featured{grid-template-columns:1fr}.posts-grid{grid-template-columns:1fr 1fr}}
     @media(max-width:700px){nav,.hero,.filter-bar,.posts-wrap,.newsletter,footer,.load-more-wrap{padding-left:20px;padding-right:20px}.posts-grid{grid-template-columns:1fr}.nl-form{flex-direction:column}footer{flex-direction:column}}
-  </style>
+  .post-title-link{color:inherit;text-decoration:none;transition:color 0.2s}
+.post-title-link:hover{color:var(--gold);text-decoration:underline}
+</style>
 </head>
 <body>
 
@@ -272,7 +274,7 @@ function renderPosts() {
         <div class="pf-img"><div class="pf-img-label">${post.title}</div></div>
         <div class="pf-content">
           <span class="post-cat ${getCatClass(post.category)}">${post.category}</span>
-          <h2><a href="${post.slug}" style="color:inherit;text-decoration:none">${post.title}</a></h2>
+          <h2><a href="${post.slug}" class="post-title-link">${post.title}</a></h2>
           <p>${post.excerpt}</p>
           <div class="post-meta">
             <span>${formatDate(post.date)}</span>
@@ -289,7 +291,7 @@ function renderPosts() {
       <div class="post-card" onclick="openPost(${post.id})">
         <div class="pc-header"><span class="post-cat ${getCatClass(post.category)}">${post.category}</span></div>
         <div class="pc-body">
-          <h3><a href="${post.slug}" style="color:inherit;text-decoration:none">${post.title}</a></h3>
+          <h3><a href="${post.slug}" class="post-title-link">${post.title}</a></h3>
           <p>${post.excerpt}</p>
           <div class="pc-footer">
             <div class="pc-meta">${formatDate(post.date)} · ${post.readTime}</div>
