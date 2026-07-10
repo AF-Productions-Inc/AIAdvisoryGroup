@@ -140,7 +140,9 @@
 
     @media(max-width:1000px){.packages,.agents{grid-template-columns:1fr 1fr}.timeline{flex-wrap:wrap}.ts{flex:1 1 33%;border-bottom:1px solid var(--border)}.ts::after{display:none}}
     @media(max-width:700px){nav,.hero,.section{padding-left:20px;padding-right:20px}.packages,.agents{grid-template-columns:1fr}.hero-stats{flex-direction:column}.hstat{border-right:none;border-bottom:1px solid var(--border)}.timeline{flex-direction:column}.ts{border-right:none;flex:1}footer{padding:20px;flex-direction:column}}
-  </style>
+  .agent-link{color:inherit;text-decoration:none;transition:color 0.2s}
+.agent-link:hover{color:var(--blue);text-decoration:underline}
+</style>
 </head>
 <body>
 <nav>
@@ -244,12 +246,12 @@
 <div class="section">
   <div class="sec-label">What We Build For You</div>
   <div class="agents">
-    <div class="agent"><div class="agent-num">01</div><h3><a href="ai-lead-response-agent.html" style="color:inherit;text-decoration:none">Lead Response Agent</a></h3><p>Responds to new leads within 90 seconds, qualifies them with smart questions, and books meetings automatically — 24/7.</p><span class="agent-tag">Sales</span></div>
-    <div class="agent"><div class="agent-num">02</div><h3><a href="ai-review-reputation-agent.html" style="color:inherit;text-decoration:none">Review & Reputation Agent</a></h3><p>Monitors, responds to, and manages your online reviews across Google, Yelp, and industry platforms — protecting your brand.</p><span class="agent-tag">Reputation</span></div>
-    <div class="agent"><div class="agent-num">03</div><h3><a href="ai-customer-service-agent.html" style="color:inherit;text-decoration:none">Customer Service Agent</a></h3><p>Handles FAQs, order inquiries, and support tickets with your knowledge base. Escalates to human when needed.</p><span class="agent-tag">Support</span></div>
-    <div class="agent"><div class="agent-num">04</div><h3><a href="ai-lead-generation-engine.html" style="color:inherit;text-decoration:none">Lead Generation Engine</a></h3><p>Proactively identifies, qualifies, and engages your ideal prospects across multiple channels — filling your pipeline automatically.</p><span class="agent-tag">Growth</span></div>
-    <div class="agent"><div class="agent-num">05</div><h3><a href="competitive-intelligence-dashboard.html" style="color:inherit;text-decoration:none">Competitive Intel Dashboard</a></h3><p>Real-time monitoring of competitor activity, pricing, reviews, and market shifts — surfaced as actionable intelligence for your team.</p><span class="agent-tag">Strategy</span></div>
-    <div class="agent"><div class="agent-num">06</div><h3><a href="multi-agent-orchestration.html" style="color:inherit;text-decoration:none">Multi-Agent Orchestration</a></h3><p>Multiple AI agents working in coordinated sequences — each handling a step in a complex workflow end to end without human input.</p><span class="agent-tag">Automation</span></div>
+    <div class="agent"><div class="agent-num">01</div><h3><a href="ai-lead-response-agent.html" class="agent-link">Lead Response Agent</a></h3><p>Responds to new leads within 90 seconds, qualifies them with smart questions, and books meetings automatically — 24/7.</p><span class="agent-tag">Sales</span></div>
+    <div class="agent"><div class="agent-num">02</div><h3><a href="ai-review-reputation-agent.html" class="agent-link">Review & Reputation Agent</a></h3><p>Monitors, responds to, and manages your online reviews across Google, Yelp, and industry platforms — protecting your brand.</p><span class="agent-tag">Reputation</span></div>
+    <div class="agent"><div class="agent-num">03</div><h3><a href="ai-customer-service-agent.html" class="agent-link">Customer Service Agent</a></h3><p>Handles FAQs, order inquiries, and support tickets with your knowledge base. Escalates to human when needed.</p><span class="agent-tag">Support</span></div>
+    <div class="agent"><div class="agent-num">04</div><h3><a href="ai-lead-generation-engine.html" class="agent-link">Lead Generation Engine</a></h3><p>Proactively identifies, qualifies, and engages your ideal prospects across multiple channels — filling your pipeline automatically.</p><span class="agent-tag">Growth</span></div>
+    <div class="agent"><div class="agent-num">05</div><h3><a href="competitive-intelligence-dashboard.html" class="agent-link">Competitive Intel Dashboard</a></h3><p>Real-time monitoring of competitor activity, pricing, reviews, and market shifts — surfaced as actionable intelligence for your team.</p><span class="agent-tag">Strategy</span></div>
+    <div class="agent"><div class="agent-num">06</div><h3><a href="multi-agent-orchestration.html" class="agent-link">Multi-Agent Orchestration</a></h3><p>Multiple AI agents working in coordinated sequences — each handling a step in a complex workflow end to end without human input.</p><span class="agent-tag">Automation</span></div>
   </div>
 </div>
 
