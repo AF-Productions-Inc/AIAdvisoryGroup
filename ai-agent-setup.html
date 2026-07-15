@@ -139,7 +139,7 @@
     .fla:hover{color:var(--cream)}
 
     @media(max-width:1000px){.packages,.agents{grid-template-columns:1fr 1fr}.timeline{flex-wrap:wrap}.ts{flex:1 1 33%;border-bottom:1px solid var(--border)}.ts::after{display:none}}
-    @media(max-width:700px){nav,.hero,.section{padding-left:20px;padding-right:20px}.packages,.agents{grid-template-columns:1fr}.hero-stats{flex-direction:column}.hstat{border-right:none;border-bottom:1px solid var(--border)}.timeline{flex-direction:column}.ts{border-right:none;flex:1}footer{padding:20px;flex-direction:column}}
+    @media(max-width:700px){.faq-grid-pg{grid-template-columns:1fr !important}nav,.hero,.section{padding-left:20px;padding-right:20px}.packages,.agents{grid-template-columns:1fr}.hero-stats{flex-direction:column}.hstat{border-right:none;border-bottom:1px solid var(--border)}.timeline{flex-direction:column}.ts{border-right:none;flex:1}footer{padding:20px;flex-direction:column}}
   .agent-link{color:inherit;text-decoration:none;transition:color 0.2s}
 .agent-link:hover{color:var(--blue);text-decoration:underline}
 </style>
@@ -263,6 +263,17 @@
     <div class="ts"><div class="ts-n">Step 03</div><h4>Build & Train</h4><p>We build, train on your data, and test every agent rigorously.</p></div>
     <div class="ts"><div class="ts-n">Step 04</div><h4>Your Review</h4><p>You approve, request refinements, and sign off before launch.</p></div>
     <div class="ts"><div class="ts-n">Step 05</div><h4>Go Live</h4><p>Deployed to your tools. Team onboarded. Results tracked from day one.</p></div>
+  </div>
+</div>
+
+
+<div class="section">
+  <div class="sec-label">Common Questions</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px" class="faq-grid-pg">
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:24px"><h4 style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px">Do I own the AI agents?</h4><p style="font-size:13.5px;color:var(--c3);line-height:1.7;font-weight:300">Yes. Your trained prompts, your data, and your configurations are yours. If we ever part ways, you keep everything — we hand over full documentation.</p></div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:24px"><h4 style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px">How long until it's live?</h4><p style="font-size:13.5px;color:var(--c3);line-height:1.7;font-weight:300">Essential builds go live in about 3 weeks. Growth in 4–5 weeks. Elite is phased over 6–8 weeks. The clock starts the day your intake questionnaire comes back.</p></div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:24px"><h4 style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px">What's the contract term?</h4><p style="font-size:13.5px;color:var(--c3);line-height:1.7;font-weight:300">The first 90 days are committed — agents need a real tuning cycle to prove out. After that, retainers are month-to-month. No multi-year lock-ins.</p></div>
+    <div style="background:var(--bg2);border:1px solid var(--border);border-radius:2px;padding:24px"><h4 style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:10px">What if the agent gives a wrong answer?</h4><p style="font-size:13.5px;color:var(--c3);line-height:1.7;font-weight:300">Complex or sensitive conversations escalate to your team automatically, with full context attached. We review interactions weekly during the first 60 days and tune continuously — that's what the retainer is for.</p></div>
   </div>
 </div>
 
