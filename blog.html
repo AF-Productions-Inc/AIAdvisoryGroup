@@ -316,33 +316,12 @@ function loadMore() {
   renderPosts();
 }
 
+const POST_URLS = {"1": "ai-agents-small-business-vs-enterprise.html", "2": "ai-agent-setup-home-services-guide.html", "3": "ai-agents-vs-hiring-cost-comparison.html", "4": "ai-lead-generation-local-service-business.html", "5": "medspa-ai-integration-guide.html", "6": "ai-readiness-audit-10-questions.html", "7": "real-estate-ai-agents-guide.html", "8": "ai-implementation-mistakes.html"};
 function openPost(id) {
+  if (POST_URLS[String(id)]) { window.location.href = POST_URLS[String(id)]; return; }
   const post = allPosts.find(p => p.id === id);
   if (!post) return;
-  const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px';
-  overlay.innerHTML = `
-    <div style="background:#0d2220;border:1px solid rgba(232,220,200,0.15);border-radius:6px;max-width:680px;width:100%;max-height:88vh;overflow-y:auto;box-shadow:0 32px 80px rgba(0,0,0,0.5)">
-      <div style="padding:24px 32px;border-bottom:1px solid rgba(232,220,200,0.12);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#0d2220;z-index:1">
-        <span class="post-cat ${getCatClass(post.category)}">${post.category}</span>
-        <button onclick="this.closest('[style]').remove()" style="width:30px;height:30px;border-radius:4px;background:rgba(232,220,200,0.06);border:1px solid rgba(232,220,200,0.12);font-size:16px;cursor:pointer;color:rgba(232,220,200,0.55)">✕</button>
-      </div>
-      <div style="padding:36px 32px">
-        <h1 style="font-family:'Playfair Display',serif;font-size:30px;font-weight:700;line-height:1.2;margin-bottom:16px;color:#e8dcc8">${post.title}</h1>
-        <div style="display:flex;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.5px;color:rgba(232,220,200,0.4);margin-bottom:32px;flex-wrap:wrap">
-          <span>${formatDate(post.date)}</span><span>·</span><span>${post.readTime}</span><span>·</span><span>${post.author}</span>
-        </div>
-        <div style="font-size:16px;line-height:1.85;color:rgba(232,220,200,0.75);font-weight:300;font-family:'Crimson Pro',serif">
-          ${(post.content || post.excerpt).split('\n\n').map(p => `<p style="margin-bottom:18px">${p}</p>`).join('')}
-        </div>
-        <div style="margin-top:36px;padding-top:24px;border-top:1px solid rgba(232,220,200,0.12);display:flex;gap:12px;align-items:center;flex-wrap:wrap">
-          <a href="https://cal.com/aiadvisorygroup/30min" target="_blank" style="padding:12px 24px;background:rgba(201,169,110,0.12);border:1px solid rgba(201,169,110,0.4);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#c9a96e;text-decoration:none">Book a Free AI Audit →</a>
-          <a href="contact.html" style="padding:12px 20px;border:1px solid rgba(232,220,200,0.12);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(232,220,200,0.55);text-decoration:none">Contact Us</a>
-        </div>
-      </div>
-    </div>`;
-  document.body.appendChild(overlay);
-  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  window.location.href = 'blog.html';
 }
 
 function subscribeNewsletter() {
