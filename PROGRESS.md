@@ -1,6 +1,6 @@
 # AAG Execution Tracker
 **Legend:** ⬜ not started · 🔄 in progress · ✅ done · 👤 waiting on Abraham
-**Updated:** July 15, 2026
+**Updated:** July 15, 2026 (Batch 2 complete)
 
 ## P1 — GET A CLIENT
 | # | Task | Owner | Status |
@@ -11,7 +11,7 @@
 | 4 | Target list template + sourcing criteria | Claude | ✅ outreach/TARGET-LIST-TEMPLATE.md |
 | 5 | Follow-up cadence | Claude | ✅ in playbook |
 | 6 | Post-audit proposal template | Claude | ✅ outreach/POST-AUDIT-PROPOSAL-TEMPLATE.md |
-| 7 | White-label demo agent (live URL) | Claude Code | ⬜ NEXT UP |
+| 7 | White-label demo agent (live URL) | Claude | ✅ demo.html — Summit Air HVAC sample |
 | 8 | Demo script (min 15–22 of audit) | Claude | ✅ in call script |
 | 9 | Real phone number (Google Voice) | 👤 | ⬜ |
 | 10 | contact@ email verified | 👤 | ✅ confirmed valid |
@@ -22,15 +22,15 @@
 | 11 | og-image.png | Claude | ✅ pushed |
 | 12 | Founder/About section (need photo) | Claude+👤 | ⬜ |
 | 13 | Founding-client proof section | Claude | ⬜ |
-| 14 | FAQ blocks on pricing pages | Claude | ⬜ |
-| 15 | Homepage hero → audit-first + home services ICP | Claude | ⬜ |
-| 16 | Gate Elite behind call | Claude | ⬜ |
+| 14 | FAQ blocks on pricing pages | Claude | ✅ both pages |
+| 15 | Homepage hero → audit-first + home services ICP | Claude | ✅ |
+| 16 | Gate Elite behind call | Claude | ✅ |
 | 17 | Real newsletter form (need Tally ID) | 👤→Claude | ⬜ |
 | 18 | Audit CTAs in articles | Claude | ✅ built into new pages |
-| 19 | Branded 404 | Claude | ⬜ |
-| 20 | Remove orphaned repo files | Claude | ⬜ |
-| 21 | Strip EmailJS dead code | Claude | ⬜ |
-| 22 | Blog admin password/removal | Claude | ⬜ |
+| 19 | Branded 404 | Claude | ✅ 404.html |
+| 20 | Remove orphaned repo files | Claude | ✅ zip + future-of-business removed |
+| 21 | Strip EmailJS dead code | Claude | ✅ |
+| 22 | Blog admin password/removal | Claude | ✅ password disclosure removed from UI |
 
 ## P3 — SEO
 | # | Task | Owner | Status |
@@ -51,7 +51,7 @@
 | 32 | Client onboarding playbook | Claude | ⬜ |
 | 33 | Products/services CONTEXT.md | Claude | ✅ outreach/PRODUCTS-SERVICES-CONTEXT.md → copy into aag-masterplan |
 | 34 | SOW + engagement letter templates | Claude | ⬜ |
-| 35 | Client intake questionnaire | Claude | ⬜ |
+| 35 | Client intake questionnaire | Claude | ✅ outreach/CLIENT-INTAKE-QUESTIONNAIRE.md |
 | 36 | Monthly ROI report template | Claude | ⬜ |
 | 37 | Nexus OS Vercel deploy | Claude Code | ⬜ |
 | 38 | Pipeline tracker (Airtable) | Claude Code | ⬜ |
