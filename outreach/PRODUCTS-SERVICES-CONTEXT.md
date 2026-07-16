@@ -1,6 +1,6 @@
 # 03-products-services/CONTEXT.md
 **Canonical scope + pricing for all AAG offers. Source of truth — Stripe links implement this, not the reverse.**
-Last updated: July 15, 2026
+Last updated: July 16, 2026 — deposit model live (50% to start, balance at go-live)
 
 ---
 
@@ -17,7 +17,7 @@ Free Audit → Build (one-time) → Retainer (monthly) → [future: Inner Circle
 
 ## 2. ESSENTIAL BUILD — $5,497 one-time (+ $8,000/mo retainer)
 **Positioning:** Best for first-time AI adopters
-**Stripe:** build bJe9AV0Ej6Ym3Tpbrx1ck00 · retainer 6oU3cx72H3MadtZeDJ1ck03
+**Stripe:** deposit (50%, $2,748.50) 00wdRb72H82q0Hd5391ck06 · full-price legacy bJe9AV0Ej6Ym3Tpbrx1ck00 (use for balance collection) · retainer 6oU3cx72H3MadtZeDJ1ck03
 **Includes:**
 - AI Lead Response Agent — answers web form / GBP messages / SMS in <90 sec, 24/7; qualifies (service type, location, urgency); books into client calendar
 - AI Review & Reputation Agent — post-job SMS review requests (2–4 hr window); responds to all reviews <24 hr; flags negatives to owner immediately
@@ -27,7 +27,7 @@ Free Audit → Build (one-time) → Retainer (monthly) → [future: Inner Circle
 
 ## 3. GROWTH BUILD — $9,997 one-time (+ $10,000/mo retainer)
 **Positioning:** Best for scaling operations
-**Stripe:** build 4gM9AV0EjeqOdtZ9jp1ck01 · retainer bJedRbcn1gyW75B3Z51ck04
+**Stripe:** deposit (50%, $4,998.50) cNi5kFaeT4Qe89F67d1ck07 · full-price legacy 4gM9AV0EjeqOdtZ9jp1ck01 · retainer bJedRbcn1gyW75B3Z51ck04
 **Includes everything in Essential PLUS:**
 - AI Lead Generation Engine — outbound prospect identification + engagement across channels
 - AI Customer Service Agent — FAQ/support handling from client knowledge base, human escalation
@@ -36,7 +36,7 @@ Free Audit → Build (one-time) → Retainer (monthly) → [future: Inner Circle
 
 ## 4. ELITE BUILD — $14,997 one-time (+ $15,000–20,000/mo retainer)
 **Positioning:** Best for market leaders. **Gate behind a call — no cold Stripe purchase.**
-**Stripe:** build 00w7sNdr5ciG3Tp0MT1ck02 · retainer 9B68wRev93Ma1LhcvB1ck05
+**Stripe:** deposit (50%, $7,498.50) bJe6oJev94Qe3Tp5391ck08 · full-price legacy 00w7sNdr5ciG3Tp0MT1ck02 · retainer 9B68wRev93Ma1LhcvB1ck05
 **Includes everything in Growth PLUS:**
 - Competitive Intelligence Dashboard (competitor pricing/review/activity monitoring → briefings)
 - Workflow Automation Suite (back-office automations beyond customer-facing)
