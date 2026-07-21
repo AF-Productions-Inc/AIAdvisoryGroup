@@ -84,7 +84,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         model: 'nvidia/nemotron-3-ultra-550b-a55b:free',
         messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...trimmed],
-        max_tokens: 400,
+        max_tokens: 1200,
         temperature: 0.6,
         stream: false
       })
@@ -97,9 +97,12 @@ export default async function handler(req, res) {
     }
 
     const data = await openRouterResponse.json();
-    const reply = data.choices?.[0]?.message?.content || "I'm sorry, I couldn't process that. Try booking a free audit: cal.com/aiadvisorygroup/30min";
+    const reply = data.choices?.[0]?.message?.content;
+    if (!reply) {
+      console.error('OpenRouter returned empty content:', JSON.stringify(data));
+    }
 
-    res.status(200).json({ reply });
+    res.status(200).json({ reply: reply || "I'm sorry, I couldn't process that. Try booking a free audit: cal.com/aiadvisorygroup/30min" });
   } catch (err) {
     console.error('Chat function error:', err);
     res.status(500).json({ error: 'Something went wrong. Please try again.' });
