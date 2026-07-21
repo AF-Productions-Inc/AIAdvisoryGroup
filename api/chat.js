@@ -99,6 +99,16 @@ export default async function handler(req, res) {
     }
 
     const data = await openRouterResponse.json();
+
+    // OpenRouter sometimes wraps an upstream failure (e.g. the free model's
+    // shared capacity limit) in a 200 response with an `error` field instead
+    // of a non-2xx status, so check for that explicitly.
+    if (data.error) {
+      console.error('OpenRouter returned an error:', JSON.stringify(data.error));
+      res.status(502).json({ error: "The assistant is a bit busy right now — please try again in a moment, or book a free audit: https://cal.com/aiadvisorygroup/30min" });
+      return;
+    }
+
     const reply = data.choices?.[0]?.message?.content;
     if (!reply) {
       console.error('OpenRouter returned empty content:', JSON.stringify(data));
