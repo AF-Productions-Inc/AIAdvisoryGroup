@@ -1,5 +1,5 @@
 // /api/chat.js — Vercel Serverless Function
-// Deploy this to Vercel. The OPENROUTER_API_KEY environment variable must be set
+// Deploy this to Vercel. The GEMINI_API_KEY environment variable must be set
 // in Vercel Project Settings → Environment Variables. NEVER hardcode it here.
 
 // Node.js runtime (not edge): the completion can take longer than the
@@ -103,44 +103,46 @@ export default async function handler(req, res) {
       res.status(400).json({ error: 'Invalid request' });
       return;
     }
-    // cap history sent to the model
-    const trimmed = messages.slice(-10);
+    // cap history sent to the model, and map to Gemini's role/parts shape
+    // (Gemini uses "model" instead of "assistant" for prior replies)
+    const trimmed = messages.slice(-10).map(m => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }]
+    }));
 
-    const openRouterResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        model: 'nvidia/nemotron-3-ultra-550b-a55b:free',
-        messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...trimmed],
-        max_tokens: 1200,
-        temperature: 0.6,
-        stream: false
-      })
-    });
+    const geminiResponse = await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent',
+      {
+        method: 'POST',
+        headers: {
+          'x-goog-api-key': process.env.GEMINI_API_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents: trimmed,
+          generationConfig: { maxOutputTokens: 1200, temperature: 0.6 }
+        })
+      }
+    );
 
-    if (!openRouterResponse.ok) {
-      console.error('OpenRouter API error:', openRouterResponse.status, await openRouterResponse.text());
+    if (!geminiResponse.ok) {
+      console.error('Gemini API error:', geminiResponse.status, await geminiResponse.text());
       res.status(502).json({ error: 'The assistant is temporarily unavailable. Please book a free audit instead: https://cal.com/aiadvisorygroup/30min' });
       return;
     }
 
-    const data = await openRouterResponse.json();
+    const data = await geminiResponse.json();
 
-    // OpenRouter sometimes wraps an upstream failure (e.g. the free model's
-    // shared capacity limit) in a 200 response with an `error` field instead
-    // of a non-2xx status, so check for that explicitly.
-    if (data.error) {
-      console.error('OpenRouter returned an error:', JSON.stringify(data.error));
-      res.status(502).json({ error: "The assistant is a bit busy right now — please try again in a moment, or book a free audit: https://cal.com/aiadvisorygroup/30min" });
+    if (data.promptFeedback?.blockReason) {
+      console.error('Gemini blocked the prompt:', JSON.stringify(data.promptFeedback));
+      res.status(200).json({ reply: "I can't help with that. Try booking a free audit instead: https://cal.com/aiadvisorygroup/30min" });
       return;
     }
 
-    const reply = data.choices?.[0]?.message?.content;
+    const reply = data.candidates?.[0]?.content?.parts?.map(p => p.text).join('');
     if (!reply) {
-      console.error('OpenRouter returned empty content:', JSON.stringify(data));
+      console.error('Gemini returned empty content:', JSON.stringify(data));
     }
 
     res.status(200).json({ reply: reply || "I'm sorry, I couldn't process that. Try booking a free audit: https://cal.com/aiadvisorygroup/30min" });
