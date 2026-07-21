@@ -2,7 +2,10 @@
 // Deploy this to Vercel. The NIM_API_KEY environment variable must be set
 // in Vercel Project Settings → Environment Variables. NEVER hardcode it here.
 
-export const config = { runtime: 'edge' };
+// Node.js runtime (not edge): the NIM completion can take longer than the
+// Edge runtime's fixed 25s time-to-first-byte limit, so this needs the
+// longer, configurable maxDuration below.
+export const config = { maxDuration: 60 };
 
 const SYSTEM_PROMPT = `You are the AI Advisory Group assistant — a helpful, concise guide on aiadvisorygroup.tech.
 
@@ -35,20 +38,23 @@ function rateLimited(ip) {
   return record.count > max;
 }
 
-export default async function handler(req) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), { status: 405 });
+    res.status(405).json({ error: 'Method not allowed' });
+    return;
   }
 
-  const ip = req.headers.get('x-forwarded-for') || 'unknown';
+  const ip = req.headers['x-forwarded-for'] || 'unknown';
   if (rateLimited(ip)) {
-    return new Response(JSON.stringify({ error: 'Too many messages. Please try again later or book a call directly.' }), { status: 429 });
+    res.status(429).json({ error: 'Too many messages. Please try again later or book a call directly.' });
+    return;
   }
 
   try {
-    const { messages } = await req.json();
+    const { messages } = req.body || {};
     if (!Array.isArray(messages) || messages.length === 0) {
-      return new Response(JSON.stringify({ error: 'Invalid request' }), { status: 400 });
+      res.status(400).json({ error: 'Invalid request' });
+      return;
     }
     // cap history sent to the model
     const trimmed = messages.slice(-10);
@@ -70,18 +76,16 @@ export default async function handler(req) {
 
     if (!nimResponse.ok) {
       console.error('NIM API error:', nimResponse.status, await nimResponse.text());
-      return new Response(JSON.stringify({ error: 'The assistant is temporarily unavailable. Please book a free audit instead: cal.com/aiadvisorygroup/30min' }), { status: 502 });
+      res.status(502).json({ error: 'The assistant is temporarily unavailable. Please book a free audit instead: cal.com/aiadvisorygroup/30min' });
+      return;
     }
 
     const data = await nimResponse.json();
     const reply = data.choices?.[0]?.message?.content || "I'm sorry, I couldn't process that. Try booking a free audit: cal.com/aiadvisorygroup/30min";
 
-    return new Response(JSON.stringify({ reply }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' }
-    });
+    res.status(200).json({ reply });
   } catch (err) {
     console.error('Chat function error:', err);
-    return new Response(JSON.stringify({ error: 'Something went wrong. Please try again.' }), { status: 500 });
+    res.status(500).json({ error: 'Something went wrong. Please try again.' });
   }
 }
