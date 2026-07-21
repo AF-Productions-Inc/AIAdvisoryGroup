@@ -16,6 +16,7 @@
     '.aag-msg.user{align-self:flex-end;background:#111;color:#fff;}',
     '.aag-msg.bot{align-self:flex-start;background:#f0f0f0;color:#111;}',
     '.aag-msg.error{align-self:flex-start;background:#fde8e8;color:#b00020;}',
+    '.aag-msg a{color:inherit;text-decoration:underline;}',
     '#aag-chat-form{display:flex;border-top:1px solid #eee;padding:8px;gap:8px;}',
     '#aag-chat-input{flex:1;border:1px solid #ddd;border-radius:8px;padding:8px 10px;font-size:14px;resize:none;font-family:inherit;}',
     '#aag-chat-send{background:#111;color:#fff;border:none;border-radius:8px;padding:0 14px;cursor:pointer;font-size:14px;}',
@@ -49,10 +50,25 @@
 
   var history = [];
 
+  function escapeHtml(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function linkify(text) {
+    return escapeHtml(text).replace(/https?:\/\/[^\s<]+[^\s<.,!?)]/g, function (url) {
+      return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
+    });
+  }
+
   function addMessage(role, text) {
     var el = document.createElement('div');
     el.className = 'aag-msg ' + role;
-    el.textContent = text;
+    if (role === 'user') {
+      el.textContent = text;
+    } else {
+      el.innerHTML = linkify(text);
+    }
     messagesEl.appendChild(el);
     messagesEl.scrollTop = messagesEl.scrollHeight;
     return el;
@@ -90,16 +106,16 @@
       })
       .then(function (result) {
         if (result.ok && result.data.reply) {
-          pending.textContent = result.data.reply;
+          pending.innerHTML = linkify(result.data.reply);
           pending.className = 'aag-msg bot';
           history.push({ role: 'assistant', content: result.data.reply });
         } else {
-          pending.textContent = result.data.error || 'Something went wrong. Please try again.';
+          pending.innerHTML = linkify(result.data.error || 'Something went wrong. Please try again.');
           pending.className = 'aag-msg error';
         }
       })
       .catch(function () {
-        pending.textContent = 'Something went wrong. Please try again.';
+        pending.innerHTML = linkify('Something went wrong. Please try again.');
         pending.className = 'aag-msg error';
       })
       .finally(function () {
