@@ -1,8 +1,8 @@
 // /api/chat.js — Vercel Serverless Function
-// Deploy this to Vercel. The NIM_API_KEY environment variable must be set
+// Deploy this to Vercel. The OPENROUTER_API_KEY environment variable must be set
 // in Vercel Project Settings → Environment Variables. NEVER hardcode it here.
 
-// Node.js runtime (not edge): the NIM completion can take longer than the
+// Node.js runtime (not edge): the completion can take longer than the
 // Edge runtime's fixed 25s time-to-first-byte limit, so this needs the
 // longer, configurable maxDuration below.
 export const config = { maxDuration: 60 };
@@ -59,14 +59,14 @@ export default async function handler(req, res) {
     // cap history sent to the model
     const trimmed = messages.slice(-10);
 
-    const nimResponse = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+    const openRouterResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.NIM_API_KEY}`,
+        'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'deepseek-ai/deepseek-v4-pro',
+        model: 'nvidia/nemotron-3-ultra-550b-a55b:free',
         messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...trimmed],
         max_tokens: 400,
         temperature: 0.6,
@@ -74,13 +74,13 @@ export default async function handler(req, res) {
       })
     });
 
-    if (!nimResponse.ok) {
-      console.error('NIM API error:', nimResponse.status, await nimResponse.text());
+    if (!openRouterResponse.ok) {
+      console.error('OpenRouter API error:', openRouterResponse.status, await openRouterResponse.text());
       res.status(502).json({ error: 'The assistant is temporarily unavailable. Please book a free audit instead: cal.com/aiadvisorygroup/30min' });
       return;
     }
 
-    const data = await nimResponse.json();
+    const data = await openRouterResponse.json();
     const reply = data.choices?.[0]?.message?.content || "I'm sorry, I couldn't process that. Try booking a free audit: cal.com/aiadvisorygroup/30min";
 
     res.status(200).json({ reply });
