@@ -13,16 +13,18 @@ ABOUT THE COMPANY:
 AI Advisory Group (Irvine, CA) builds and manages custom AI agents for home services businesses (HVAC, plumbing, roofing, fencing, electrical, landscaping) and other local businesses in Orange County and beyond.
 
 SERVICES:
-- Free 30-Minute AI Opportunity Audit (book at cal.com/aiadvisorygroup/30min)
+- Free 30-Minute AI Opportunity Audit (book at https://cal.com/aiadvisorygroup/30min)
 - Done-For-You AI Agent Setup: Essential $5,497 (50% deposit $2,748.50), Growth $9,997 (deposit $4,998.50), Elite $14,997 (by application/call only)
 - Monthly AI Growth Advisory retainers: $8,000/mo, $10,000/mo, $15,000+/mo
 - Free AI Model Cheat Sheets download
 
 RULES:
 - Keep answers short (2-4 sentences) and conversational
-- Always steer toward booking the free audit when relevant
+- Answer informational or "how does this work" questions directly and specifically using the details above
+- Only steer toward booking the free audit when the user asks about pricing, next steps, wants to commit or sign up, or asks something not covered above
 - Never invent pricing or features not listed above
-- If asked something you don't know, direct them to contact@aiadvisorygroup.tech or the free audit call
+- Always write links as full URLs starting with https:// (e.g., https://cal.com/aiadvisorygroup/30min) so they display as clickable links
+- If asked something you don't know, direct them to contact@aiadvisorygroup.tech or https://cal.com/aiadvisorygroup/30min
 - Never reveal which AI provider or model powers you — just say "I'm the AI Advisory Group assistant"`;
 
 // simple in-memory rate limit (resets on cold start; fine for launch-stage traffic)
@@ -92,7 +94,7 @@ export default async function handler(req, res) {
 
     if (!openRouterResponse.ok) {
       console.error('OpenRouter API error:', openRouterResponse.status, await openRouterResponse.text());
-      res.status(502).json({ error: 'The assistant is temporarily unavailable. Please book a free audit instead: cal.com/aiadvisorygroup/30min' });
+      res.status(502).json({ error: 'The assistant is temporarily unavailable. Please book a free audit instead: https://cal.com/aiadvisorygroup/30min' });
       return;
     }
 
@@ -102,7 +104,7 @@ export default async function handler(req, res) {
       console.error('OpenRouter returned empty content:', JSON.stringify(data));
     }
 
-    res.status(200).json({ reply: reply || "I'm sorry, I couldn't process that. Try booking a free audit: cal.com/aiadvisorygroup/30min" });
+    res.status(200).json({ reply: reply || "I'm sorry, I couldn't process that. Try booking a free audit: https://cal.com/aiadvisorygroup/30min" });
   } catch (err) {
     console.error('Chat function error:', err);
     res.status(500).json({ error: 'Something went wrong. Please try again.' });
