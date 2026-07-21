@@ -135,12 +135,46 @@
 
     @media(max-width:1000px){.wi-grid,.tiers{grid-template-columns:1fr 1fr}.hero{grid-template-columns:1fr}}
     @media(max-width:700px){.faq-grid-pg{grid-template-columns:1fr !important}nav,.hero,.main{padding-left:20px;padding-right:20px}.wi-grid,.tiers{grid-template-columns:1fr}footer{padding:20px;flex-direction:column}}
+  
+  /* ── Hamburger menu (universal) ── */
+  .hb-btn{width:34px;height:34px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:transparent;border:none;cursor:pointer;z-index:210;position:relative}
+  .hb-btn span{display:block;width:22px;height:1.5px;background:#c9a96e;transition:all .3s ease}
+  .hb-btn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  .hb-btn.open span:nth-child(2){opacity:0}
+  .hb-btn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+  .hb-overlay{position:fixed;inset:0;background:rgba(4,12,11,0.75);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:198}
+  .hb-overlay.open{opacity:1;pointer-events:auto}
+  .hb-panel{position:fixed;top:0;right:0;bottom:0;width:min(340px,86vw);background:#0d2220;border-left:1px solid rgba(232,220,200,0.12);z-index:199;transform:translateX(100%);transition:transform .35s cubic-bezier(.19,1,.22,1);display:flex;flex-direction:column;padding:80px 32px 32px}
+  .hb-panel.open{transform:translateX(0)}
+  .hb-link{display:block;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#e8dcc8;text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(232,220,200,0.08);transition:color .2s}
+  .hb-link:hover{color:#c9a96e}
+  .hb-cta{margin-top:auto;display:block;text-align:center;padding:15px;background:rgba(201,169,110,0.12);border:1px solid rgba(201,169,110,0.4);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;text-decoration:none}
+  .hb-cta:hover{background:rgba(201,169,110,0.22)}
+  .hb-phone{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(232,220,200,0.4);text-align:center;margin-top:14px;text-decoration:none;display:block}
+  .hb-phone:hover{color:#c9a96e}
+  body.hb-locked{overflow:hidden}
+
   </style>
 </head>
 <body>
 <nav>
   <a href="index.html" class="nl"><span class="nl-main">AI Advisory Group</span><span class="nl-sub">Strategic Intelligence</span></a>
-  <a href="index.html" class="nb">← Home</a>
+  
+
+<button class="hb-btn" id="hbBtn" onclick="toggleHb()" aria-label="Menu"><span></span><span></span><span></span></button>
+<div class="hb-overlay" id="hbOverlay" onclick="closeHb()"></div>
+<nav class="hb-panel" id="hbPanel">
+  <a href="index.html" class="hb-link">Home</a>
+  <a href="ai-agent-setup.html" class="hb-link">AI Agent Setup</a>
+  <a href="monthly-advisory.html" class="hb-link">Monthly Advisory</a>
+  <a href="ai-audit.html" class="hb-link">Free AI Audit</a>
+  <a href="ai-cheat-sheet.html" class="hb-link">AI Cheat Sheet</a>
+  <a href="inner-circle.html" class="hb-link">Inner Circle</a>
+  <a href="blog.html" class="hb-link">Insights</a>
+  <a href="contact.html" class="hb-link">Contact</a>
+  <a href="https://cal.com/aiadvisorygroup/30min" target="_blank" class="hb-cta">Book Your Free Audit →</a>
+  <a href="tel:+19492873221" class="hb-phone">(949) 287-3221</a>
+</nav>
 </nav>
 
 <div class="hero">
@@ -267,5 +301,22 @@
     <a href="index.html" class="fla">← Home</a>
   </div>
 </footer>
+
+<script>
+function toggleHb(){
+  var b=document.getElementById('hbBtn'),o=document.getElementById('hbOverlay'),p=document.getElementById('hbPanel');
+  var open=p.classList.toggle('open');
+  b.classList.toggle('open',open); o.classList.toggle('open',open);
+  document.body.classList.toggle('hb-locked',open);
+}
+function closeHb(){
+  document.getElementById('hbBtn').classList.remove('open');
+  document.getElementById('hbOverlay').classList.remove('open');
+  document.getElementById('hbPanel').classList.remove('open');
+  document.body.classList.remove('hb-locked');
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeHb()});
+</script>
+
 </body>
 </html>
