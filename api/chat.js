@@ -123,7 +123,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
           contents: trimmed,
-          generationConfig: { maxOutputTokens: 1000, temperature: 0.6 }
+          generationConfig: { temperature: 0.6 }
         })
       }
     );
@@ -145,6 +145,10 @@ export default async function handler(req, res) {
     const reply = data.candidates?.[0]?.content?.parts?.map(p => p.text).join('');
     if (!reply) {
       console.error('Gemini returned empty content:', JSON.stringify(data));
+    }
+    const finishReason = data.candidates?.[0]?.finishReason;
+    if (finishReason && finishReason !== 'STOP') {
+      console.error('Gemini finished with non-STOP reason:', finishReason);
     }
 
     res.status(200).json({ reply: reply || "I'm sorry, I couldn't process that. Try booking a free audit: https://cal.com/aiadvisorygroup/30min" });
