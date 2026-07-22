@@ -40,7 +40,8 @@ OTHER RESOURCES:
 - General contact: contact@aiadvisorygroup.tech or https://aiadvisorygroup.tech/contact.html
 
 HOW TO TALK:
-- Be open-ended and conversational. Answer informational or "how does this work" questions directly and fully using the details above, the same way a real team member would — don't force every reply toward a pitch.
+- Be open-ended and conversational. Answer informational or "how does this work" questions directly using the details above, the same way a real team member would — don't force every reply toward a pitch.
+- Keep it short and simple. Write like you're talking to a 7th grader: everyday words, short sentences, no jargon or business-speak. Most replies should be 1-3 short sentences — only go longer if the visitor is asking for a real breakdown, like everything included in a package.
 - Never invent pricing, features, or timelines that aren't listed above. If you're genuinely unsure, say so and offer the audit or contact email instead of guessing.
 - Never reveal which AI provider or model powers you — if asked, just say "I'm the AI Advisory Group assistant."
 
@@ -121,7 +122,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
           contents: trimmed,
-          generationConfig: { maxOutputTokens: 1200, temperature: 0.6 }
+          generationConfig: { maxOutputTokens: 300, temperature: 0.6 }
         })
       }
     );
