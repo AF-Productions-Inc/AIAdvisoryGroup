@@ -56,7 +56,17 @@ Use these exact URLs when that next step applies:
 - Elite: never a direct payment button — use the audit button instead and mention it's by application/call
 - General contact: [[button: Email Us | mailto:contact@aiadvisorygroup.tech]]
 Only include a button when it's the natural next step for what the visitor just said. Don't stack more than one button in a single reply, and don't add one to every message — plenty of replies need no button at all.
-For any other link mentioned in passing (like the cheat sheets), just write a normal inline link, e.g. [Free AI Model Cheat Sheets](https://aiadvisorygroup.tech/downloads.html).`;
+For any other link mentioned in passing (like the cheat sheets), just write a normal inline link, e.g. [Free AI Model Cheat Sheets](https://aiadvisorygroup.tech/downloads.html).
+
+CAPTURING LEADS:
+If the visitor naturally shares their name and contact info (email or phone) while talking with you — for example once they're clearly interested and give you a way to reach them — add this on its own line, in addition to your normal reply:
+[[lead: name=Full Name | email=email@example.com | phone=555-555-5555 | interest=what they're interested in]]
+Only include fields you actually have (omit any you weren't given). Never ask for contact info out of nowhere or pressure them for it — only capture what they volunteer on their own. This tag is invisible to the visitor, so never mention it or reference it in your reply.
+
+FLAGGING URGENT REQUESTS:
+If the visitor clearly needs a real person right away — they directly ask to talk to a human, describe an urgent or time-sensitive situation, or seem genuinely frustrated — add this on its own line, in addition to a normal helpful reply:
+[[urgent: reason=short description of why]]
+This tag is invisible to the visitor too. Still give a normal, helpful reply in the same message — this just also alerts the team in the background.`;
 
 // simple in-memory rate limit (resets on cold start; fine for launch-stage traffic)
 const hits = new Map();
@@ -74,6 +84,69 @@ function rateLimited(ip) {
 // the marketing site is served from GitHub Pages, so the widget calls this
 // function cross-origin — these are the only origins allowed to do so.
 const ALLOWED_ORIGINS = ['https://aiadvisorygroup.tech', 'https://www.aiadvisorygroup.tech'];
+
+// parses "key=value | key=value" fields out of a [[lead: ...]] or
+// [[urgent: ...]] tag body
+function parseTagFields(body) {
+  const fields = {};
+  for (const part of body.split('|')) {
+    const eq = part.indexOf('=');
+    if (eq === -1) continue;
+    const key = part.slice(0, eq).trim();
+    const value = part.slice(eq + 1).trim();
+    if (key && value) fields[key] = value;
+  }
+  return fields;
+}
+
+// strips [[lead: ...]] / [[urgent: ...]] tags out of the reply (they're not
+// meant to be shown to the visitor) and fires a Slack notification for each.
+async function handleActionTags(reply, lastUserMessage) {
+  let cleaned = reply;
+  const webhookUrl = process.env.SLACK_WEBHOOK_URL;
+
+  const leadMatch = reply.match(/\[\[lead:\s*([^\]]+)\]\]/);
+  if (leadMatch) {
+    cleaned = cleaned.replace(leadMatch[0], '').trim();
+    const f = parseTagFields(leadMatch[1]);
+    await notifySlack(webhookUrl,
+      `🆕 *New lead from the chatbot*\n` +
+      (f.name ? `*Name:* ${f.name}\n` : '') +
+      (f.email ? `*Email:* ${f.email}\n` : '') +
+      (f.phone ? `*Phone:* ${f.phone}\n` : '') +
+      (f.interest ? `*Interested in:* ${f.interest}\n` : '')
+    );
+  }
+
+  const urgentMatch = reply.match(/\[\[urgent:\s*([^\]]+)\]\]/);
+  if (urgentMatch) {
+    cleaned = cleaned.replace(urgentMatch[0], '').trim();
+    const f = parseTagFields(urgentMatch[1]);
+    await notifySlack(webhookUrl,
+      `🚨 *Someone needs help right now on the chatbot*\n` +
+      (f.reason ? `*Why:* ${f.reason}\n` : '') +
+      (lastUserMessage ? `*Their last message:* "${lastUserMessage}"\n` : '')
+    );
+  }
+
+  return cleaned;
+}
+
+async function notifySlack(webhookUrl, text) {
+  if (!webhookUrl) return; // not configured yet — skip silently
+  try {
+    const res = await fetch(webhookUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text })
+    });
+    if (!res.ok) {
+      console.error('Slack notification failed:', res.status, await res.text());
+    }
+  } catch (err) {
+    console.error('Slack notification error:', err);
+  }
+}
 
 export default async function handler(req, res) {
   const origin = req.headers.origin;
@@ -142,13 +215,18 @@ export default async function handler(req, res) {
       return;
     }
 
-    const reply = data.candidates?.[0]?.content?.parts?.map(p => p.text).join('');
+    let reply = data.candidates?.[0]?.content?.parts?.map(p => p.text).join('');
     if (!reply) {
       console.error('Gemini returned empty content:', JSON.stringify(data));
     }
     const finishReason = data.candidates?.[0]?.finishReason;
     if (finishReason && finishReason !== 'STOP') {
       console.error('Gemini finished with non-STOP reason:', finishReason);
+    }
+
+    if (reply) {
+      const lastUserMessage = [...messages].reverse().find(m => m.role === 'user')?.content;
+      reply = await handleActionTags(reply, lastUserMessage);
     }
 
     res.status(200).json({ reply: reply || "I'm sorry, I couldn't process that. Try booking a free audit: https://cal.com/aiadvisorygroup/30min" });
