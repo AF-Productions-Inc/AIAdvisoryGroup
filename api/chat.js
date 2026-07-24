@@ -37,6 +37,7 @@ RETAINERS (all tiers, monthly, starts after the build goes live): performance mo
 
 OTHER RESOURCES:
 - Free AI Model Cheat Sheets: https://aiadvisorygroup.tech/downloads.html
+- ROI Calculator (interactive — estimates what missed leads are costing them, based on their own numbers): https://aiadvisorygroup.tech/roi-calculator.html — bring this up when a visitor asks about ROI, value, "is this worth it," or how much money they might be losing to missed leads
 - General contact: contact@aiadvisorygroup.tech or https://aiadvisorygroup.tech/contact.html
 
 HOW TO TALK:
