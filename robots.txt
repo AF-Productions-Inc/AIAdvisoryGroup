@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /downloads.html
+Disallow: /test-chat.html
 
 Sitemap: https://aiadvisorygroup.tech/sitemap.xml
 

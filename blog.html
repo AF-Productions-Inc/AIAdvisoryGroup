@@ -352,12 +352,12 @@ function loadMore() {
   renderPosts();
 }
 
-const POST_URLS = {"1": "ai-agents-small-business-vs-enterprise.html", "2": "ai-agent-setup-home-services-guide.html", "3": "ai-agents-vs-hiring-cost-comparison.html", "4": "ai-lead-generation-local-service-business.html", "5": "medspa-ai-integration-guide.html", "6": "ai-readiness-audit-10-questions.html", "7": "real-estate-ai-agents-guide.html", "8": "ai-implementation-mistakes.html"};
 function openPost(id) {
-  if (POST_URLS[String(id)]) { window.location.href = POST_URLS[String(id)]; return; }
+  // always navigate via each post's own slug — a separate hardcoded URL
+  // map here previously drifted out of sync and pointed at duplicate pages
   const post = allPosts.find(p => p.id === id);
   if (!post) return;
-  window.location.href = 'blog.html';
+  window.location.href = post.slug;
 }
 
 function subscribeNewsletter() {
