@@ -100,39 +100,52 @@ function parseTagFields(body) {
 }
 
 // strips [[lead: ...]] / [[urgent: ...]] tags out of the reply (they're not
-// meant to be shown to the visitor) and fires a Slack notification for each.
+// meant to be shown to the visitor) and fans the event out to every
+// configured destination (Slack, Airtable, Google Sheets, Zoho CRM). Each
+// destination is independently optional — missing env vars just skip that
+// one — and none of them can fail the actual chat reply.
 async function handleActionTags(reply, lastUserMessage) {
   let cleaned = reply;
-  const webhookUrl = process.env.SLACK_WEBHOOK_URL;
 
   const leadMatch = reply.match(/\[\[lead:\s*([^\]]+)\]\]/);
   if (leadMatch) {
     cleaned = cleaned.replace(leadMatch[0], '').trim();
     const f = parseTagFields(leadMatch[1]);
-    await notifySlack(webhookUrl,
-      `🆕 *New lead from the chatbot*\n` +
-      (f.name ? `*Name:* ${f.name}\n` : '') +
-      (f.email ? `*Email:* ${f.email}\n` : '') +
-      (f.phone ? `*Phone:* ${f.phone}\n` : '') +
-      (f.interest ? `*Interested in:* ${f.interest}\n` : '')
-    );
+    await Promise.allSettled([
+      notifySlack(
+        `🆕 *New lead from the chatbot*\n` +
+        (f.name ? `*Name:* ${f.name}\n` : '') +
+        (f.email ? `*Email:* ${f.email}\n` : '') +
+        (f.phone ? `*Phone:* ${f.phone}\n` : '') +
+        (f.interest ? `*Interested in:* ${f.interest}\n` : '')
+      ),
+      writeAirtable(f, 'Lead', lastUserMessage),
+      writeGoogleSheet(f, 'Lead', lastUserMessage),
+      writeZohoLead(f)
+    ]);
   }
 
   const urgentMatch = reply.match(/\[\[urgent:\s*([^\]]+)\]\]/);
   if (urgentMatch) {
     cleaned = cleaned.replace(urgentMatch[0], '').trim();
     const f = parseTagFields(urgentMatch[1]);
-    await notifySlack(webhookUrl,
-      `🚨 *Someone needs help right now on the chatbot*\n` +
-      (f.reason ? `*Why:* ${f.reason}\n` : '') +
-      (lastUserMessage ? `*Their last message:* "${lastUserMessage}"\n` : '')
-    );
+    await Promise.allSettled([
+      notifySlack(
+        `🚨 *Someone needs help right now on the chatbot*\n` +
+        (f.reason ? `*Why:* ${f.reason}\n` : '') +
+        (lastUserMessage ? `*Their last message:* "${lastUserMessage}"\n` : '')
+      ),
+      writeAirtable(f, 'Urgent', lastUserMessage)
+      // not sent to Zoho — urgent flags rarely include a name, and Zoho's
+      // Leads module requires one (Last_Name)
+    ]);
   }
 
   return cleaned;
 }
 
-async function notifySlack(webhookUrl, text) {
+async function notifySlack(text) {
+  const webhookUrl = process.env.SLACK_WEBHOOK_URL;
   if (!webhookUrl) return; // not configured yet — skip silently
   try {
     const res = await fetch(webhookUrl, {
@@ -145,6 +158,121 @@ async function notifySlack(webhookUrl, text) {
     }
   } catch (err) {
     console.error('Slack notification error:', err);
+  }
+}
+
+// base/table IDs aren't secret (only the API key is) — the "Chatbot Leads"
+// table in the AF Productions Inc. Airtable base.
+const AIRTABLE_BASE_ID = 'apprzgLsXGses6vNA';
+const AIRTABLE_TABLE_ID = 'tblVcSc4dfqQJR1gE';
+
+async function writeAirtable(f, type, lastUserMessage) {
+  const apiKey = process.env.AIRTABLE_API_KEY;
+  if (!apiKey) return; // not configured yet — skip silently
+  const fields = { Type: type, Status: 'New', 'Captured At': new Date().toISOString() };
+  if (f.name) fields.Name = f.name;
+  if (f.email) fields.Email = f.email;
+  if (f.phone) fields.Phone = f.phone;
+  if (f.interest) fields.Interest = f.interest;
+  if (f.reason) fields['Reason / Note'] = f.reason;
+  if (lastUserMessage) fields['Last Message'] = lastUserMessage;
+
+  try {
+    const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${apiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ fields })
+    });
+    if (!res.ok) {
+      console.error('Airtable write failed:', res.status, await res.text());
+    }
+  } catch (err) {
+    console.error('Airtable write error:', err);
+  }
+}
+
+async function writeGoogleSheet(f, type, lastUserMessage) {
+  const url = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
+  if (!url) return; // not configured yet — skip silently
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type,
+        name: f.name || '',
+        email: f.email || '',
+        phone: f.phone || '',
+        interest: f.interest || '',
+        reason: f.reason || '',
+        lastMessage: lastUserMessage || '',
+        capturedAt: new Date().toISOString()
+      })
+    });
+    if (!res.ok) {
+      console.error('Google Sheets write failed:', res.status, await res.text());
+    }
+  } catch (err) {
+    console.error('Google Sheets write error:', err);
+  }
+}
+
+async function getZohoAccessToken() {
+  const clientId = process.env.ZOHO_CLIENT_ID;
+  const clientSecret = process.env.ZOHO_CLIENT_SECRET;
+  const refreshToken = process.env.ZOHO_REFRESH_TOKEN;
+  if (!clientId || !clientSecret || !refreshToken) return null; // not configured yet
+  const accountsUrl = process.env.ZOHO_ACCOUNTS_URL || 'https://accounts.zoho.com';
+  const params = new URLSearchParams({
+    refresh_token: refreshToken,
+    client_id: clientId,
+    client_secret: clientSecret,
+    grant_type: 'refresh_token'
+  });
+  try {
+    const res = await fetch(`${accountsUrl}/oauth/v2/token?${params}`, { method: 'POST' });
+    if (!res.ok) {
+      console.error('Zoho token refresh failed:', res.status, await res.text());
+      return null;
+    }
+    const data = await res.json();
+    return { accessToken: data.access_token, apiDomain: data.api_domain };
+  } catch (err) {
+    console.error('Zoho token refresh error:', err);
+    return null;
+  }
+}
+
+async function writeZohoLead(f) {
+  if (!f.name) return; // Zoho's Leads module requires Last_Name
+  const auth = await getZohoAccessToken();
+  if (!auth) return; // not configured yet — skip silently
+  try {
+    const res = await fetch(`${auth.apiDomain}/crm/v2/Leads`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Zoho-oauthtoken ${auth.accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        data: [{
+          Last_Name: f.name,
+          Email: f.email,
+          Phone: f.phone,
+          Lead_Source: 'Website Chatbot',
+          Description: f.interest ? `Interested in: ${f.interest}` : undefined
+        }]
+      })
+    });
+    const result = await res.json();
+    if (!res.ok || result.data?.[0]?.status !== 'success') {
+      console.error('Zoho CRM write failed:', res.status, JSON.stringify(result));
+    }
+  } catch (err) {
+    console.error('Zoho CRM write error:', err);
   }
 }
 
