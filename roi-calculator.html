@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+  <meta name="theme-color" content="#091a18"/>
+  <!-- SEO -->
+  <meta name="description" content="See what missed leads are costing your business. Our free AI ROI calculator estimates the revenue you could recover with an always-on AI Lead Response Agent."/>
+  <meta name="keywords" content="AI ROI calculator, missed leads calculator, AI lead response ROI, home services AI value calculator"/>
+  <meta name="author" content="AI Advisory Group"/>
+  <meta name="robots" content="index, follow"/>
+  <link rel="canonical" href="https://aiadvisorygroup.tech/roi-calculator.html"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="AI ROI Calculator | AI Advisory Group"/>
+  <meta property="og:description" content="See what missed leads are costing your business. Our free AI ROI calculator estimates the revenue you could recover with an always-on AI Lead Response Agent."/>
+  <meta property="og:url" content="https://aiadvisorygroup.tech/roi-calculator.html"/>
+  <meta property="og:site_name" content="AI Advisory Group"/>
+  <meta property="og:image" content="https://aiadvisorygroup.tech/og-image.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:site" content="@AIAdvisoryGrp"/>
+  <meta name="twitter:title" content="AI ROI Calculator | AI Advisory Group"/>
+  <meta name="twitter:description" content="See what missed leads are costing your business. Our free AI ROI calculator estimates the revenue you could recover with an always-on AI Lead Response Agent."/>
+  <meta name="twitter:image" content="https://aiadvisorygroup.tech/og-image.png"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI ROI Calculator | AI Advisory Group</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#091a18;--bg2:#0d2220;--bg3:#112926;
+      --cream:#e8dcc8;--cream2:#d4c9b0;
+      --c3:rgba(232,220,200,0.55);--c4:rgba(232,220,200,0.25);--c5:rgba(232,220,200,0.08);
+      --border:rgba(232,220,200,0.12);--border2:rgba(232,220,200,0.06);
+      --gold:#c9a96e;--gold2:rgba(201,169,110,0.15);
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Crimson Pro',serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden}
+    body::before{
+      content:'';position:fixed;inset:0;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"),
+        radial-gradient(ellipse 120% 70% at 50% -10%,rgba(20,70,55,0.5),transparent 60%),
+        radial-gradient(ellipse 80% 60% at 100% 100%,rgba(8,30,22,0.6),transparent);
+      pointer-events:none;z-index:0;
+    }
+
+    nav{position:sticky;top:0;z-index:200;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(9,26,24,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+    .nav-logo{text-decoration:none;display:flex;flex-direction:column;gap:1px}
+    .nav-logo-main{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--cream);letter-spacing:0.5px}
+    .nav-logo-sub{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--c3)}
+
+    .main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:64px 32px 100px}
+    .kicker{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--c3);margin-bottom:24px;text-align:center}
+    h1{font-family:'Playfair Display',serif;font-size:clamp(36px,6vw,58px);font-weight:900;line-height:1.05;text-align:center;margin-bottom:18px;text-transform:uppercase;letter-spacing:-1px}
+    h1 em{font-style:italic;font-weight:400;color:var(--gold)}
+    .sub{font-size:17px;line-height:1.75;color:var(--c3);max-width:560px;margin:0 auto 56px;text-align:center;font-weight:300}
+
+    .calc{background:var(--c5);border:1px solid var(--border);border-radius:6px;padding:40px;margin-bottom:40px}
+    .field{margin-bottom:28px}
+    .field:last-child{margin-bottom:0}
+    .field label{display:flex;justify-content:space-between;align-items:baseline;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--c3);margin-bottom:12px}
+    .field label .val{font-size:16px;letter-spacing:0;color:var(--gold);font-weight:500}
+    input[type="range"]{width:100%;-webkit-appearance:none;appearance:none;height:2px;background:var(--border);border-radius:2px;outline:none}
+    input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:3px solid var(--bg2)}
+    input[type="range"]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:3px solid var(--bg2);border:none}
+
+    .results{background:var(--bg3);border:1px solid var(--gold2);border-radius:6px;padding:40px;text-align:center;margin-bottom:24px}
+    .results-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--c3);margin-bottom:12px}
+    .results-figure{font-family:'Playfair Display',serif;font-size:clamp(40px,7vw,64px);font-weight:700;color:var(--gold);line-height:1;margin-bottom:8px}
+    .results-sub{font-size:14px;color:var(--c3);margin-bottom:28px}
+    .breakdown{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-top:24px;border-top:1px solid var(--border)}
+    .breakdown-item .bd-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--c3);margin-bottom:6px}
+    .breakdown-item .bd-val{font-family:'Playfair Display',serif;font-size:22px;color:var(--cream)}
+
+    .disclaimer{font-size:12.5px;line-height:1.7;color:var(--c4);text-align:center;max-width:520px;margin:0 auto 48px}
+
+    .cta{text-align:center}
+    .cta-btn{display:inline-block;padding:18px 40px;background:var(--gold2);border:1px solid rgba(201,169,110,0.4);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none;transition:background 0.2s}
+    .cta-btn:hover{background:rgba(201,169,110,0.25)}
+    .cta p{font-size:13px;color:var(--c3);margin-top:16px}
+    .cta p a{color:var(--gold);text-decoration:none}
+
+    footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:28px 48px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--c4)}
+    footer a{color:var(--c3);text-decoration:none}
+
+    @media(max-width:600px){
+      .main{padding:48px 20px 80px}
+      .calc,.results{padding:28px 24px}
+      .breakdown{grid-template-columns:1fr}
+    }
+
+  /* ── Hamburger menu (universal) ── */
+  .hb-btn{width:34px;height:34px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:transparent;border:none;cursor:pointer;z-index:210;position:relative}
+  .hb-btn span{display:block;width:22px;height:1.5px;background:#c9a96e;transition:all .3s ease}
+  .hb-btn.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  .hb-btn.open span:nth-child(2){opacity:0}
+  .hb-btn.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+  .hb-overlay{position:fixed;inset:0;background:rgba(4,12,11,0.75);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:198}
+  .hb-overlay.open{opacity:1;pointer-events:auto}
+  .hb-panel{position:fixed;top:0;right:0;bottom:0;width:min(340px,86vw);background:#05100e;border-left:1px solid rgba(232,220,200,0.12);z-index:199;transform:translateX(100%);transition:transform .35s cubic-bezier(.19,1,.22,1);display:flex;flex-direction:column;justify-content:flex-start;height:auto;padding:80px 32px 32px}
+  .hb-panel.open{transform:translateX(0)}
+  .hb-link{display:block;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#e8dcc8;text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(232,220,200,0.08);transition:color .2s}
+  .hb-link:hover{color:#c9a96e}
+  .hb-cta{margin-top:auto;display:block;text-align:center;padding:15px;background:rgba(201,169,110,0.12);border:1px solid rgba(201,169,110,0.4);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;text-decoration:none}
+  .hb-cta:hover{background:rgba(201,169,110,0.22)}
+  .hb-phone{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(232,220,200,0.4);text-align:center;margin-top:14px;text-decoration:none;display:block}
+  .hb-phone:hover{color:#c9a96e}
+  body.hb-locked{overflow:hidden}
+
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-main">AI Advisory Group</span>
+    <span class="nav-logo-sub">Strategic Intelligence</span>
+  </a>
+
+
+<button class="hb-btn" id="hbBtn" onclick="toggleHb()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="hb-overlay" id="hbOverlay" onclick="closeHb()"></div>
+<nav class="hb-panel" id="hbPanel">
+  <a href="index.html" class="hb-link">Home</a>
+  <a href="ai-agent-setup.html" class="hb-link">AI Agent Setup</a>
+  <a href="monthly-advisory.html" class="hb-link">Monthly Advisory</a>
+  <a href="ai-audit.html" class="hb-link">Free AI Audit</a>
+  <a href="roi-calculator.html" class="hb-link">ROI Calculator</a>
+  <a href="ai-cheat-sheet.html" class="hb-link">AI Cheat Sheet</a>
+  <a href="inner-circle.html" class="hb-link">Inner Circle</a>
+  <a href="blog.html" class="hb-link">Insights</a>
+  <a href="contact.html" class="hb-link">Contact</a>
+  <a href="https://cal.com/aiadvisorygroup/30min" target="_blank" class="hb-cta">Book Your Free Audit →</a>
+  <a href="tel:+19492873221" class="hb-phone">(949) 287-3221</a>
+</nav>
+
+<div class="main">
+  <div class="kicker">Free Tool</div>
+  <h1>What Are Missed Leads<br><em>Costing You?</em></h1>
+  <p class="sub">Adjust the numbers below to match your business. This gives you a rough sense of the opportunity — your free AI Opportunity Audit gets you the real math.</p>
+
+  <div class="calc">
+    <div class="field">
+      <label>Missed calls / inquiries per week <span class="val" id="missedVal">8</span></label>
+      <input type="range" id="missed" min="0" max="50" value="8" step="1"/>
+    </div>
+    <div class="field">
+      <label>Average job value <span class="val" id="jobVal">$450</span></label>
+      <input type="range" id="job" min="50" max="10000" value="450" step="25"/>
+    </div>
+    <div class="field">
+      <label>Estimated close rate on captured leads <span class="val" id="closeVal">20%</span></label>
+      <input type="range" id="close" min="5" max="60" value="20" step="1"/>
+    </div>
+  </div>
+
+  <div class="results">
+    <div class="results-label">Estimated Revenue Opportunity</div>
+    <div class="results-figure" id="annualFigure">$0</div>
+    <div class="results-sub">per year, left on the table from missed leads</div>
+    <div class="breakdown">
+      <div class="breakdown-item">
+        <div class="bd-label">Per Week</div>
+        <div class="bd-val" id="weeklyFigure">$0</div>
+      </div>
+      <div class="breakdown-item">
+        <div class="bd-label">Per Month</div>
+        <div class="bd-val" id="monthlyFigure">$0</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="disclaimer">This is an illustrative estimate to give you a sense of scale, not a guarantee — it assumes every missed lead is a genuine lost opportunity at your stated close rate. Actual results depend on your specific business, market, and how the AI agent is configured. Your free audit will give you real numbers.</p>
+
+  <div class="cta">
+    <a href="https://cal.com/aiadvisorygroup/30min" target="_blank" class="cta-btn">Get Your Real Numbers — Book Free Audit →</a>
+    <p>Or just ask the chat assistant in the corner — it can walk you through this too.</p>
+  </div>
+</div>
+
+<footer>
+  © 2026 AI Advisory Group · <a href="index.html">Home</a> · <a href="mailto:contact@aiadvisorygroup.tech">contact@aiadvisorygroup.tech</a>
+</footer>
+
+<script>
+function toggleHb(){
+  var b=document.getElementById('hbBtn'),o=document.getElementById('hbOverlay'),p=document.getElementById('hbPanel');
+  var open=p.classList.toggle('open');
+  b.classList.toggle('open',open); o.classList.toggle('open',open);
+  document.body.classList.toggle('hb-locked',open);
+}
+function closeHb(){
+  document.getElementById('hbBtn').classList.remove('open');
+  document.getElementById('hbOverlay').classList.remove('open');
+  document.getElementById('hbPanel').classList.remove('open');
+  document.body.classList.remove('hb-locked');
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeHb()});
+
+function formatMoney(n){
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+
+var missedEl = document.getElementById('missed');
+var jobEl = document.getElementById('job');
+var closeEl = document.getElementById('close');
+
+function recalc(){
+  var missed = parseFloat(missedEl.value);
+  var job = parseFloat(jobEl.value);
+  var closeRate = parseFloat(closeEl.value) / 100;
+
+  document.getElementById('missedVal').textContent = missed;
+  document.getElementById('jobVal').textContent = formatMoney(job);
+  document.getElementById('closeVal').textContent = closeEl.value + '%';
+
+  var weekly = missed * job * closeRate;
+  var monthly = weekly * 4.33;
+  var annual = weekly * 52;
+
+  document.getElementById('weeklyFigure').textContent = formatMoney(weekly);
+  document.getElementById('monthlyFigure').textContent = formatMoney(monthly);
+  document.getElementById('annualFigure').textContent = formatMoney(annual);
+}
+
+[missedEl, jobEl, closeEl].forEach(function(el){
+  el.addEventListener('input', recalc);
+});
+recalc();
+</script>
+
+<script src="/chat-widget.js" defer></script>
+</body>
+</html>
