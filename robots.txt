@@ -3,6 +3,6 @@ Allow: /
 Disallow: /downloads.html
 Disallow: /test-chat.html
 
-Sitemap: https://aiadvisorygroup.tech/sitemap.xml
+Sitemap: https://newportaiadvisory.com/sitemap.xml
 
-# AI Advisory Group — aiadvisorygroup.tech
+# Newport AI Advisory — newportaiadvisory.com
