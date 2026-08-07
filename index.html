@@ -114,7 +114,7 @@
       .hero-kicker{display:block;text-align:center}
       .hero-kicker::before,.hero-kicker::after{display:none}
     }
-  
+
     /* ── Cookie Banner ── */
     #cookieBanner{
       display:none;
@@ -135,7 +135,7 @@
     .cookie-decline:hover{color:rgba(232,220,200,0.6);border-color:rgba(232,220,200,0.25)}
     @media(max-width:640px){#cookieBanner{padding:16px 20px;flex-direction:column;align-items:flex-start}
     .cookie-btns{width:100%}.cookie-accept,.cookie-decline{flex:1;text-align:center}}
-  
+
     /* ── Airport flicker board ── */
     .char-cell{display:inline-block;width:auto;text-align:center;line-height:1;letter-spacing:3px;margin-right:0}
     @keyframes cellflip{
@@ -145,7 +145,7 @@
       100%{transform:rotateX(0deg);opacity:1}
     }
     .char-cell.flipping{animation:cellflip 0.1s ease-in-out both}
-  
+
   /* ── Hamburger menu (universal) ── */
   .hb-btn{width:34px;height:34px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;background:transparent;border:none;cursor:pointer;z-index:210;position:relative}
   .hb-btn span{display:block;width:22px;height:1.5px;background:#c9a96e;transition:all .3s ease}
@@ -172,7 +172,7 @@
     <span class="nav-logo-main">Newport AI Advisory</span>
     <span class="nav-logo-sub">Strategic Intelligence</span>
   </a>
-  
+
 
 <button class="hb-btn" id="hbBtn" onclick="toggleHb()" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
@@ -214,15 +214,15 @@
   </div>
 
   <div class="links">
+    <a href="ai-agent-setup.html" class="link-btn">
+      <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
+      <span class="link-label">Done-For-You AI Agent Setup</span>
+      <span class="link-arrow">→</span>
+    </a>
     <a href="ai-cheat-sheet.html" class="link-btn">
       <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M9 21H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v14c0 1.1-.9 2-2 2zm10-9h-4c-1.1 0-2 .9-2 2v5c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2v-5c0-1.1-.9-2-2-2zm0-9h-4c-1.1 0-2 .9-2 2v3c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
       <span class="link-label">AI Cheat Sheet</span>
       <span class="badge bg">Free</span>
-      <span class="link-arrow">→</span>
-    </a>
-    <a href="ai-agent-setup.html" class="link-btn">
-      <div class="link-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
-      <span class="link-label">Done-For-You AI Agent Setup</span>
       <span class="link-arrow">→</span>
     </a>
     <a href="https://cal.com/newportaiadvisory/30min" target="_blank" class="link-btn">
@@ -294,20 +294,20 @@
 (function(){
   var CITIES = [
     'Globally',
-    'in  New York',
-    'in  London',
-    'in  Dubai',
-    'in  Tokyo',
-    'in  Singapore',
-    'in  Los Angeles',
-    'in  Sydney',
-    'in  Paris',
-    'in  Toronto',
-    'in  Miami',
-    'in  Hong Kong',
-    'in  Berlin',
-    'in  São Paulo',
-    'in  Chicago',
+    'in  New York',
+    'in  London',
+    'in  Dubai',
+    'in  Tokyo',
+    'in  Singapore',
+    'in  Los Angeles',
+    'in  Sydney',
+    'in  Paris',
+    'in  Toronto',
+    'in  Miami',
+    'in  Hong Kong',
+    'in  Berlin',
+    'in  São Paulo',
+    'in  Chicago',
   ];
   var CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ·- ';
   var currentIdx = 0;
