@@ -37,23 +37,23 @@
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(20,70,55,0.4),transparent);pointer-events:none;z-index:0}
     nav{position:sticky;top:0;z-index:200;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 48px;background:rgba(9,26,24,0.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
     .nl{text-decoration:none;display:flex;flex-direction:column;gap:1px}
-    .nl-main{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--cream)}
-    .nl-sub{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:3px;text-transform:uppercase;color:var(--c3)}
-    .nb{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--c3);text-decoration:none}
+    .nl-main{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--cream)}
+    .nl-sub{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:var(--c3)}
+    .nb{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--c3);text-decoration:none}
     .nb:hover{color:var(--cream)}
     article{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:64px 24px 40px}
-    .cat{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:var(--gold2);border:1px solid rgba(201,169,110,0.3);padding:4px 12px;border-radius:20px;margin-bottom:20px}
+    .cat{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:var(--gold2);border:1px solid rgba(201,169,110,0.3);padding:4px 12px;border-radius:20px;margin-bottom:20px}
     h1{font-family:'Playfair Display',serif;font-size:clamp(30px,5vw,44px);font-weight:900;line-height:1.15;letter-spacing:-1px;margin-bottom:18px}
-    .meta{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--c4);margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid var(--border)}
-    article p{font-size:17px;line-height:1.85;color:rgba(232,220,200,0.78);font-weight:300;margin-bottom:20px}
-    article h2{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin:36px 0 14px;color:var(--cream)}
+    .meta{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;color:var(--c4);margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+    article p{font-size:19px;line-height:1.85;color:rgba(232,220,200,0.78);font-weight:300;margin-bottom:20px}
+    article h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;margin:36px 0 14px;color:var(--cream)}
     article strong{color:var(--cream);font-weight:600}
     .cta{background:var(--bg2);border:1px solid rgba(201,169,110,0.3);border-radius:4px;padding:36px;text-align:center;margin:48px 0}
-    .cta h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:10px}
-    .cta p{font-size:15px;margin-bottom:22px}
-    .cta a{display:inline-block;padding:14px 30px;border:1px solid var(--gold);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none}
+    .cta h3{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;margin-bottom:10px}
+    .cta p{font-size:17px;margin-bottom:22px}
+    .cta a{display:inline-block;padding:14px 30px;border:1px solid var(--gold);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);text-decoration:none}
     .cta a:hover{background:var(--gold2)}
-    footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:24px 48px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--c4)}
+    footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:24px 48px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--c4)}
     footer a{color:var(--c4)}
     @media(max-width:600px){nav{padding:0 20px}}
   
@@ -67,11 +67,11 @@
   .hb-overlay.open{opacity:1;pointer-events:auto}
   .hb-panel{position:fixed;top:0;left:auto;right:0;bottom:0;width:min(340px,86vw);background:#05100e;border-left:1px solid rgba(232,220,200,0.12);z-index:199;transform:translateX(100%);transition:transform .35s cubic-bezier(.19,1,.22,1);display:flex;flex-direction:column;justify-content:flex-start;height:auto;padding:80px 32px 32px}
   .hb-panel.open{transform:translateX(0)}
-  .hb-link{display:block;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#e8dcc8;text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(232,220,200,0.08);transition:color .2s}
+  .hb-link{display:block;font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#e8dcc8;text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(232,220,200,0.08);transition:color .2s}
   .hb-link:hover{color:#c9a96e}
-  .hb-cta{margin-top:auto;display:block;text-align:center;padding:15px;background:rgba(201,169,110,0.12);border:1px solid rgba(201,169,110,0.4);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;text-decoration:none}
+  .hb-cta{margin-top:auto;display:block;text-align:center;padding:15px;background:rgba(201,169,110,0.12);border:1px solid rgba(201,169,110,0.4);border-radius:2px;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:#c9a96e;text-decoration:none}
   .hb-cta:hover{background:rgba(201,169,110,0.22)}
-  .hb-phone{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:rgba(232,220,200,0.4);text-align:center;margin-top:14px;text-decoration:none;display:block}
+  .hb-phone{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:1px;color:rgba(232,220,200,0.4);text-align:center;margin-top:14px;text-decoration:none;display:block}
   .hb-phone:hover{color:#c9a96e}
   body.hb-locked{overflow:hidden}
 
@@ -117,10 +117,10 @@
     <a href="https://cal.com/newportaiadvisory/30min" target="_blank">Book My Free Audit →</a>
   </div>
   <div style="margin-top:8px">
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--c4);margin-bottom:14px">Related Reading</div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--c4);margin-bottom:14px">Related Reading</div>
     <div style="display:flex;flex-direction:column;gap:10px">
-      <a href="small-businesses-ai-agents-vs-enterprise.html" style="display:block;padding:16px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:3px;color:var(--cream);text-decoration:none;font-size:14px">How Small Businesses Are Using AI Agents to Compete With Enterprise Companies in 2026 →</a>
-      <a href="ai-implementation-mistakes-small-business.html" style="display:block;padding:16px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:3px;color:var(--cream);text-decoration:none;font-size:14px">What Every Business Owner Gets Wrong About AI Implementation →</a>
+      <a href="small-businesses-ai-agents-vs-enterprise.html" style="display:block;padding:16px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:3px;color:var(--cream);text-decoration:none;font-size:16px">How Small Businesses Are Using AI Agents to Compete With Enterprise Companies in 2026 →</a>
+      <a href="ai-implementation-mistakes-small-business.html" style="display:block;padding:16px 20px;background:var(--bg2);border:1px solid var(--border);border-radius:3px;color:var(--cream);text-decoration:none;font-size:16px">What Every Business Owner Gets Wrong About AI Implementation →</a>
     </div>
   </div>
 </article>
