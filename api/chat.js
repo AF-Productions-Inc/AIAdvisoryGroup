@@ -277,6 +277,33 @@ async function writeZohoLead(f) {
   }
 }
 
+// Gemini occasionally returns a transient 503 ("model is currently
+// experiencing high demand") or 429 (rate limited) — retry a couple of
+// times with a short backoff before giving up, so a brief blip on Google's
+// side doesn't surface as a hard error to the visitor.
+async function fetchGeminiWithRetry(requestBody, attempts = 3) {
+  let lastRes;
+  for (let i = 0; i < attempts; i++) {
+    lastRes = await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent',
+      {
+        method: 'POST',
+        headers: {
+          'x-goog-api-key': process.env.GEMINI_API_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+      }
+    );
+    if (lastRes.ok) return lastRes;
+    if (lastRes.status !== 503 && lastRes.status !== 429) return lastRes;
+    if (i === attempts - 1) return lastRes;
+    const delayMs = 400 * Math.pow(2, i); // 400ms, then 800ms
+    await new Promise((resolve) => setTimeout(resolve, delayMs));
+  }
+  return lastRes;
+}
+
 export default async function handler(req, res) {
   const origin = req.headers.origin;
   if (ALLOWED_ORIGINS.includes(origin)) {
@@ -314,21 +341,11 @@ export default async function handler(req, res) {
       parts: [{ text: m.content }]
     }));
 
-    const geminiResponse = await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent',
-      {
-        method: 'POST',
-        headers: {
-          'x-goog-api-key': process.env.GEMINI_API_KEY,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents: trimmed,
-          generationConfig: { temperature: 0.6 }
-        })
-      }
-    );
+    const geminiResponse = await fetchGeminiWithRetry({
+      systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+      contents: trimmed,
+      generationConfig: { temperature: 0.6 }
+    });
 
     if (!geminiResponse.ok) {
       console.error('Gemini API error:', geminiResponse.status, await geminiResponse.text());
